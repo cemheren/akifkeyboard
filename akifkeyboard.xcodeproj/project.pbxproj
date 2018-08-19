@@ -17,6 +17,8 @@
 		3ACC4A2A21253B41006A7EC5 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */; };
 		3AEE552521294BB4006979FE /* SpellcheckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE552421294BB4006979FE /* SpellcheckController.swift */; };
 		3AEE5526212951A8006979FE /* SpellcheckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE552421294BB4006979FE /* SpellcheckController.swift */; };
+		3AEE55282129E65A006979FE /* textTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE55272129E65A006979FE /* textTracker.swift */; };
+		3AEE55292129E65A006979FE /* textTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE55272129E65A006979FE /* textTracker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,7 @@
 		3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		3ACC4A2121253901006A7EC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AEE552421294BB4006979FE /* SpellcheckController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellcheckController.swift; sourceTree = "<group>"; };
+		3AEE55272129E65A006979FE /* textTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = textTracker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,7 @@
 				3AEE552421294BB4006979FE /* SpellcheckController.swift */,
 				3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */,
 				3ACC4A2121253901006A7EC5 /* Info.plist */,
+				3AEE55272129E65A006979FE /* textTracker.swift */,
 			);
 			path = keyboardExtension;
 			sourceTree = "<group>";
@@ -219,6 +223,7 @@
 			files = (
 				3ACC4A0A212538ED006A7EC5 /* ViewController.swift in Sources */,
 				3ACC4A2A21253B41006A7EC5 /* KeyboardViewController.swift in Sources */,
+				3AEE55282129E65A006979FE /* textTracker.swift in Sources */,
 				3ACC4A08212538ED006A7EC5 /* AppDelegate.swift in Sources */,
 				3AEE5526212951A8006979FE /* SpellcheckController.swift in Sources */,
 			);
@@ -228,6 +233,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AEE55292129E65A006979FE /* textTracker.swift in Sources */,
 				3ACC4A2021253901006A7EC5 /* KeyboardViewController.swift in Sources */,
 				3AEE552521294BB4006979FE /* SpellcheckController.swift in Sources */,
 			);

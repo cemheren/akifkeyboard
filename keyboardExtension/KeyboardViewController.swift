@@ -31,6 +31,9 @@ class KeyButton: UIButton {
         self.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
         self.contentVerticalAlignment = .center
         self.contentHorizontalAlignment = .center
+        
+        // this improves click performance: https://stackoverflow.com/questions/34324496/custom-ios-keyboard-keys-are-too-slow
+        self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -77,6 +80,7 @@ class KeyboardViewController: UIInputViewController {
     var currentWord = ""
     
     var spellcheckController : SpellCheckController = SpellCheckController()
+    var textTracker: TextTracker?
     
     private weak var heightConstraint: NSLayoutConstraint?
     override func updateViewConstraints() {
@@ -105,7 +109,6 @@ class KeyboardViewController: UIInputViewController {
         super.viewDidLoad()
         
         // Perform custom UI setup here
-        
         self.view.backgroundColor = UIColor(red: 227/255.0, green: 228/255.0, blue: 229/255.0, alpha: 1)
         
         let border = UIView(frame: CGRect(x:CGFloat(0.0), y:CGFloat(0.0), width:self.view.frame.size.width, height:CGFloat(0.5)))
@@ -119,6 +122,8 @@ class KeyboardViewController: UIInputViewController {
         self.setupBottomRow()
         
         self.setupKeys()
+        
+        self.textTracker = TextTracker(shiftKey: self.shiftKey, textDocumentProxy: self.textDocumentProxy)
     }
     
     func setupSpecialRow(array: Array<Array<String>>){
@@ -174,8 +179,7 @@ class KeyboardViewController: UIInputViewController {
         self.view.addSubview(spaceKey!)
         
         self.nextKeyboardButton = KeyButton(frame:CGRect(x:2, y: topPadding + keyHeight * 3 + rowSpacing * 2 + 10, width:nextWidth, height:spaceHeight))
-        //self.nextKeyboardButton.sizeToFit()
-        //self.nextKeyboardButton.translatesAutoresizingMaskIntoConstraints = false
+        
         nextKeyboardButton!.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size:18)
         nextKeyboardButton!.setTitle(NSLocalizedString("N", comment: "Title for 'Next Keyboard' button"), for: .normal)
         nextKeyboardButton!.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
@@ -201,7 +205,6 @@ class KeyboardViewController: UIInputViewController {
                 let button = KeyButton(frame: CGRect(x: x, y: y, width: keyWidth, height: keyHeight))
                 button.setTitle(label.uppercased(), for: .normal)
                 button.addTarget(self, action:#selector(keyPressed(sender:)), for: .touchUpInside)
-                button.layer.shadowPath = UIBezierPath(rect: button.bounds).cgPath
                 //button.autoresizingMask = .FlexibleWidth | .FlexibleLeftMargin | .FlexibleRightMargin
                 button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 0)
                 
@@ -243,7 +246,7 @@ class KeyboardViewController: UIInputViewController {
         shiftPosArr[shiftPosArr.count - 1] = shiftPosArr[shiftPosArr.count - 1] + 1;
         if shiftKey!.isSelected {
             shiftPosArr.append(0)
-            setShiftValue(shiftVal: true)
+            self.textTracker?.setShiftValue(shiftVal: true)
         }
         
         spacePressed = false
@@ -259,7 +262,7 @@ class KeyboardViewController: UIInputViewController {
                 charactersSinceShift = charactersSinceShift - 1;
             }
             
-            setShiftValue(shiftVal: charactersSinceShift == 0)
+            self.textTracker?.setShiftValue(shiftVal: charactersSinceShift == 0)
             if charactersSinceShift == 0 && shiftPosArr.count > 1 {
                 shiftPosArr.removeLast()
             }
@@ -278,7 +281,7 @@ class KeyboardViewController: UIInputViewController {
     }
     
     @objc func shiftKeyPressed(sender: UIButton) {
-        setShiftValue(shiftVal: !shiftKey!.isSelected)
+        self.textTracker?.setShiftValue(shiftVal: !shiftKey!.isSelected)
         if shiftKey!.isSelected {
             shiftPosArr.append(0)
         }
@@ -287,41 +290,19 @@ class KeyboardViewController: UIInputViewController {
         }
         
         spacePressed = false
+        
+        redrawButtonsForShift()
     }
     
     @objc func keyPressed(sender: UIButton) {
-        let proxy = self.textDocumentProxy as UITextDocumentProxy
-        if spacePressed && sender.titleLabel?.text == " " {
-            proxy.deleteBackward()
-            proxy.insertText(". ")
-            spacePressed = false
-        }
-        else {
-            proxy.insertText(sender.titleLabel?.text ?? "")
-            spacePressed = sender.titleLabel?.text == " "
-            
-            if spacePressed {
-                spaceTimer?.invalidate()
-                spaceTimer = Timer.scheduledTimer(timeInterval: 1,
-                                                  target: self,
-                                                  selector: #selector(spaceTimeout),
-                                                  userInfo: nil,
-                                                  repeats: false)
-                currentWord = ""
-            }else{
-                currentWord = currentWord + (sender.titleLabel?.text)!;
-            }
-        }
         
-        numCharacters = numCharacters + 1;
-        shiftPosArr[shiftPosArr.count - 1] = shiftPosArr[shiftPosArr.count - 1] + 1;
+        textTracker?.addCharacter(ch: sender.titleLabel?.text, redrawButtons: {
+            redrawButtonsForShift()
+        })
+        currentWord = textTracker?.currentWord ?? ""
         
-        if (shiftKey!.isSelected) {
-            self.setShiftValue(shiftVal: false)
-        }
-        
-        if(currentWord.count > 3){
-            spellcheckController.checkSpelling(currentWord: currentWord, completion: { result in
+        if(currentWord.count >= 3){
+            self.spellcheckController.checkSpelling(currentWord: currentWord, completion: { result in
                 let alternatives = result.alternatives
                 DispatchQueue.main.async {
                     self.setupSpecialRow(array: [alternatives])
@@ -346,29 +327,21 @@ class KeyboardViewController: UIInputViewController {
         numCharacters = numCharacters + charDiff;
         shiftPosArr[shiftPosArr.count - 1] = shiftPosArr[shiftPosArr.count - 1] + charDiff;
         if (shiftKey!.isSelected) {
-            self.setShiftValue(shiftVal: false)
+            self.textTracker?.setShiftValue(shiftVal: false)
         }
     }
     
-    @objc func spaceTimeout() {
-        spaceTimer = nil
-        spacePressed = false
-    }
-    
-    func setShiftValue(shiftVal: Bool) {
-        if shiftKey?.isSelected != shiftVal {
-            shiftKey!.isSelected = shiftVal
-            for button in buttons {
-                var text = button.titleLabel?.text
-                if shiftKey!.isSelected {
-                    text = text?.uppercased()
-                } else {
-                    text = text?.lowercased()
-                }
-                
-                button.setTitle(text, for: UIControlState.normal)
-                button.titleLabel?.sizeToFit()
+    func redrawButtonsForShift() {
+        for button in buttons {
+            var text = button.titleLabel?.text
+            if shiftKey!.isSelected {
+                text = text?.uppercased()
+            } else {
+                text = text?.lowercased()
             }
+
+            button.setTitle(text, for: UIControlState.normal)
+            button.titleLabel?.sizeToFit()
         }
     }
 }
