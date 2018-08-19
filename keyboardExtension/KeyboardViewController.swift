@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AudioToolbox
 
 class KeyButton: UIButton {
     
@@ -36,6 +37,12 @@ class KeyButton: UIButton {
         self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //UIDevice.current.playInputClick()
+        AudioServicesPlaySystemSound(0x450)
+        super.touchesBegan(touches, with: event)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -56,8 +63,8 @@ class KeyboardViewController: UIInputViewController {
     let keyWidth: CGFloat = 33
     let keySpacing: CGFloat = 4
     let rowSpacing: CGFloat = 9
-    let shiftWidth: CGFloat = 40
-    let shiftHeight: CGFloat = 40
+    let shiftWidth: CGFloat = 45
+    let shiftHeight: CGFloat = 48
     let spaceWidth: CGFloat = 200
     let spaceHeight: CGFloat = 45
     let nextWidth: CGFloat = 70
