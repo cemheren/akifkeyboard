@@ -12,7 +12,36 @@
 		3ACC4A0D212538ED006A7EC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ACC4A0B212538ED006A7EC5 /* Main.storyboard */; };
 		3ACC4A0F212538EE006A7EC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ACC4A0E212538EE006A7EC5 /* Assets.xcassets */; };
 		3ACC4A12212538EE006A7EC5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ACC4A10212538EE006A7EC5 /* LaunchScreen.storyboard */; };
+		3ACC4A2021253901006A7EC5 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */; };
+		3ACC4A2421253901006A7EC5 /* keyboardExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3ACC4A1D21253901006A7EC5 /* keyboardExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3ACC4A2A21253B41006A7EC5 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */; };
+		3AEE552521294BB4006979FE /* SpellcheckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE552421294BB4006979FE /* SpellcheckController.swift */; };
+		3AEE5526212951A8006979FE /* SpellcheckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE552421294BB4006979FE /* SpellcheckController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3ACC4A2221253901006A7EC5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3ACC49FC212538ED006A7EC5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3ACC4A1C21253901006A7EC5;
+			remoteInfo = keyboardExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3ACC4A2821253901006A7EC5 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				3ACC4A2421253901006A7EC5 /* keyboardExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3ACC4A04212538ED006A7EC5 /* akifkeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = akifkeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,10 +51,21 @@
 		3ACC4A0E212538EE006A7EC5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3ACC4A11212538EE006A7EC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3ACC4A13212538EE006A7EC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3ACC4A1D21253901006A7EC5 /* keyboardExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = keyboardExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		3ACC4A2121253901006A7EC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AEE552421294BB4006979FE /* SpellcheckController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellcheckController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3ACC4A01212538ED006A7EC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3ACC4A1A21253901006A7EC5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -39,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				3ACC4A06212538ED006A7EC5 /* akifkeyboard */,
+				3ACC4A1E21253901006A7EC5 /* keyboardExtension */,
 				3ACC4A05212538ED006A7EC5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -47,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				3ACC4A04212538ED006A7EC5 /* akifkeyboard.app */,
+				3ACC4A1D21253901006A7EC5 /* keyboardExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -64,6 +106,16 @@
 			path = akifkeyboard;
 			sourceTree = "<group>";
 		};
+		3ACC4A1E21253901006A7EC5 /* keyboardExtension */ = {
+			isa = PBXGroup;
+			children = (
+				3AEE552421294BB4006979FE /* SpellcheckController.swift */,
+				3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */,
+				3ACC4A2121253901006A7EC5 /* Info.plist */,
+			);
+			path = keyboardExtension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,15 +126,34 @@
 				3ACC4A00212538ED006A7EC5 /* Sources */,
 				3ACC4A01212538ED006A7EC5 /* Frameworks */,
 				3ACC4A02212538ED006A7EC5 /* Resources */,
+				3ACC4A2821253901006A7EC5 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3ACC4A2321253901006A7EC5 /* PBXTargetDependency */,
 			);
 			name = akifkeyboard;
 			productName = akifkeyboard;
 			productReference = 3ACC4A04212538ED006A7EC5 /* akifkeyboard.app */;
 			productType = "com.apple.product-type.application";
+		};
+		3ACC4A1C21253901006A7EC5 /* keyboardExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3ACC4A2521253901006A7EC5 /* Build configuration list for PBXNativeTarget "keyboardExtension" */;
+			buildPhases = (
+				3ACC4A1921253901006A7EC5 /* Sources */,
+				3ACC4A1A21253901006A7EC5 /* Frameworks */,
+				3ACC4A1B21253901006A7EC5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = keyboardExtension;
+			productName = keyboardExtension;
+			productReference = 3ACC4A1D21253901006A7EC5 /* keyboardExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -95,6 +166,9 @@
 				ORGANIZATIONNAME = "Akif Heren";
 				TargetAttributes = {
 					3ACC4A03212538ED006A7EC5 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+					3ACC4A1C21253901006A7EC5 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
 				};
@@ -113,6 +187,7 @@
 			projectRoot = "";
 			targets = (
 				3ACC4A03212538ED006A7EC5 /* akifkeyboard */,
+				3ACC4A1C21253901006A7EC5 /* keyboardExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -128,6 +203,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3ACC4A1B21253901006A7EC5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -136,11 +218,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ACC4A0A212538ED006A7EC5 /* ViewController.swift in Sources */,
+				3ACC4A2A21253B41006A7EC5 /* KeyboardViewController.swift in Sources */,
 				3ACC4A08212538ED006A7EC5 /* AppDelegate.swift in Sources */,
+				3AEE5526212951A8006979FE /* SpellcheckController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3ACC4A1921253901006A7EC5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3ACC4A2021253901006A7EC5 /* KeyboardViewController.swift in Sources */,
+				3AEE552521294BB4006979FE /* SpellcheckController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3ACC4A2321253901006A7EC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3ACC4A1C21253901006A7EC5 /* keyboardExtension */;
+			targetProxy = 3ACC4A2221253901006A7EC5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3ACC4A0B212538ED006A7EC5 /* Main.storyboard */ = {
@@ -279,6 +380,7 @@
 		3ACC4A17212538EE006A7EC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 28RCJTKZ47;
@@ -297,6 +399,7 @@
 		3ACC4A18212538EE006A7EC5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 28RCJTKZ47;
@@ -307,6 +410,44 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cemheren.akifkeyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		3ACC4A2621253901006A7EC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 28RCJTKZ47;
+				INFOPLIST_FILE = keyboardExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cemheren.akifkeyboard.keyboardExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3ACC4A2721253901006A7EC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 28RCJTKZ47;
+				INFOPLIST_FILE = keyboardExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = cemheren.akifkeyboard.keyboardExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -329,6 +470,15 @@
 			buildConfigurations = (
 				3ACC4A17212538EE006A7EC5 /* Debug */,
 				3ACC4A18212538EE006A7EC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3ACC4A2521253901006A7EC5 /* Build configuration list for PBXNativeTarget "keyboardExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3ACC4A2621253901006A7EC5 /* Debug */,
+				3ACC4A2721253901006A7EC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
