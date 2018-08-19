@@ -7,4 +7,4 @@ What's supported:
 2. autocomplete
 3. double space inserts dot
 
-![Alt text](/ss.png?raw=true "Title")
+![Screenshot](https://github.com/cemheren/akifkeyboard/blob/master/SS.png?raw=true "This is how it looks")
