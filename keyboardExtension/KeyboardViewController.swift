@@ -16,15 +16,17 @@ class KeyButton: UIButton {
             backgroundColor = isHighlighted ? UIColor.lightGray : UIColor.white
         }
     }
+    var margin: CGFloat = 3
+    var offset: CGFloat = 0
     
     override init(frame: CGRect)  {
         super.init(frame: frame)
-        
+    
         self.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 22.0)
         self.titleLabel?.textAlignment = .center
         self.setTitleColor(UIColor(white: 68.0/255, alpha: 1), for: [])
         self.titleLabel?.sizeToFit()
-        
+
         self.layer.borderWidth = 0.5
         self.layer.borderColor = UIColor(red: 216.0/255, green: 211.0/255, blue: 199.0/255, alpha: 1).cgColor
         self.layer.cornerRadius = 3
@@ -35,6 +37,17 @@ class KeyButton: UIButton {
         
         // this improves click performance: https://stackoverflow.com/questions/34324496/custom-ios-keyboard-keys-are-too-slow
         self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
+    }
+    
+    func setMargin(margin: CGFloat, offset: CGFloat){
+        self.margin = margin
+        self.offset = offset
+    }
+    
+    override func point(inside point: CGPoint, with _: UIEvent?) -> Bool {
+        var area = self.bounds.insetBy(dx: -margin, dy: -margin)
+        area = area.offsetBy(dx: -offset, dy: -offset)
+        return area.contains(point)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -215,6 +228,14 @@ class KeyboardViewController: UIInputViewController {
                 //button.autoresizingMask = .FlexibleWidth | .FlexibleLeftMargin | .FlexibleRightMargin
                 button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 0)
                 
+                // Hack for A and L mimicking IOS keyboard. We need to make these adaptive later.
+                if(label.uppercased() == "A"){
+                    button.setMargin(margin: 15, offset: 0)
+                }
+                if(label.uppercased() == "L"){
+                    button.setMargin(margin: 15, offset: -15)
+                }
+                
                 self.view.addSubview(button)
                 buttons.append(button)
                 x += keyWidth + keySpacing
@@ -332,7 +353,7 @@ class KeyboardViewController: UIInputViewController {
         let charDiff = charCount - currentWord.count
         
         numCharacters = numCharacters + charDiff;
-        shiftPosArr[shiftPosArr.count - 1] = shiftPosArr[shiftPosArr.count - 1] + charDiff;
+        //shiftPosArr[shiftPosArr.count - 1] = shiftPosArr[shiftPosArr.count - 1] + charDiff;
         if (shiftKey!.isSelected) {
             self.textTracker?.setShiftValue(shiftVal: false)
         }
