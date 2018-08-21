@@ -35,11 +35,12 @@ class TextTracker{
     
     func addCharacter(ch: String?, redrawButtons: () -> ()){
         let proxy = self.textDocumentProxy as UITextDocumentProxy
-        let insertText = ch ?? "";
+        var insertText = ch ?? "";
         
         if spacePressed && ch == " " {
             proxy.deleteBackward()
-            proxy.insertText(". ")
+            insertText = ". "
+            proxy.insertText(insertText)
             spacePressed = false
             
             if (shiftKey!.isSelected == false) {
@@ -58,6 +59,7 @@ class TextTracker{
                                                   selector: #selector(spaceTimeout),
                                                   userInfo: nil,
                                                   repeats: false)
+                lastWord = currentWord
                 currentWord = ""
             }else{
                 currentWord = currentWord + insertText;
@@ -69,11 +71,23 @@ class TextTracker{
             }
         }
         
+        if(insertText == "." || insertText == ". " || insertText == "?" || insertText == "? " || insertText == "!" || insertText == "! "){
+            lastSentence = currentSentence
+            currentSentence = ""
+        }else{
+            currentSentence = currentSentence + insertText
+        }
+        
         numCharacters = numCharacters + 1;
         shiftPosArr[shiftPosArr.count - 1] = shiftPosArr[shiftPosArr.count - 1] + 1;
     }
     
     func deleteCharacter() -> String {
+        
+        let proxy = self.textDocumentProxy as UITextDocumentProxy
+        proxy.deleteBackward()
+        currentSentence = String(currentSentence.dropLast())
+        currentWord = String(currentWord.dropLast())
         
         return ""
     }
@@ -92,24 +106,44 @@ class TextTracker{
         return lastSentence
     }
     
+    func getCurrentSentence() -> String{
+        
+        return currentSentence
+    }
+    
     func deleteCurrentWord(){
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         
         for ch in self.currentWord{
             proxy.deleteBackward()
-            print("del " + String(ch))
+            currentSentence = String(currentSentence.dropLast())
+            //print("del " + String(ch))
         }
+        
+        self.currentWord = ""
     }
     
     func insertText(text: String?){
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         let charCount = text?.count ?? 0
+        var insertText = text ?? "";
         
-        proxy.insertText(text ?? "")
+        proxy.insertText(insertText)
         
-        let charDiff = charCount - currentWord.count
+        if(insertText == "." || insertText == ". " || insertText == "?" || insertText == "? " || insertText == "!" || insertText == "! "){
+            lastSentence = currentSentence
+            currentSentence = ""
+        }else{
+            currentSentence = currentSentence + insertText
+        }
         
-        numCharacters = numCharacters + charDiff;
+        if(insertText.range(of:" ") != nil){ // " " exists
+            self.lastWord = text!
+            self.currentWord = ""
+        }else{
+            self.currentWord = text!
+        }
+        
         if (shiftKey!.isSelected) {
             self.setShiftValue(shiftVal: false)
             //redrawButtons()

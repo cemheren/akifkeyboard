@@ -22,6 +22,8 @@ class KeyButton: UIButton {
     var offsetX: CGFloat = 0
     var offsetY: CGFloat = 0
 
+    var mode: String?;
+    
     override init(frame: CGRect)  {
         super.init(frame: frame)
     
@@ -81,9 +83,9 @@ class KeyboardViewController: UIInputViewController {
     let rowSpacing: CGFloat = 9
     let shiftWidth: CGFloat = 45
     let shiftHeight: CGFloat = 48
-    let spaceWidth: CGFloat = 200
+    let spaceWidth: CGFloat = 170
     let spaceHeight: CGFloat = 45
-    let nextWidth: CGFloat = 70
+    let nextWidth: CGFloat = 50
     let returnWidth: CGFloat = 100
     let keyboardHeight: CGFloat = 260
     
@@ -91,6 +93,7 @@ class KeyboardViewController: UIInputViewController {
     var shiftKey: KeyButton?
     var deleteKey: KeyButton?
     var spaceKey: UIButton?
+    var poundKey: KeyButton?
     //var nextKeyboardButton: KeyButton?
     var returnButton: KeyButton?
     
@@ -170,7 +173,7 @@ class KeyboardViewController: UIInputViewController {
     func setupBottomRow(){
         
         let bottomRowTopPadding = topPadding + keyHeight * 3 + rowSpacing * 2 + 10
-        spaceKey = KeyButton(frame: CGRect(x:(345.0 - spaceWidth) / 2, y: bottomRowTopPadding, width:spaceWidth, height:spaceHeight))
+        spaceKey = KeyButton(frame: CGRect(x:(378 - returnWidth - spaceWidth), y: bottomRowTopPadding, width:spaceWidth, height:spaceHeight))
         spaceKey!.setTitle(" ", for: .normal)
         spaceKey!.addTarget(self, action:#selector(keyPressed(sender:)), for: .touchUpInside)
         self.view.addSubview(spaceKey!)
@@ -184,6 +187,11 @@ class KeyboardViewController: UIInputViewController {
         
         self.nextKeyboardButton.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         self.nextKeyboardButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        
+        poundKey = KeyButton(frame: CGRect(x:4 + nextWidth, y: bottomRowTopPadding, width:nextWidth, height:spaceHeight))
+        poundKey!.setTitle("#", for: .normal)
+        poundKey!.addTarget(self, action:#selector(poundKeyPressed(sender:)), for: .touchUpInside)
+        self.view.addSubview(poundKey!)
         
         
         returnButton = KeyButton(frame: CGRect(x:380 - returnWidth - 2, y: bottomRowTopPadding, width:self.returnWidth, height:spaceHeight))
@@ -258,29 +266,7 @@ class KeyboardViewController: UIInputViewController {
     }
     
     @objc func deleteKeyPressed(sender: UIButton) {
-        if numCharacters > 0 {
-            let proxy = self.textDocumentProxy as UITextDocumentProxy
-            proxy.deleteBackward()
-            numCharacters = numCharacters - 1;
-            var charactersSinceShift = shiftPosArr[shiftPosArr.count - 1]
-            if charactersSinceShift > 0 {
-                charactersSinceShift = charactersSinceShift - 1;
-            }
-            
-            self.textTracker?.setShiftValue(shiftVal: charactersSinceShift == 0)
-            if charactersSinceShift == 0 && shiftPosArr.count > 1 {
-                shiftPosArr.removeLast()
-            }
-            else {
-                shiftPosArr[shiftPosArr.count - 1] = charactersSinceShift
-            }
-        }else{
-            
-            // careful with this part.
-            let proxy = self.textDocumentProxy as UITextDocumentProxy
-            proxy.deleteBackward()
-            numCharacters = 0;
-        }
+        self.textTracker?.deleteCharacter()
         
         spacePressed = false
     }
@@ -304,6 +290,10 @@ class KeyboardViewController: UIInputViewController {
             redrawButtonsForShift()
         })
         self.specialRowController?.updateSpecialRow()
+    }
+    
+    @objc func poundKeyPressed(sender: UIButton) {
+        self.specialRowController?.drawSpecialRow(array: [["0:n", "1:n", "2:n", "3:n", "4:n", "5:n", "6:n", "7:n", "8:n", "9:n"]])
     }
     
     func redrawButtonsForShift() {

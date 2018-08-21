@@ -24,12 +24,17 @@ class SpellCheckController{
     let endpoint: String = "https://2hwrmsajo2.execute-api.eu-central-1.amazonaws.com/Prod/spellcheck?prompt="
 
     func checkSpelling(currentWord: String, completion: @escaping (_ result: SpellCheckModel)->()){
+        
+        
         getURI(url: self.endpoint + currentWord, completion: completion)
     }
     
     func getURI(url: String, completion: @escaping (_ result: SpellCheckModel)->()){
+        var url = URL(string: url) ?? nil
         
-        var request = URLRequest(url: URL(string: url)!)
+        if(url == nil){ return }
+        
+        var request = URLRequest(url: url!)
         request.httpMethod = "GET"
         //request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
