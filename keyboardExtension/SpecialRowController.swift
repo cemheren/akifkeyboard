@@ -74,6 +74,11 @@ class SpecialRowController{
             return true;
         }
         
+        if lowercased == "its"{
+            self.drawSpecialRow(array:[["he's"]])
+            return true;
+        }
+        
         if lowercased == "ill"{
             self.drawSpecialRow(array:[["I'll"]])
             return true;
