@@ -92,6 +92,30 @@ class TextTracker{
         return lastSentence
     }
     
+    func deleteCurrentWord(){
+        let proxy = self.textDocumentProxy as UITextDocumentProxy
+        
+        for ch in self.currentWord{
+            proxy.deleteBackward()
+            print("del " + String(ch))
+        }
+    }
+    
+    func insertText(text: String?){
+        let proxy = self.textDocumentProxy as UITextDocumentProxy
+        let charCount = text?.count ?? 0
+        
+        proxy.insertText(text ?? "")
+        
+        let charDiff = charCount - currentWord.count
+        
+        numCharacters = numCharacters + charDiff;
+        if (shiftKey!.isSelected) {
+            self.setShiftValue(shiftVal: false)
+            //redrawButtons()
+        }
+    }
+    
     @objc func spaceTimeout() {
         spaceTimer = nil
         spacePressed = false

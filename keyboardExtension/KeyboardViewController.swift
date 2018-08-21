@@ -16,9 +16,12 @@ class KeyButton: UIButton {
             backgroundColor = isHighlighted ? UIColor.lightGray : UIColor.white
         }
     }
-    var margin: CGFloat = 3
-    var offset: CGFloat = 0
-    
+    var marginX: CGFloat = 3
+    var marginY: CGFloat = 3
+
+    var offsetX: CGFloat = 0
+    var offsetY: CGFloat = 0
+
     override init(frame: CGRect)  {
         super.init(frame: frame)
     
@@ -39,14 +42,16 @@ class KeyButton: UIButton {
         self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
     }
     
-    func setMargin(margin: CGFloat, offset: CGFloat){
-        self.margin = margin
-        self.offset = offset
+    func setMargin(marginX: CGFloat, marginY: CGFloat, offsetX: CGFloat, offsetY: CGFloat){
+        self.marginX = marginX
+        self.marginY = marginY
+        self.offsetX = offsetX
+        self.offsetY = offsetY
     }
     
     override func point(inside point: CGPoint, with _: UIEvent?) -> Bool {
-        var area = self.bounds.insetBy(dx: -margin, dy: -margin)
-        area = area.offsetBy(dx: -offset, dy: -offset)
+        var area = self.bounds.insetBy(dx: -marginX, dy: -marginY)
+        area = area.offsetBy(dx: -offsetX, dy: -offsetY)
         return area.contains(point)
     }
     
@@ -68,8 +73,6 @@ class KeyboardViewController: UIInputViewController {
     let rows = [["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
                 ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
                 ["z", "x", "c", "v", "b", "n", "m"]]
-    let specialRowPadding: CGFloat = 1
-    let specialKeyHeight: CGFloat = 40
     
     let topPadding: CGFloat = 46
     let keyHeight: CGFloat = 48
@@ -85,13 +88,11 @@ class KeyboardViewController: UIInputViewController {
     let keyboardHeight: CGFloat = 260
     
     var buttons: Array<UIButton> = []
-    var shiftKey: UIButton?
-    var deleteKey: UIButton?
+    var shiftKey: KeyButton?
+    var deleteKey: KeyButton?
     var spaceKey: UIButton?
     //var nextKeyboardButton: KeyButton?
     var returnButton: KeyButton?
-    
-    var specialButtons: Array<UIButton> = []
     
     var shiftPosArr = [0]
     var numCharacters = 0
@@ -99,8 +100,8 @@ class KeyboardViewController: UIInputViewController {
     var spaceTimer: Timer?
     var currentWord = ""
     
-    var spellcheckController : SpellCheckController = SpellCheckController()
     var textTracker: TextTracker?
+    var specialRowController: SpecialRowController?
     
     private weak var heightConstraint: NSLayoutConstraint?
     override func updateViewConstraints() {
@@ -136,47 +137,22 @@ class KeyboardViewController: UIInputViewController {
         border.backgroundColor = UIColor(red: 210.0/255, green: 205.0/255, blue: 193.0/255, alpha: 1)
         self.view.addSubview(border)
         
-        self.setupSpecialRow(array: [["b1", "b2", "b3"]])
-        
         self.setupThirdRow()
         self.setupBottomRow()
         
         self.setupKeys()
         
         self.textTracker = TextTracker(shiftKey: self.shiftKey, textDocumentProxy: self.textDocumentProxy)
-    }
-    
-    func setupSpecialRow(array: Array<Array<String>>){
+        self.specialRowController = SpecialRowController(textTracker: self.textTracker!, parentView: self.view)
         
-        var y: CGFloat = specialRowPadding
-        let width = UIScreen.main.applicationFrame.size.width
-        let dynamicWidth = width/3.0 - keySpacing
-        
-        for sb in self.specialButtons{
-            sb.removeFromSuperview();
-        }
-        
-        for row in array {
-            var x: CGFloat = ceil((width - (CGFloat(row.count) - 1) * (keySpacing + dynamicWidth) - dynamicWidth) / 2.0)
-            for label in row {
-                let button = KeyButton(frame: CGRect(x: x, y: y, width: dynamicWidth, height: self.specialKeyHeight))
-                button.setTitle(label, for: .normal)
-                button.addTarget(self, action:#selector(specialKeyPressed(sender:)), for: .touchUpInside)
-                //button.autoresizingMask = .FlexibleWidth | .FlexibleLeftMargin | .FlexibleRightMargin
-                button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 0)
-                
-                self.view.addSubview(button)
-                specialButtons.append(button)
-                x += dynamicWidth + keySpacing
-            }
-            
-            y += specialKeyHeight + rowSpacing
-        }
+        self.specialRowController?.drawSpecialRow(array: [["b1", "b2", "b3"]])
     }
     
     func setupThirdRow(){
         let thirdRowTopPadding: CGFloat = topPadding + (keyHeight + rowSpacing) * 2
         shiftKey = KeyButton(frame: CGRect(x: 2.0, y: thirdRowTopPadding, width:shiftWidth, height:shiftHeight))
+        shiftKey!.setMargin(marginX: 10, marginY: 4, offsetX: 0, offsetY: 0)
+        
         shiftKey!.addTarget(self, action:#selector(shiftKeyPressed(sender:)), for: .touchUpInside)
         shiftKey!.isSelected = true
         shiftKey!.setTitle("^", for: .normal)
@@ -184,6 +160,7 @@ class KeyboardViewController: UIInputViewController {
         self.view.addSubview(shiftKey!)
         
         deleteKey = KeyButton(frame: CGRect(x:380 - shiftWidth - 2.0, y: thirdRowTopPadding, width:shiftWidth, height:shiftHeight))
+        deleteKey!.setMargin(marginX: 10, marginY: 4, offsetX: 0, offsetY: 0)
         deleteKey!.addTarget(self, action:#selector(deleteKeyPressed(sender:)), for: .touchUpInside)
         deleteKey!.setTitle("<-", for: .normal)
         //deleteKey!.setTitle("*", for: .highlighted)
@@ -230,10 +207,10 @@ class KeyboardViewController: UIInputViewController {
                 
                 // Hack for A and L mimicking IOS keyboard. We need to make these adaptive later.
                 if(label.uppercased() == "A"){
-                    button.setMargin(margin: 15, offset: 0)
+                    button.setMargin(marginX: 15, marginY: 4, offsetX: 0, offsetY: 0)
                 }
                 if(label.uppercased() == "L"){
-                    button.setMargin(margin: 15, offset: -15)
+                    button.setMargin(marginX: 15, marginY: 4, offsetX: -15, offsetY: 0)
                 }
                 
                 self.view.addSubview(button)
@@ -323,40 +300,10 @@ class KeyboardViewController: UIInputViewController {
     }
     
     @objc func keyPressed(sender: UIButton) {
-        
         textTracker?.addCharacter(ch: sender.titleLabel?.text, redrawButtons: {
             redrawButtonsForShift()
         })
-        currentWord = textTracker?.currentWord ?? ""
-        
-        if(currentWord.count >= 3){
-            self.spellcheckController.checkSpelling(currentWord: currentWord, completion: { result in
-                let alternatives = result.alternatives
-                DispatchQueue.main.async {
-                    self.setupSpecialRow(array: [alternatives])
-                }
-            })
-        }
-    }
-    
-    @objc func specialKeyPressed(sender: UIButton) {
-        let proxy = self.textDocumentProxy as UITextDocumentProxy
-        
-        for ch in self.currentWord{
-            proxy.deleteBackward()
-            print("del " + String(ch))
-        }
-        
-        let charCount = sender.titleLabel?.text?.count ?? 0
-        proxy.insertText(sender.titleLabel?.text ?? "")
-        
-        let charDiff = charCount - currentWord.count
-        
-        numCharacters = numCharacters + charDiff;
-        //shiftPosArr[shiftPosArr.count - 1] = shiftPosArr[shiftPosArr.count - 1] + charDiff;
-        if (shiftKey!.isSelected) {
-            self.textTracker?.setShiftValue(shiftVal: false)
-        }
+        self.specialRowController?.updateSpecialRow()
     }
     
     func redrawButtonsForShift() {

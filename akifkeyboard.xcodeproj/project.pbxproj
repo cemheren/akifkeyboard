@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3AA7F0AA212BA76E00949D0B /* SpecialRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */; };
+		3AA7F0AB212BA76E00949D0B /* SpecialRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */; };
 		3ACC4A08212538ED006A7EC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC4A07212538ED006A7EC5 /* AppDelegate.swift */; };
 		3ACC4A0A212538ED006A7EC5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC4A09212538ED006A7EC5 /* ViewController.swift */; };
 		3ACC4A0D212538ED006A7EC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ACC4A0B212538ED006A7EC5 /* Main.storyboard */; };
@@ -17,8 +19,8 @@
 		3ACC4A2A21253B41006A7EC5 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */; };
 		3AEE552521294BB4006979FE /* SpellcheckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE552421294BB4006979FE /* SpellcheckController.swift */; };
 		3AEE5526212951A8006979FE /* SpellcheckController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE552421294BB4006979FE /* SpellcheckController.swift */; };
-		3AEE55282129E65A006979FE /* textTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE55272129E65A006979FE /* textTracker.swift */; };
-		3AEE55292129E65A006979FE /* textTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE55272129E65A006979FE /* textTracker.swift */; };
+		3AEE55282129E65A006979FE /* TextTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE55272129E65A006979FE /* TextTracker.swift */; };
+		3AEE55292129E65A006979FE /* TextTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AEE55272129E65A006979FE /* TextTracker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialRowController.swift; sourceTree = "<group>"; };
 		3ACC4A04212538ED006A7EC5 /* akifkeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = akifkeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ACC4A07212538ED006A7EC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3ACC4A09212538ED006A7EC5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,7 +60,7 @@
 		3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		3ACC4A2121253901006A7EC5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3AEE552421294BB4006979FE /* SpellcheckController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpellcheckController.swift; sourceTree = "<group>"; };
-		3AEE55272129E65A006979FE /* textTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = textTracker.swift; sourceTree = "<group>"; };
+		3AEE55272129E65A006979FE /* TextTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTracker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +118,8 @@
 				3AEE552421294BB4006979FE /* SpellcheckController.swift */,
 				3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */,
 				3ACC4A2121253901006A7EC5 /* Info.plist */,
-				3AEE55272129E65A006979FE /* textTracker.swift */,
+				3AEE55272129E65A006979FE /* TextTracker.swift */,
+				3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */,
 			);
 			path = keyboardExtension;
 			sourceTree = "<group>";
@@ -223,7 +227,8 @@
 			files = (
 				3ACC4A0A212538ED006A7EC5 /* ViewController.swift in Sources */,
 				3ACC4A2A21253B41006A7EC5 /* KeyboardViewController.swift in Sources */,
-				3AEE55282129E65A006979FE /* textTracker.swift in Sources */,
+				3AA7F0AA212BA76E00949D0B /* SpecialRowController.swift in Sources */,
+				3AEE55282129E65A006979FE /* TextTracker.swift in Sources */,
 				3ACC4A08212538ED006A7EC5 /* AppDelegate.swift in Sources */,
 				3AEE5526212951A8006979FE /* SpellcheckController.swift in Sources */,
 			);
@@ -233,8 +238,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AEE55292129E65A006979FE /* textTracker.swift in Sources */,
+				3AEE55292129E65A006979FE /* TextTracker.swift in Sources */,
 				3ACC4A2021253901006A7EC5 /* KeyboardViewController.swift in Sources */,
+				3AA7F0AB212BA76E00949D0B /* SpecialRowController.swift in Sources */,
 				3AEE552521294BB4006979FE /* SpellcheckController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
