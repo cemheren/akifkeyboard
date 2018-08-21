@@ -48,7 +48,7 @@ class SpecialRowController{
             self.drawSpecialRow(array: [alternatives])
         }
         
-        if(currentWord.count >= 3){
+        if(currentWord.count >= 1){
             self.spellCheckController.checkSpelling(currentWord: currentWord, completion: { result in
                 alternatives.append(contentsOf: result.alternatives)
                 self.drawSpecialRow(array: [alternatives])

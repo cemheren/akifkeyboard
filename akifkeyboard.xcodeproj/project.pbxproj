@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A939AD5212BC8A700631519 /* autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A939AD4212BC8A700631519 /* autocomplete.swift */; };
+		3A939AD6212BC8DE00631519 /* autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A939AD4212BC8A700631519 /* autocomplete.swift */; };
+		3A939AD8212BCB6B00631519 /* wordsshortlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A939AD7212BCB6B00631519 /* wordsshortlist.txt */; };
+		3A939AD9212BCB6B00631519 /* wordsshortlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A939AD7212BCB6B00631519 /* wordsshortlist.txt */; };
 		3AA7F0AA212BA76E00949D0B /* SpecialRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */; };
 		3AA7F0AB212BA76E00949D0B /* SpecialRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */; };
 		3ACC4A08212538ED006A7EC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC4A07212538ED006A7EC5 /* AppDelegate.swift */; };
@@ -48,6 +52,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3A939AD4212BC8A700631519 /* autocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = autocomplete.swift; sourceTree = "<group>"; };
+		3A939AD7212BCB6B00631519 /* wordsshortlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordsshortlist.txt; sourceTree = "<group>"; };
 		3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialRowController.swift; sourceTree = "<group>"; };
 		3ACC4A04212538ED006A7EC5 /* akifkeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = akifkeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ACC4A07212538ED006A7EC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,11 +121,13 @@
 		3ACC4A1E21253901006A7EC5 /* keyboardExtension */ = {
 			isa = PBXGroup;
 			children = (
+				3A939AD7212BCB6B00631519 /* wordsshortlist.txt */,
 				3AEE552421294BB4006979FE /* SpellcheckController.swift */,
 				3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */,
 				3ACC4A2121253901006A7EC5 /* Info.plist */,
 				3AEE55272129E65A006979FE /* TextTracker.swift */,
 				3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */,
+				3A939AD4212BC8A700631519 /* autocomplete.swift */,
 			);
 			path = keyboardExtension;
 			sourceTree = "<group>";
@@ -208,6 +216,7 @@
 				3ACC4A12212538EE006A7EC5 /* LaunchScreen.storyboard in Resources */,
 				3ACC4A0F212538EE006A7EC5 /* Assets.xcassets in Resources */,
 				3ACC4A0D212538ED006A7EC5 /* Main.storyboard in Resources */,
+				3A939AD8212BCB6B00631519 /* wordsshortlist.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +224,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A939AD9212BCB6B00631519 /* wordsshortlist.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ACC4A0A212538ED006A7EC5 /* ViewController.swift in Sources */,
+				3A939AD6212BC8DE00631519 /* autocomplete.swift in Sources */,
 				3ACC4A2A21253B41006A7EC5 /* KeyboardViewController.swift in Sources */,
 				3AA7F0AA212BA76E00949D0B /* SpecialRowController.swift in Sources */,
 				3AEE55282129E65A006979FE /* TextTracker.swift in Sources */,
@@ -242,6 +253,7 @@
 				3ACC4A2021253901006A7EC5 /* KeyboardViewController.swift in Sources */,
 				3AA7F0AB212BA76E00949D0B /* SpecialRowController.swift in Sources */,
 				3AEE552521294BB4006979FE /* SpellcheckController.swift in Sources */,
+				3A939AD5212BC8A700631519 /* autocomplete.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

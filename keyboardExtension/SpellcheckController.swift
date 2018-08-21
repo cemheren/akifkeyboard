@@ -20,13 +20,34 @@ class SpellCheckModel{
 }
 
 class SpellCheckController{
+    var autoComplete = AutoComplete<Word>()
     
     let endpoint: String = "https://2hwrmsajo2.execute-api.eu-central-1.amazonaws.com/Prod/spellcheck?prompt="
 
+    init() {
+        //self.autoComplete.insert(Word(word: "naber"))
+        loadData()
+    }
+    
+    func loadData(){
+        do {
+            let path = Bundle.main.path(forResource: "wordsshortlist", ofType: "txt")
+            let data = try String(contentsOfFile: (path)!, encoding: .utf8)
+            data.components(separatedBy: .newlines).forEach({
+               self.autoComplete.insert(Word(word: $0))
+            })
+        } catch {
+            print(error)
+        }
+    }
+    
     func checkSpelling(currentWord: String, completion: @escaping (_ result: SpellCheckModel)->()){
         
+        let results = self.autoComplete.search(currentWord)
+        let alternatives = results.map{value in value.word}
+        completion(SpellCheckModel(isCorrect: false, alternatives: alternatives))
         
-        getURI(url: self.endpoint + currentWord, completion: completion)
+        //getURI(url: self.endpoint + currentWord, completion: completion)
     }
     
     func getURI(url: String, completion: @escaping (_ result: SpellCheckModel)->()){
