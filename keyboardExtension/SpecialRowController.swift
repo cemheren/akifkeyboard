@@ -127,13 +127,17 @@ class SpecialRowController{
         
         if sender.mode == "r" || sender.mode == "a"{
             self.textTracker?.insertText(text: (sender.titleLabel?.text)! + " ")
-            for sb in self.specialButtons{
-                sb.removeFromSuperview();
-            }
+            self.clearSpecialKeys()
         }
         
         if sender.mode == "n"{
             self.textTracker?.insertText(text: (sender.titleLabel?.text)!)
+        }
+    }
+    
+    func clearSpecialKeys(){
+        for sb in self.specialButtons{
+            sb.removeFromSuperview();
         }
     }
 }
