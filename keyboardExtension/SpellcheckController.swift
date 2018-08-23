@@ -21,6 +21,7 @@ class SpellCheckModel{
 
 class SpellCheckController{
     var autoComplete = AutoComplete<Word>()
+    var correctSpelling = CorrectSpelling()
     
     let endpoint: String = "https://2hwrmsajo2.execute-api.eu-central-1.amazonaws.com/Prod/spellcheck?prompt="
 
@@ -34,7 +35,8 @@ class SpellCheckController{
             let path = Bundle.main.path(forResource: "wordsshortlist", ofType: "txt")
             let data = try String(contentsOfFile: (path)!, encoding: .utf8)
             data.components(separatedBy: .newlines).forEach({
-               self.autoComplete.insert(Word(word: $0))
+                self.autoComplete.insert(Word(word: $0))
+                self.correctSpelling.insertWord(word: $0)
             })
         } catch {
             print(error)
@@ -43,8 +45,10 @@ class SpellCheckController{
     
     func checkSpelling(currentWord: String, completion: @escaping (_ result: SpellCheckModel)->()){
         
+        let corrections = self.correctSpelling.getCorrection(word: currentWord.lowercased());
+        
         let results = self.autoComplete.search(currentWord)
-        let alternatives = results.map{value in value.word}
+        let alternatives = results.map{value in value.word} + corrections
         completion(SpellCheckModel(isCorrect: false, alternatives: alternatives))
         
         //getURI(url: self.endpoint + currentWord, completion: completion)
