@@ -8,7 +8,7 @@ What's supported:
 3. double space inserts dot
 4. some special characters
 5. some emoji's
-6. optimal key button hitboxes. (Same as IOS keyboard this uses larget hitboxes than the actual keyboard button)
+6. optimal key button hitboxes. (Same as IOS keyboard. This one uses larger hitboxes than the actual keyboard buttons for faster typing)
 7. Interchangeable prediction row for showing special characters/emoji
 8. Long press buttons for secondary character
 9. Press and slide out for secondary character (allows very fast typing)
