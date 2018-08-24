@@ -10,6 +10,9 @@ What's supported:
 5. some emoji's
 6. optimal key button hitboxes. (Same as IOS keyboard this uses larget hitboxes than the actual keyboard button)
 7. Interchangeable prediction row for showing special characters/emoji
+8. Long press buttons for secondary character
+9. Press and slide out for secondary character (allows very fast typing)
+10. Long press delete button allows fast delete like IOS keyboard 
 
 <p align="center">
   <img src="https://github.com/cemheren/akifkeyboard/blob/master/SS.png" width="350" title="hover text">
