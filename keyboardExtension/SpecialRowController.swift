@@ -110,6 +110,7 @@ class SpecialRowController{
                     }
                     
                     let button = KeyButton(frame: CGRect(x: x, y: y, width: dynamicWidth, height: self.specialKeyHeight))
+                    button.titleLabel?.adjustsFontSizeToFitWidth = true
                     button.mode = mode
                     button.setTitle(label, for: .normal)
                     button.addTarget(self, action:#selector(self.specialKeyPressed(sender:)), for: .touchUpInside)

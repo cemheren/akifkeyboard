@@ -15,7 +15,7 @@ class SpellCheckModel{
     
     init(isCorrect: Bool, alternatives: [String]) {
         self.isCorrect = isCorrect
-        self.alternatives = Array(alternatives.prefix(3));
+        self.alternatives = Array(alternatives.prefix(4));
     }
 }
 
@@ -26,17 +26,26 @@ class SpellCheckController{
     let endpoint: String = "https://2hwrmsajo2.execute-api.eu-central-1.amazonaws.com/Prod/spellcheck?prompt="
 
     init() {
-        //self.autoComplete.insert(Word(word: "naber"))
-        loadData()
+        DispatchQueue.main.async {
+            self.loadData()
+        }
     }
     
     func loadData(){
         do {
-            let path = Bundle.main.path(forResource: "wordsshortlist", ofType: "txt")
+            let path = Bundle.main.path(forResource: "wordslonglist", ofType: "csv")
             let data = try String(contentsOfFile: (path)!, encoding: .utf8)
             data.components(separatedBy: .newlines).forEach({
-                self.autoComplete.insert(Word(word: $0))
-                self.correctSpelling.insertWord(word: $0)
+                let lineItems  = $0.split(separator: ",")
+                if(lineItems.count == 2){
+                    let frequency = Int(lineItems[1]);
+                    let word = String(lineItems[0]);
+                    
+                    if(frequency ?? 0 > 15){
+                        self.autoComplete.insert(Word(word: word))
+                    }
+                    self.correctSpelling.insertWord(word: word)
+                }
             })
         } catch {
             print(error)

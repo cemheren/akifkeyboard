@@ -304,7 +304,7 @@ class KeyboardViewController: UIInputViewController {
         let nextState = self.poundKeyStates[self.poundKeyCurrentState]
         
         if nextState == "numeric"{
-            self.specialRowController?.drawSpecialRow(array: [["0:n", "1:n", "2:n", "3:n", "4:n", "5:n", "6:n", "7:n", "8:n", "9:n"]])
+            self.specialRowController?.drawSpecialRow(array: [["1:n", "2:n", "3:n", "4:n", "5:n", "6:n", "7:n", "8:n", "9:n", "0:n"]])
         }
         if nextState == "off"{
             self.specialRowController?.clearSpecialKeys()
