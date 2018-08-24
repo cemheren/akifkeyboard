@@ -23,18 +23,20 @@ class KeyButton: UIButton {
     var offsetY: CGFloat = 0
 
     var mode: String?;
+    var secondaryTitle: String?;
     
     override init(frame: CGRect)  {
         super.init(frame: frame)
     
         self.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 22.0)
         self.titleLabel?.textAlignment = .center
-        self.setTitleColor(UIColor(white: 68.0/255, alpha: 1), for: [])
+        self.setTitleColor(UIColor(white: 20.0/255, alpha: 1), for: [])
         self.titleLabel?.sizeToFit()
 
-        self.layer.borderWidth = 0.5
+        self.clipsToBounds = true
+        self.layer.borderWidth = 1
         self.layer.borderColor = UIColor(red: 216.0/255, green: 211.0/255, blue: 199.0/255, alpha: 1).cgColor
-        self.layer.cornerRadius = 3
+        self.layer.cornerRadius = 6
         
         self.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
         self.contentVerticalAlignment = .center
@@ -72,9 +74,9 @@ class KeyboardViewController: UIInputViewController {
 
     @IBOutlet var nextKeyboardButton: UIButton!
     
-    let rows = [["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-                ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
-                ["z", "x", "c", "v", "b", "n", "m"]]
+    let rows = [["q||1", "w||2", "e||3", "r||4", "t||5", "y||6", "u||7", "i||8", "o||9", "p||0"],
+                ["a||-", "s||/", "d||;", "f||(", "g||)", "h||$", "j||&", "k||@", "l||\""],
+                ["z||.", "x||,", "c||?", "v||!", "b||:", "n||!", "m||'"]]
     
     let poundKeyStates = ["off", "numeric", "special", "emoji"]
     var poundKeyCurrentState = 0
@@ -151,7 +153,7 @@ class KeyboardViewController: UIInputViewController {
         self.textTracker = TextTracker(shiftKey: self.shiftKey, textDocumentProxy: self.textDocumentProxy)
         self.specialRowController = SpecialRowController(textTracker: self.textTracker!, parentView: self.view)
         
-        self.specialRowController?.drawSpecialRow(array: [["b1", "b2", "b3"]])
+        self.specialRowController?.drawSpecialRow(array: [["", "", ""]])
     }
     
     func setupThirdRow(){
@@ -168,6 +170,9 @@ class KeyboardViewController: UIInputViewController {
         deleteKey = KeyButton(frame: CGRect(x:380 - shiftWidth - 2.0, y: thirdRowTopPadding, width:shiftWidth, height:shiftHeight))
         deleteKey!.setMargin(marginX: 10, marginY: 4, offsetX: 0, offsetY: 0)
         deleteKey!.addTarget(self, action:#selector(deleteKeyPressed(sender:)), for: .touchUpInside)
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(deleteKeyLongPressed(sender: )))
+        deleteKey!.addGestureRecognizer(longGesture)
+        
         deleteKey!.setTitle("<-", for: .normal)
         //deleteKey!.setTitle("*", for: .highlighted)
         self.view.addSubview(deleteKey!)
@@ -175,23 +180,22 @@ class KeyboardViewController: UIInputViewController {
     
     func setupBottomRow(){
         
-        let bottomRowTopPadding = topPadding + keyHeight * 3 + rowSpacing * 2 + 10
+        let bottomRowTopPadding = topPadding + keyHeight * 3 + rowSpacing * 2 + 8
         spaceKey = KeyButton(frame: CGRect(x:(378 - returnWidth - spaceWidth), y: bottomRowTopPadding, width:spaceWidth, height:spaceHeight))
         spaceKey!.setTitle(" ", for: .normal)
         spaceKey!.addTarget(self, action:#selector(keyPressed(sender:)), for: .touchUpInside)
         self.view.addSubview(spaceKey!)
         
-        self.nextKeyboardButton = KeyButton(frame:CGRect(x:2, y: topPadding + keyHeight * 3 + rowSpacing * 2 + 10, width:nextWidth, height:spaceHeight))
-        
+        self.nextKeyboardButton = KeyButton(frame:CGRect(x: 4 + nextWidth, y: bottomRowTopPadding, width:nextWidth, height:spaceHeight))
         nextKeyboardButton!.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size:18)
         nextKeyboardButton!.setTitle(NSLocalizedString("N", comment: "Title for 'Next Keyboard' button"), for: .normal)
         nextKeyboardButton!.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         view.addSubview(self.nextKeyboardButton!)
         
         self.nextKeyboardButton.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        self.nextKeyboardButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        //self.nextKeyboardButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         
-        poundKey = KeyButton(frame: CGRect(x:4 + nextWidth, y: bottomRowTopPadding, width:nextWidth, height:spaceHeight))
+        poundKey = KeyButton(frame: CGRect(x: 2, y: bottomRowTopPadding, width:nextWidth, height:spaceHeight))
         poundKey!.setTitle("#", for: .normal)
         poundKey!.addTarget(self, action:#selector(poundKeyPressed(sender:)), for: .touchUpInside)
         self.view.addSubview(poundKey!)
@@ -209,10 +213,27 @@ class KeyboardViewController: UIInputViewController {
         var width = UIScreen.main.applicationFrame.size.width
         for row in rows {
             var x: CGFloat = ceil((width - (CGFloat(row.count) - 1) * (keySpacing + keyWidth) - keyWidth) / 2.0)
-            for label in row {
+            for var label in row {
+                
+                let labelArr = label.components(separatedBy: "||")
+                var secondTitle = "";
+                if labelArr.count == 2{
+                    label = labelArr[0]
+                    secondTitle = labelArr[1]
+                }else{
+                    label = labelArr[0]
+                }
+                
                 let button = KeyButton(frame: CGRect(x: x, y: y, width: keyWidth, height: keyHeight))
                 button.setTitle(label.uppercased(), for: .normal)
                 button.addTarget(self, action:#selector(keyPressed(sender:)), for: .touchUpInside)
+                
+                let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(keyLongPressed(sender: )))
+                button.addGestureRecognizer(longGesture)
+                button.addTarget(self, action:#selector(keySlideOut(sender:)), for: .touchDragExit)
+                
+                button.secondaryTitle = secondTitle;
+                
                 //button.autoresizingMask = .FlexibleWidth | .FlexibleLeftMargin | .FlexibleRightMargin
                 button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 0)
                 
@@ -274,6 +295,22 @@ class KeyboardViewController: UIInputViewController {
         spacePressed = false
     }
     
+    var timer: Timer?
+    @objc func deleteKeyLongPressed(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(handleTimer(timer:)), userInfo: nil, repeats: true)
+        } else if sender.state == .ended || sender.state == .cancelled {
+            timer?.invalidate()
+            timer = nil
+        }
+        spacePressed = false
+    }
+    
+    @objc private func handleTimer(timer: Timer) {
+        AudioServicesPlaySystemSound(0x450)
+        self.textTracker?.deleteCharacter()
+    }
+    
     @objc func shiftKeyPressed(sender: UIButton) {
         self.textTracker?.setShiftValue(shiftVal: !shiftKey!.isSelected)
         if shiftKey!.isSelected {
@@ -293,6 +330,33 @@ class KeyboardViewController: UIInputViewController {
             redrawButtonsForShift()
         })
         self.specialRowController?.updateSpecialRow()
+    }
+    
+    @objc func keySlideOut(sender: KeyButton) {
+        self.secondaryButtonAction(button: sender)
+    }
+    
+    @objc func keyLongPressed(sender: UILongPressGestureRecognizer) {
+        if sender.state == .ended{
+            let button = sender.view as! KeyButton
+            
+            self.secondaryButtonAction(button: button)
+        }
+    }
+    
+    private func secondaryButtonAction(button: KeyButton){
+        
+        let temp = button.titleLabel?.text
+        button.setTitle(button.secondaryTitle, for: .normal)
+        
+        textTracker?.addCharacter(ch: button.secondaryTitle, redrawButtons: {
+            redrawButtonsForShift()
+        })
+        self.specialRowController?.updateSpecialRow()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { // change 1 to desired number of seconds
+            button.setTitle(temp?.lowercased(), for: .normal)
+        }
     }
     
     @objc func poundKeyPressed(sender: UIButton) {
