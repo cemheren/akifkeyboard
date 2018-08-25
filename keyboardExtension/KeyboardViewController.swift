@@ -83,12 +83,14 @@ class KeyboardViewController: UIInputViewController {
     
     let topPadding: CGFloat = 46
     let keyHeight: CGFloat = 48
-    let keyWidth: CGFloat = 33
+    var keyWidth: CGFloat = 33
     let keySpacing: CGFloat = 4
     let rowSpacing: CGFloat = 9
     let shiftWidth: CGFloat = 45
     let shiftHeight: CGFloat = 48
-    let spaceWidth: CGFloat = 170
+    
+    var spaceWidth: CGFloat = 170
+    
     let spaceHeight: CGFloat = 45
     let nextWidth: CGFloat = 50
     let returnWidth: CGFloat = 100
@@ -167,7 +169,9 @@ class KeyboardViewController: UIInputViewController {
         shiftKey!.setTitle("^^", for: .selected)
         self.view.addSubview(shiftKey!)
         
-        deleteKey = KeyButton(frame: CGRect(x:380 - shiftWidth - 2.0, y: thirdRowTopPadding, width:shiftWidth, height:shiftHeight))
+        
+        let viewWidth = UIScreen.main.applicationFrame.size.width
+        deleteKey = KeyButton(frame: CGRect(x:viewWidth - shiftWidth - 2.0, y: thirdRowTopPadding, width:shiftWidth, height:shiftHeight))
         deleteKey!.setMargin(marginX: 10, marginY: 4, offsetX: 0, offsetY: 0)
         deleteKey!.addTarget(self, action:#selector(deleteKeyPressed(sender:)), for: .touchUpInside)
         let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(deleteKeyLongPressed(sender: )))
@@ -180,8 +184,11 @@ class KeyboardViewController: UIInputViewController {
     
     func setupBottomRow(){
         
+        let viewWidth = UIScreen.main.applicationFrame.size.width
         let bottomRowTopPadding = topPadding + keyHeight * 3 + rowSpacing * 2 + 8
-        spaceKey = KeyButton(frame: CGRect(x:(378 - returnWidth - spaceWidth), y: bottomRowTopPadding, width:spaceWidth, height:spaceHeight))
+        self.spaceWidth = viewWidth - 2 - returnWidth - 2 - nextWidth - 2 - nextWidth;
+        
+        spaceKey = KeyButton(frame: CGRect(x:(viewWidth - returnWidth - 2  - spaceWidth), y: bottomRowTopPadding, width:spaceWidth, height:spaceHeight))
         spaceKey!.setTitle(" ", for: .normal)
         spaceKey!.addTarget(self, action:#selector(keyPressed(sender:)), for: .touchUpInside)
         self.view.addSubview(spaceKey!)
@@ -200,8 +207,7 @@ class KeyboardViewController: UIInputViewController {
         poundKey!.addTarget(self, action:#selector(poundKeyPressed(sender:)), for: .touchUpInside)
         self.view.addSubview(poundKey!)
         
-        
-        returnButton = KeyButton(frame: CGRect(x:380 - returnWidth - 2, y: bottomRowTopPadding, width:self.returnWidth, height:spaceHeight))
+        returnButton = KeyButton(frame: CGRect(x:viewWidth - returnWidth - 2, y: bottomRowTopPadding, width:self.returnWidth, height:spaceHeight))
         returnButton!.setTitle(NSLocalizedString("Ret", comment: "Title for 'Return Key' button"), for: .normal)
         returnButton!.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size:18)
         returnButton!.addTarget(self, action:#selector(returnKeyPressed(sender:)), for: .touchUpInside)
@@ -211,6 +217,7 @@ class KeyboardViewController: UIInputViewController {
     func setupKeys(){
         var y: CGFloat = topPadding
         var width = UIScreen.main.applicationFrame.size.width
+        keyWidth = (width / 10.0) - keySpacing
         for row in rows {
             var x: CGFloat = ceil((width - (CGFloat(row.count) - 1) * (keySpacing + keyWidth) - keyWidth) / 2.0)
             for var label in row {
