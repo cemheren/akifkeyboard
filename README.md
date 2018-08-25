@@ -1,4 +1,4 @@
-# akifkeyboard
+# qwerty (akifkeyboard)
 
 I'm sick of random companies watching every word I type. So I created this simple custom keyboard for my personal use. I'm adding features as I go along. It doesn't need any internet connectivity for the full feature set. 
 
