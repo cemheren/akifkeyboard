@@ -1,22 +1,5 @@
 import Foundation
 
-final class Word: Searchable {
-    var word: String
-    var keywords: [String] { return [word] }
-    
-    init(word: String) {
-        self.word = word
-    }
-}
-
-extension Word : Hashable {
-    var hashValue: Int { return word.hashValue }
-    
-    static func == (lhs: Word, rhs: Word) -> Bool {
-        return lhs.word == rhs.word
-    }
-}
-
 public protocol Searchable: Hashable {
     var keywords: [String] { get }
 }

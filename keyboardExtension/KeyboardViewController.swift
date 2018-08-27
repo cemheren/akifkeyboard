@@ -93,7 +93,7 @@ class KeyboardViewController: UIInputViewController {
     
     let spaceHeight: CGFloat = 45
     let nextWidth: CGFloat = 50
-    let returnWidth: CGFloat = 100
+    let returnWidth: CGFloat = 90
     let keyboardHeight: CGFloat = 260
     
     var buttons: Array<UIButton> = []
@@ -273,6 +273,11 @@ class KeyboardViewController: UIInputViewController {
     override func textDidChange(_ textInput: UITextInput?) {
         // The app has just changed the document's contents, the document context has been updated.
         
+        // something cleared the view.
+        if self.textDocumentProxy.documentContextAfterInput == nil && self.textDocumentProxy.documentContextBeforeInput == nil{
+            self.textTracker?.signalSentenceEnd()
+        }
+        
         var textColor: UIColor
         let proxy = self.textDocumentProxy
         if proxy.keyboardAppearance == UIKeyboardAppearance.dark {
@@ -298,7 +303,7 @@ class KeyboardViewController: UIInputViewController {
     
     @objc func deleteKeyPressed(sender: UIButton) {
         self.textTracker?.deleteCharacter()
-        
+        self.specialRowController?.updateSpecialRow()
         spacePressed = false
     }
     

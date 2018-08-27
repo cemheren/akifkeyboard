@@ -10,7 +10,7 @@ import Foundation
 
 class CorrectSpelling{
     
-    var knownWords = Set<String>(minimumCapacity: 1)
+    var knownWords = Set<Word>(minimumCapacity: 1)
     
     /// Given a word, produce a set of possible alternatives with
     /// letters transposed, deleted, replaced or rogue characters inserted
@@ -34,7 +34,7 @@ class CorrectSpelling{
             return ""
             }.filter { !$0.isEmpty } as [String]
         
-        let alphabet = "abcdefghijklmnopqrstuvwxyz"
+        let alphabet = "abcdefghijklmnopqrstuvwxyz' "
         
         let replaces = splits.flatMap { left, right in
             alphabet.map { "\(left)\($0)\(right.dropFirst())" }
@@ -47,7 +47,7 @@ class CorrectSpelling{
         return Set(deletes + transposes + replaces + inserts)
     }
     
-    func insertWord(word: String){
+    func insertWord(word: Word){
         self.knownWords.insert(word);
     }
     
@@ -55,14 +55,38 @@ class CorrectSpelling{
         
     }
     
-    func known<S: Sequence>(words: S) -> Set<String>? where S.Iterator.Element == String {
-        let s = Set(words.filter { self.knownWords.contains($0) == true })
-        return s.isEmpty ? nil : s
+    func knownEdits2(edits: Set<String>) -> Set<Word>? {
+        var known_edits: Set<Word> = []
+        for edit in edits {
+            let currentEdits = self.edits(word: edit)
+            let edit1s = known(words: currentEdits)
+            if let k = edit1s {
+                known_edits.formUnion(k)
+            }
+        }
+        return known_edits.isEmpty ? nil : known_edits
     }
     
-    func getCorrection(word: String) -> [String]{
-        let candidates = known(words: [word]) ?? known(words: edits(word: word)) ?? []
+    func known<S: Sequence>(words: S) -> Set<Word>? where S.Iterator.Element == String {
+        var s = Set<Word>();
+        
+        for word in words{
+            if self.knownWords.contains(Word(word: word, weight: 0)) == true{
+                let indexOf = self.knownWords.index(of: Word(word: word, weight: 0));
+                s.insert(self.knownWords[indexOf!])
+            }
+        }
+        
+        return s.isEmpty ? nil : s;
+        
+        //let s = Set(words.filter { self.knownWords.contains(Word(word: $0, weight: 0)) == true })
+        //return s.isEmpty ? nil : s
+    }
+    
+    func getCorrection(word: String) -> [Word]{
+        let edits = self.edits(word: word);
+        let candidates = known(words: [word]) ?? known(words: edits) ?? knownEdits2(edits: edits) ?? []
      
-        return Array(known(words: candidates) ?? [])
+        return Array(candidates)
     }
 }

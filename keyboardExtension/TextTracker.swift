@@ -123,6 +123,13 @@ class TextTracker{
         self.currentWord = ""
     }
     
+    func signalSentenceEnd(){
+        self.lastSentence = currentSentence
+        self.currentSentence = ""
+        self.lastWord = ""
+        self.currentWord = ""
+    }
+    
     func insertText(text: String?){
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         let charCount = text?.count ?? 0
