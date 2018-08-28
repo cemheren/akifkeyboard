@@ -123,6 +123,23 @@ class TextTracker{
         self.currentWord = ""
     }
     
+    func deleteLastWord(){
+        let proxy = self.textDocumentProxy as UITextDocumentProxy
+        
+        for ch in self.lastWord{
+            proxy.deleteBackward()
+            currentSentence = String(currentSentence.dropLast())
+            //print("del " + String(ch))
+        }
+        
+        // delete extra space...
+        proxy.deleteBackward()
+        currentSentence = String(currentSentence.dropLast())
+        
+        self.currentWord = ""
+        self.lastWord = ""
+    }
+    
     func signalSentenceEnd(){
         self.lastSentence = currentSentence
         self.currentSentence = ""
@@ -132,8 +149,7 @@ class TextTracker{
     
     func insertText(text: String?){
         let proxy = self.textDocumentProxy as UITextDocumentProxy
-        let charCount = text?.count ?? 0
-        var insertText = text ?? "";
+        let insertText = text ?? "";
         
         proxy.insertText(insertText)
         

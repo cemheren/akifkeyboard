@@ -132,7 +132,11 @@ class SpecialRowController{
     // n : number
     @objc private func specialKeyPressed(sender: KeyButton) {
         if sender.mode == "r"{
-            self.textTracker?.deleteCurrentWord()
+            if self.textTracker?.currentWord == ""{
+                self.textTracker?.deleteLastWord()
+            }else{
+                self.textTracker?.deleteCurrentWord()
+            }
         }
         
         if sender.mode == "r" || sender.mode == "a"{
