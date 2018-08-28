@@ -114,8 +114,8 @@ class KeyboardViewController: UIInputViewController {
     var specialRowController: SpecialRowController?
     
     private weak var heightConstraint: NSLayoutConstraint?
-    override func updateViewConstraints() {
-        super.updateViewConstraints()
+    override func viewWillAppear(_ animated: Bool){
+        super.viewWillAppear(animated)
         guard nil == self.heightConstraint else { return }
         
         // We must add a subview with an `instrinsicContentSize` that uses autolayout to force the height constraint to be recognized.
