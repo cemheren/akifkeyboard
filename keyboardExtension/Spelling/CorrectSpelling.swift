@@ -78,14 +78,11 @@ class CorrectSpelling{
         }
         
         return s.isEmpty ? nil : s;
-        
-        //let s = Set(words.filter { self.knownWords.contains(Word(word: $0, weight: 0)) == true })
-        //return s.isEmpty ? nil : s
     }
     
     func getCorrection(word: String) -> [Word]{
         let edits = self.edits(word: word);
-        let candidates = known(words: [word]) ?? known(words: edits) ?? knownEdits2(edits: edits) ?? []
+        let candidates = known(words: [word]) ?? known(words: edits) ?? []
      
         return Array(candidates)
     }

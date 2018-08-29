@@ -22,6 +22,8 @@ class SpecialRowController{
     private let keySpacing: CGFloat = 4
     private let rowSpacing: CGFloat = 9
     
+    private var lastUpdated : Date = Date()
+    
     init(textTracker: TextTracker, parentView: UIView) {
         self.textTracker = textTracker
         self.parentView = parentView;
@@ -49,9 +51,14 @@ class SpecialRowController{
         }
         
         if(currentWord.count >= 1){
+            let checkSpellingInitiateTime = Date();
+            
             self.spellCheckController.checkSpelling(currentWord: currentWord, completion: { result in
-                alternatives.append(contentsOf: result.alternatives)
-                self.drawSpecialRow(array: [alternatives])
+                if checkSpellingInitiateTime > self.lastUpdated {
+                    alternatives.append(contentsOf: result.alternatives)
+                    self.drawSpecialRow(array: [alternatives])
+                    self.lastUpdated = Date()
+                }
             })
         }
     }
