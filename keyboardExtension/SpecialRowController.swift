@@ -105,6 +105,8 @@ class SpecialRowController{
                 sb.removeFromSuperview();
             }
             
+            self.specialButtons.removeAll()
+            
             for row in array {
                 var x: CGFloat = ceil((width - (CGFloat(row.count) - 1) * (self.keySpacing + dynamicWidth) - dynamicWidth) / 2.0)
                 for var label in row {
@@ -160,5 +162,7 @@ class SpecialRowController{
         for sb in self.specialButtons{
             sb.removeFromSuperview();
         }
+        
+        self.specialButtons.removeAll()
     }
 }

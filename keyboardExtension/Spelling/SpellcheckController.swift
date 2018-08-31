@@ -41,7 +41,7 @@ class SpellCheckController{
                     let frequency = Int(lineItems[1]) ?? 1;
                     let word = String(lineItems[0]);
                     
-                    if(frequency > 15){
+                    if(frequency > 1){
                         self.autoComplete.insert(Word(word: word, weight: frequency))
                     }
                     self.correctSpelling.insertWord(word: Word(word: word, weight: frequency))

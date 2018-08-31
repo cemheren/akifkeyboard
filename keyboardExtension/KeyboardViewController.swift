@@ -74,11 +74,17 @@ class KeyboardViewController: UIInputViewController {
 
     @IBOutlet var nextKeyboardButton: UIButton!
     
-    let rows = [["q||1", "w||2", "e||3", "r||4", "t||5", "y||6", "u||7", "i||8", "o||9", "p||0"],
+    let combinedRows = [["q||1", "w||2", "e||3", "r||4", "t||5", "y||6", "u||7", "i||8", "o||9", "p||0"],
                 ["a||-", "s||/", "d||;", "f||(", "g||)", "h||$", "j||&", "k||@", "l||\""],
                 ["z||.", "x||,", "c||?", "v||!", "b||:", "n||!", "m||'"]]
     
-    let poundKeyStates = ["off", "numeric", "special", "emoji"]
+    let onlyNumberRows = [["1||1", "2||2", "3||3", "4||4", "5||5", "6||6", "7||7", "8||8", "9||9", "0||0"],
+                          ["-||-", "/||/", ";||;", "(||(", ")||)", "$||$", "&||&", "@||@", "\"||\""],
+                          [".||.", ",||,", "?||?", "!||!", ":||:", "!||!", "'||'"]]
+    
+    var selectedRows = [[""]]
+    
+    let poundKeyStates = ["off", "numeric"]
     var poundKeyCurrentState = 0
     
     let topPadding: CGFloat = 46
@@ -150,6 +156,7 @@ class KeyboardViewController: UIInputViewController {
         self.setupThirdRow()
         self.setupBottomRow()
         
+        self.selectedRows = self.combinedRows;
         self.setupKeys()
         
         self.textTracker = TextTracker(shiftKey: self.shiftKey, textDocumentProxy: self.textDocumentProxy)
@@ -218,7 +225,13 @@ class KeyboardViewController: UIInputViewController {
         var y: CGFloat = topPadding
         var width = UIScreen.main.applicationFrame.size.width
         keyWidth = (width / 10.0) - keySpacing
-        for row in rows {
+        
+        for button in self.buttons{
+            button.removeFromSuperview()
+        }
+        self.buttons.removeAll()
+        
+        for row in self.selectedRows {
             var x: CGFloat = ceil((width - (CGFloat(row.count) - 1) * (keySpacing + keyWidth) - keyWidth) / 2.0)
             for var label in row {
                 
@@ -380,18 +393,16 @@ class KeyboardViewController: UIInputViewController {
         let nextState = self.poundKeyStates[self.poundKeyCurrentState]
         
         if nextState == "numeric"{
-            self.specialRowController?.drawSpecialRow(array: [["1:n", "2:n", "3:n", "4:n", "5:n", "6:n", "7:n", "8:n", "9:n", "0:n"]])
+            self.selectedRows = self.onlyNumberRows;
+            self.setupKeys()
+            self.specialRowController?.drawSpecialRow(array: [["😂:n", "😘:n", "💕:n", "❤️:n", "👍:n", "😅:n", "😥:n", "😎:n", "☺️:n", "🙃:n"]])
+        }else{
+            self.selectedRows = self.combinedRows;
+            self.setupKeys()
         }
         if nextState == "off"{
             self.specialRowController?.clearSpecialKeys()
         }
-        if nextState == "special"{
-            self.specialRowController?.drawSpecialRow(array: [["!:n", "@:n", "?:n", ".:n", ",:n", "':n", "#:n", "$:n", "&:n", "-:n"]])
-        }
-        if nextState == "emoji"{
-            self.specialRowController?.drawSpecialRow(array: [["😂:n", "😘:n", "💕:n", "❤️:n", "👍:n", "😅:n", "😥:n", "😎:n", "☺️:n", "🙃:n"]])
-        }
-        
     }
     
     func redrawButtonsForShift() {
