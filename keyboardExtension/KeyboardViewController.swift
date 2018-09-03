@@ -245,7 +245,7 @@ class KeyboardViewController: UIInputViewController {
                 }
                 
                 let button = KeyButton(frame: CGRect(x: x, y: y, width: keyWidth, height: keyHeight))
-                button.setTitle(label.uppercased(), for: .normal)
+                button.setTitle(self.shiftKey?.isSelected ?? false ? label.uppercased() : label.lowercased(), for: .normal)
                 button.addTarget(self, action:#selector(keyPressed(sender:)), for: .touchUpInside)
                 
                 let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(keyLongPressed(sender: )))
