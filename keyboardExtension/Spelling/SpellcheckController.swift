@@ -25,7 +25,11 @@ class SpellCheckController{
     
     let endpoint: String = "https://2hwrmsajo2.execute-api.eu-central-1.amazonaws.com/Prod/spellcheck?prompt="
 
-    init() {
+    var filename = ""
+    
+    init(filename: String) {
+        self.filename = filename;
+        
         DispatchQueue.global(qos: .background).async {
             self.loadData()
         }
@@ -33,7 +37,7 @@ class SpellCheckController{
     
     func loadData(){
         do {
-            let path = Bundle.main.path(forResource: "wordslonglist", ofType: "csv")
+            let path = Bundle.main.path(forResource: self.filename, ofType: "csv")
             let data = try String(contentsOfFile: (path)!, encoding: .utf8)
             data.components(separatedBy: .newlines).forEach({
                 let lineItems  = $0.split(separator: ",")

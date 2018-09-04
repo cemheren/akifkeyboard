@@ -15,7 +15,7 @@ class SpecialRowController{
     private var parentView: UIView?
     
     private var specialButtons: Array<UIButton> = []
-    private var spellCheckController : SpellCheckController = SpellCheckController()
+    private var spellCheckController : SpellCheckController
     
     private let specialRowPadding: CGFloat = 1
     private let specialKeyHeight: CGFloat = 40
@@ -24,9 +24,10 @@ class SpecialRowController{
     
     private var lastUpdated : Date = Date()
     
-    init(textTracker: TextTracker, parentView: UIView) {
+    init(textTracker: TextTracker, parentView: UIView, spellCheckController: SpellCheckController) {
         self.textTracker = textTracker
         self.parentView = parentView;
+        self.spellCheckController = spellCheckController
     }
     
     func getSpecialRow(){

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomeController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,5 +21,10 @@ class ViewController: UIViewController {
     }
 
 
+    @IBAction func OpenSettings(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "Settings") as! SettingsController
+        self.present(newViewController, animated: false, completion: nil)
+    }
 }
 

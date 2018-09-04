@@ -11,10 +11,13 @@
 		3A0133BA21338FE100FF88A3 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0133B821338FE100FF88A3 /* Word.swift */; };
 		3A0133C22138E05000FF88A3 /* KeybuttonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A0133C12138E05000FF88A3 /* KeybuttonView.xib */; };
 		3A0133C32138E05000FF88A3 /* KeybuttonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A0133C12138E05000FF88A3 /* KeybuttonView.xib */; };
+		3A79C4C5213E85FF00218EE8 /* EnglishQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4C4213E85FF00218EE8 /* EnglishQ.swift */; };
+		3A79C4C6213E85FF00218EE8 /* EnglishQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4C4213E85FF00218EE8 /* EnglishQ.swift */; };
+		3A79C4C8213E885900218EE8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4C7213E885900218EE8 /* SettingsViewController.swift */; };
 		3A939AD5212BC8A700631519 /* autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A939AD4212BC8A700631519 /* autocomplete.swift */; };
 		3A939AD6212BC8DE00631519 /* autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A939AD4212BC8A700631519 /* autocomplete.swift */; };
-		3A939AD8212BCB6B00631519 /* wordsshortlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A939AD7212BCB6B00631519 /* wordsshortlist.txt */; };
-		3A939AD9212BCB6B00631519 /* wordsshortlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3A939AD7212BCB6B00631519 /* wordsshortlist.txt */; };
+		3A9F28DF213D0F7B007934C5 /* turkish.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F28DE213D0F7B007934C5 /* turkish.csv */; };
+		3A9F28E0213D0F7B007934C5 /* turkish.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F28DE213D0F7B007934C5 /* turkish.csv */; };
 		3AA7F0AA212BA76E00949D0B /* SpecialRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */; };
 		3AA7F0AB212BA76E00949D0B /* SpecialRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */; };
 		3ACC4A08212538ED006A7EC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC4A07212538ED006A7EC5 /* AppDelegate.swift */; };
@@ -33,8 +36,8 @@
 		3AF03E03212E7271000C07C7 /* my_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3AF03E01212E7271000C07C7 /* my_model.mlmodel */; };
 		3AF03E05212E81DB000C07C7 /* CorrectSpelling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF03E04212E81DB000C07C7 /* CorrectSpelling.swift */; };
 		3AF03E06212E81DB000C07C7 /* CorrectSpelling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF03E04212E81DB000C07C7 /* CorrectSpelling.swift */; };
-		3AF03E08212F99FA000C07C7 /* wordslonglist.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3AF03E07212F99FA000C07C7 /* wordslonglist.csv */; };
-		3AF03E09212F99FA000C07C7 /* wordslonglist.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3AF03E07212F99FA000C07C7 /* wordslonglist.csv */; };
+		3AF03E08212F99FA000C07C7 /* english.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3AF03E07212F99FA000C07C7 /* english.csv */; };
+		3AF03E09212F99FA000C07C7 /* english.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3AF03E07212F99FA000C07C7 /* english.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,8 +67,12 @@
 /* Begin PBXFileReference section */
 		3A0133B821338FE100FF88A3 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		3A0133C12138E05000FF88A3 /* KeybuttonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeybuttonView.xib; sourceTree = "<group>"; };
+		3A79C4C4213E85FF00218EE8 /* EnglishQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnglishQ.swift; sourceTree = "<group>"; };
+		3A79C4C7213E885900218EE8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		3A79C4CA213E8E0D00218EE8 /* keyboardExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = keyboardExtension.entitlements; sourceTree = "<group>"; };
+		3A79C4CB213E8E2200218EE8 /* akifkeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = akifkeyboard.entitlements; sourceTree = "<group>"; };
 		3A939AD4212BC8A700631519 /* autocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = autocomplete.swift; sourceTree = "<group>"; };
-		3A939AD7212BCB6B00631519 /* wordsshortlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordsshortlist.txt; sourceTree = "<group>"; };
+		3A9F28DE213D0F7B007934C5 /* turkish.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = turkish.csv; sourceTree = "<group>"; };
 		3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialRowController.swift; sourceTree = "<group>"; };
 		3ACC4A04212538ED006A7EC5 /* akifkeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = akifkeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ACC4A07212538ED006A7EC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,7 +88,7 @@
 		3AEE55272129E65A006979FE /* TextTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTracker.swift; sourceTree = "<group>"; };
 		3AF03E01212E7271000C07C7 /* my_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = my_model.mlmodel; sourceTree = "<group>"; };
 		3AF03E04212E81DB000C07C7 /* CorrectSpelling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectSpelling.swift; sourceTree = "<group>"; };
-		3AF03E07212F99FA000C07C7 /* wordslonglist.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordslonglist.csv; sourceTree = "<group>"; };
+		3AF03E07212F99FA000C07C7 /* english.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = english.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +120,14 @@
 			path = Spelling;
 			sourceTree = "<group>";
 		};
+		3A79C4C3213E85E100218EE8 /* Specializations */ = {
+			isa = PBXGroup;
+			children = (
+				3A79C4C4213E85FF00218EE8 /* EnglishQ.swift */,
+			);
+			path = Specializations;
+			sourceTree = "<group>";
+		};
 		3ACC49FB212538ED006A7EC5 = {
 			isa = PBXGroup;
 			children = (
@@ -134,8 +149,10 @@
 		3ACC4A06212538ED006A7EC5 /* akifkeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				3A79C4CB213E8E2200218EE8 /* akifkeyboard.entitlements */,
 				3ACC4A07212538ED006A7EC5 /* AppDelegate.swift */,
 				3ACC4A09212538ED006A7EC5 /* ViewController.swift */,
+				3A79C4C7213E885900218EE8 /* SettingsViewController.swift */,
 				3ACC4A0B212538ED006A7EC5 /* Main.storyboard */,
 				3ACC4A0E212538EE006A7EC5 /* Assets.xcassets */,
 				3ACC4A10212538EE006A7EC5 /* LaunchScreen.storyboard */,
@@ -147,14 +164,16 @@
 		3ACC4A1E21253901006A7EC5 /* keyboardExtension */ = {
 			isa = PBXGroup;
 			children = (
+				3A79C4CA213E8E0D00218EE8 /* keyboardExtension.entitlements */,
 				3A0133B721338FB400FF88A3 /* Spelling */,
 				3AF03E01212E7271000C07C7 /* my_model.mlmodel */,
-				3A939AD7212BCB6B00631519 /* wordsshortlist.txt */,
-				3AF03E07212F99FA000C07C7 /* wordslonglist.csv */,
+				3AF03E07212F99FA000C07C7 /* english.csv */,
+				3A9F28DE213D0F7B007934C5 /* turkish.csv */,
 				3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */,
 				3A0133C12138E05000FF88A3 /* KeybuttonView.xib */,
 				3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */,
 				3AEE55272129E65A006979FE /* TextTracker.swift */,
+				3A79C4C3213E85E100218EE8 /* Specializations */,
 				3ACC4A2121253901006A7EC5 /* Info.plist */,
 			);
 			path = keyboardExtension;
@@ -211,9 +230,19 @@
 				TargetAttributes = {
 					3ACC4A03212538ED006A7EC5 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					3ACC4A1C21253901006A7EC5 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -242,11 +271,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3ACC4A12212538EE006A7EC5 /* LaunchScreen.storyboard in Resources */,
-				3AF03E08212F99FA000C07C7 /* wordslonglist.csv in Resources */,
+				3A9F28DF213D0F7B007934C5 /* turkish.csv in Resources */,
+				3AF03E08212F99FA000C07C7 /* english.csv in Resources */,
 				3A0133C22138E05000FF88A3 /* KeybuttonView.xib in Resources */,
 				3ACC4A0F212538EE006A7EC5 /* Assets.xcassets in Resources */,
 				3ACC4A0D212538ED006A7EC5 /* Main.storyboard in Resources */,
-				3A939AD8212BCB6B00631519 /* wordsshortlist.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,8 +283,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3AF03E09212F99FA000C07C7 /* wordslonglist.csv in Resources */,
-				3A939AD9212BCB6B00631519 /* wordsshortlist.txt in Resources */,
+				3A9F28E0213D0F7B007934C5 /* turkish.csv in Resources */,
+				3AF03E09212F99FA000C07C7 /* english.csv in Resources */,
 				3A0133C32138E05000FF88A3 /* KeybuttonView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,12 +300,14 @@
 				3A939AD6212BC8DE00631519 /* autocomplete.swift in Sources */,
 				3ACC4A2A21253B41006A7EC5 /* KeyboardViewController.swift in Sources */,
 				3AA7F0AA212BA76E00949D0B /* SpecialRowController.swift in Sources */,
+				3A79C4C5213E85FF00218EE8 /* EnglishQ.swift in Sources */,
 				3AEE55282129E65A006979FE /* TextTracker.swift in Sources */,
 				3AF03E05212E81DB000C07C7 /* CorrectSpelling.swift in Sources */,
 				3ACC4A08212538ED006A7EC5 /* AppDelegate.swift in Sources */,
 				3A0133B921338FE100FF88A3 /* Word.swift in Sources */,
 				3AF03E02212E7271000C07C7 /* my_model.mlmodel in Sources */,
 				3AEE5526212951A8006979FE /* SpellcheckController.swift in Sources */,
+				3A79C4C8213E885900218EE8 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +320,7 @@
 				3ACC4A2021253901006A7EC5 /* KeyboardViewController.swift in Sources */,
 				3AF03E03212E7271000C07C7 /* my_model.mlmodel in Sources */,
 				3AA7F0AB212BA76E00949D0B /* SpecialRowController.swift in Sources */,
+				3A79C4C6213E85FF00218EE8 /* EnglishQ.swift in Sources */,
 				3AF03E06212E81DB000C07C7 /* CorrectSpelling.swift in Sources */,
 				3AEE552521294BB4006979FE /* SpellcheckController.swift in Sources */,
 				3A939AD5212BC8A700631519 /* autocomplete.swift in Sources */,
@@ -444,6 +476,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = akifkeyboard/akifkeyboard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 28RCJTKZ47;
 				INFOPLIST_FILE = akifkeyboard/Info.plist;
@@ -464,6 +497,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = akifkeyboard/akifkeyboard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 28RCJTKZ47;
 				INFOPLIST_FILE = akifkeyboard/Info.plist;
@@ -482,6 +516,7 @@
 		3ACC4A2621253901006A7EC5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = keyboardExtension/keyboardExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 28RCJTKZ47;
 				INFOPLIST_FILE = keyboardExtension/Info.plist;
@@ -501,6 +536,7 @@
 		3ACC4A2721253901006A7EC5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = keyboardExtension/keyboardExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 28RCJTKZ47;
 				INFOPLIST_FILE = keyboardExtension/Info.plist;
