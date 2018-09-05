@@ -17,5 +17,5 @@ class TurkishQ : Specialization{
                                   [".||.", ",||,", "?||?", "!||!", ":||:", "!||!", "'||'"]]
     
     let spellCheckfilename = "turkish"
-    let autocompleteCutoffFrequency = 100000;
+    let autocompleteCutoffFrequency = 100;
 }
