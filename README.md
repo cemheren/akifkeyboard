@@ -33,4 +33,5 @@ The app is in AppStore now https://itunes.apple.com/us/app/qwerty-keyboard/id143
 
 Special note: The app is named after the legendary spectre player qwerty
 https://www.reddit.com/r/DotA2/comments/2ok7d9/qwerty/
+
 https://www.youtube.com/watch?v=V-oi0BrpXMs
