@@ -13,6 +13,8 @@ What's supported:
 8. Long press buttons for secondary character
 9. Press and slide out for secondary character (allows very fast typing)
 10. Long press delete button allows fast delete like IOS keyboard 
+11. Support for Turkish lang and characters
+12. Support for Dvorak layout
 
 <p align="center">
   <img src="https://github.com/cemheren/akifkeyboard/blob/master/SS.png" width="350" title="hover text">
