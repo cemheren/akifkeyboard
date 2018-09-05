@@ -27,5 +27,10 @@ What's supported:
   
   <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-09-05%20at%2016.33.13.png" width="120" title="hover text">
   
-  
 </p>
+
+The app is in AppStore now https://itunes.apple.com/us/app/qwerty-keyboard/id1434021039?mt=8
+
+Special note: The app is named after the legendary spectre player qwerty
+https://www.reddit.com/r/DotA2/comments/2ok7d9/qwerty/
+https://www.youtube.com/watch?v=V-oi0BrpXMs
