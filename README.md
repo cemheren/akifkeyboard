@@ -25,7 +25,7 @@ What's supported:
   
   <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-09-05%20at%2016.32.54.png" width="120" title="hover text">
   
-  <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-09-05%20at%2016.33.13.png" width="150" title="hover text">
+  <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-09-05%20at%2016.33.13.png" width="120" title="hover text">
   
   
 </p>
