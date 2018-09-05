@@ -74,13 +74,7 @@ class KeyboardViewController: UIInputViewController {
 
     @IBOutlet var nextKeyboardButton: UIButton!
     
-    var layout = [["q||1", "w||2", "e||3", "r||4", "t||5", "y||6", "u||7", "i||8", "o||9", "p||0"],
-                ["a||-", "s||/", "d||;", "f||(", "g||)", "h||$", "j||&", "k||@", "l||\""],
-                ["z||.", "x||,", "c||?", "v||!", "b||:", "n||!", "m||'"]]
-    
-    var secondaryLayout = [["1||1", "2||2", "3||3", "4||4", "5||5", "6||6", "7||7", "8||8", "9||9", "0||0"],
-                          ["-||-", "/||/", ";||;", "(||(", ")||)", "$||$", "&||&", "@||@", "\"||\""],
-                          [".||.", ",||,", "?||?", "!||!", ":||:", "!||!", "'||'"]]
+    var settings: Specialization = EnglishQ()
     
     var selectedRows = [[""]]
     
@@ -145,15 +139,18 @@ class KeyboardViewController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var correctiveFile = "turkish"
+        // Load settings
         if let userDefaults = UserDefaults(suiteName: "group.heren.kifboard") {
             if let flavor = userDefaults.string(forKey: "flavor"){
                 print(flavor)
                 if(flavor == "English"){
-                    let english = EnglishQ()
-                    self.layout = english.layout
-                    self.secondaryLayout = english.secondaryLayout
-                    correctiveFile = english.spellCheckfilename
+                    self.settings = EnglishQ()
+                }else if(flavor == "EnglishWithTurkishChars"){
+                    self.settings = EnglishQTurkishExtended()
+                }else if(flavor == "Turkish"){
+                    self.settings = TurkishQ()
+                }else if(flavor == "Dvorak"){
+                    self.settings = EnglishDvorak()
                 }
             }
         }
@@ -169,11 +166,14 @@ class KeyboardViewController: UIInputViewController {
         self.setupThirdRow()
         self.setupBottomRow()
         
-        self.selectedRows = self.layout;
+        self.selectedRows = self.settings.layout;
         self.setupKeys()
         
         self.textTracker = TextTracker(shiftKey: self.shiftKey, textDocumentProxy: self.textDocumentProxy)
-        self.specialRowController = SpecialRowController(textTracker: self.textTracker!, parentView: self.view, spellCheckController: SpellCheckController(filename: correctiveFile))
+        self.specialRowController = SpecialRowController(
+            textTracker: self.textTracker!,
+            parentView: self.view,
+            spellCheckController: SpellCheckController(filename: self.settings.spellCheckfilename, autocompleteCutoffFrequency: self.settings.autocompleteCutoffFrequency))
         
         self.specialRowController?.drawSpecialRow(array: [["", "", ""]])
     }
@@ -258,6 +258,7 @@ class KeyboardViewController: UIInputViewController {
                 }
                 
                 let button = KeyButton(frame: CGRect(x: x, y: y, width: keyWidth, height: keyHeight))
+                
                 button.setTitle(self.shiftKey?.isSelected ?? false ? label.uppercased() : label.lowercased(), for: .normal)
                 button.addTarget(self, action:#selector(keyPressed(sender:)), for: .touchUpInside)
                 
@@ -406,11 +407,11 @@ class KeyboardViewController: UIInputViewController {
         let nextState = self.poundKeyStates[self.poundKeyCurrentState]
         
         if nextState == "numeric"{
-            self.selectedRows = self.secondaryLayout;
+            self.selectedRows = self.settings.secondaryLayout;
             self.setupKeys()
             self.specialRowController?.drawSpecialRow(array: [["😂:n", "😘:n", "💕:n", "❤️:n", "👍:n", "😅:n", "😥:n", "😎:n", "☺️:n", "🙃:n"]])
         }else{
-            self.selectedRows = self.layout;
+            self.selectedRows = self.settings.layout;
             self.setupKeys()
         }
         if nextState == "off"{

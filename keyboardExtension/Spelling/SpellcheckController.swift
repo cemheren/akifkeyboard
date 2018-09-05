@@ -26,9 +26,11 @@ class SpellCheckController{
     let endpoint: String = "https://2hwrmsajo2.execute-api.eu-central-1.amazonaws.com/Prod/spellcheck?prompt="
 
     var filename = ""
+    var autocompleteCutoffFrequency = 3;
     
-    init(filename: String) {
+    init(filename: String, autocompleteCutoffFrequency: Int) {
         self.filename = filename;
+        self.autocompleteCutoffFrequency = autocompleteCutoffFrequency;
         
         DispatchQueue.global(qos: .background).async {
             self.loadData()
@@ -38,14 +40,31 @@ class SpellCheckController{
     func loadData(){
         do {
             let path = Bundle.main.path(forResource: self.filename, ofType: "csv")
+            
+//            if let streamReader = StreamReader(path: path!) {
+//                while let line = streamReader.nextLine() {
+//                    let lineItems  = line.components(separatedBy: ",")
+//                    if(lineItems.count == 2){
+//                        let frequency = Int(lineItems[1]) ?? 1;
+//                        let word = String(lineItems[0]);
+//
+//                        if(frequency > self.autocompleteCutoffFrequency){
+//                            self.autoComplete.insert(Word(word: word, weight: frequency))
+//                        }
+//
+//                        self.correctSpelling.insertWord(word: Word(word: word, weight: frequency))
+//                    }
+//                }
+//            }
+            
             let data = try String(contentsOfFile: (path)!, encoding: .utf8)
             data.components(separatedBy: .newlines).forEach({
                 let lineItems  = $0.split(separator: ",")
                 if(lineItems.count == 2){
                     let frequency = Int(lineItems[1]) ?? 1;
                     let word = String(lineItems[0]);
-                    
-                    if(frequency > 3){
+
+                    if(frequency > self.autocompleteCutoffFrequency){
                         self.autoComplete.insert(Word(word: word, weight: frequency))
                     }
                     self.correctSpelling.insertWord(word: Word(word: word, weight: frequency))

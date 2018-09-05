@@ -8,11 +8,27 @@
 
 import UIKit
 
-class SettingsController: UIViewController {
+class SettingsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    let flavors: [String] = ["English", "Dvorak", "Turkish", "EnglishWithTurkishChars"]
+    
+    // cell reuse id (cells that scroll out of view can be reused)
+    let cellReuseIdentifier = "cell"
+    
+    // don't forget to hook this up from the storyboard
+    @IBOutlet var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        
+        // (optional) include this line if you want to remove the extra empty cell divider lines
+        // self.tableView.tableFooterView = UIView()
+        
+        // This view controller itself will provide the delegate methods and row data for the table view.
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     override func didReceiveMemoryWarning() {
@@ -26,15 +42,27 @@ class SettingsController: UIViewController {
         self.present(newViewController, animated: false, completion: nil)
     }
     
-    @IBAction func PickEnglish(_ sender: Any) {
-        if let userDefaults = UserDefaults(suiteName: "group.heren.kifboard") {
-            userDefaults.set("English", forKey: "flavor")
-        }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.flavors.count
     }
     
-    @IBAction func PickTurkish(_ sender: Any) {
+    // create a cell for each table view row
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // create a new cell if needed or reuse an old one
+        let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
+        
+        // set the text from the data model
+        cell.textLabel?.text = self.flavors[indexPath.row]
+        
+        return cell
+    }
+    
+    // method to run when table view cell is tapped
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("You tapped cell \(self.flavors[indexPath.row]).")
+        
         if let userDefaults = UserDefaults(suiteName: "group.heren.kifboard") {
-            userDefaults.set("Turkish", forKey: "flavor")
+            userDefaults.set(self.flavors[indexPath.row], forKey: "flavor")
         }
     }
 }

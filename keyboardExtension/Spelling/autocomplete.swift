@@ -25,6 +25,7 @@ open class AutoComplete<T: Searchable> {
                         at currentIndex: inout Int,
                         max maxIndex: inout Int,
                         object: T) {
+        
         if currentIndex < maxIndex {
             let current = tokens[currentIndex]
             currentIndex += 1
