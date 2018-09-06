@@ -38,8 +38,20 @@ class SpecialRowController{
         let currentWord = self.textTracker?.currentWord ?? ""
         var alternatives = Array<String>()
         
-        if(self.handlePronouns(currentWord)){
-            return; // already handled
+        if currentWord == "i" {
+            alternatives.append("I")
+            self.drawSpecialRow(array: [alternatives])
+        }
+        let lowercasedCurrentWord = currentWord.lowercased();
+        
+        if lowercasedCurrentWord == "im" {
+            alternatives.append("I'm")
+            self.drawSpecialRow(array: [alternatives])
+        }
+        
+        if lowercasedCurrentWord == "ill"{
+            alternatives.append("I'll")
+            self.drawSpecialRow(array: [alternatives])
         }
         
         let lowercased = self.textTracker?.currentSentence.lowercased().components(separatedBy: " ");
@@ -62,37 +74,6 @@ class SpecialRowController{
                 }
             })
         }
-    }
-    
-    // returns is handled
-    private func handlePronouns(_ currentWord: String) -> Bool{
-        if currentWord == "i" {
-            self.drawSpecialRow(array:[["I"]])
-            return true;
-        }
-        let lowercased = currentWord.lowercased();
-        
-        if lowercased == "im" {
-            self.drawSpecialRow(array:[["I'm"]])
-            return true;
-        }
-        
-        if lowercased == "hes"{
-            self.drawSpecialRow(array:[["he's"]])
-            return true;
-        }
-        
-        if lowercased == "its"{
-            self.drawSpecialRow(array:[["it's"]])
-            return true;
-        }
-        
-        if lowercased == "ill"{
-            self.drawSpecialRow(array:[["I'll"]])
-            return true;
-        }
-        
-        return false;
     }
     
     func drawSpecialRow(array: Array<Array<String>>){

@@ -12,10 +12,15 @@ class SpellCheckModel{
     
     let isCorrect: Bool
     let alternatives: [String]
+//    let middle: String
+//    let left: String
+//    let right: String
     
-    init(isCorrect: Bool, alternatives: [String]) {
+    init(isCorrect: Bool, alternatives: [Word]) {
         self.isCorrect = isCorrect
-        self.alternatives = Array(Set(Array(alternatives.prefix(4))));
+        // Ensure the best prediction is on the most right.
+        let setOfAlternatives = Array(Set(Array(alternatives.prefix(4))).sorted(by: { $0.weight < $1.weight }).map{value in value.word});
+        self.alternatives = setOfAlternatives
     }
 }
 
@@ -80,27 +85,27 @@ class SpellCheckController{
         
             let results = self.autoComplete.search(currentWord)
         
-            var keyDist1 = self.getAlternatives(word: currentWord)
-            
-            var keyDist1Results = keyDist1.flatMap {self.autoComplete.search($0)}.map{Word(word: $0.word, weight: Int(Double($0.weight) / 2.0))}
+            let keyDist1 = self.getAlternatives(word: currentWord)
+            let keyDist1Results = keyDist1.flatMap {self.autoComplete.search($0)}.map{Word(word: $0.word, weight: Int(Double($0.weight) / 4.0))}
             
             var corrections: [Word] = [];
             if results.count < 4{
                 corrections = self.correctSpelling.getCorrection(word: currentWord.lowercased());
             }
 
-            let alternatives = results.sorted(by: { $0.weight > $1.weight }).map{value in value.word}
-                + keyDist1Results.sorted(by: { $0.weight > $1.weight }).map{value in value.word}
-                + corrections.sorted(by: { $0.weight > $1.weight }).map{value in value.word}
+            let alternatives = results
+                + keyDist1Results
+                + corrections
 
             DispatchQueue.main.async {
-                completion(SpellCheckModel(isCorrect: false, alternatives: alternatives))
+                completion(SpellCheckModel(isCorrect: false,
+                   alternatives: alternatives.sorted(by: { $0.weight > $1.weight })))
             }
         }
     }
     
     func getURI(url: String, completion: @escaping (_ result: SpellCheckModel)->()){
-        var url = URL(string: url) ?? nil
+        let url = URL(string: url) ?? nil
         
         if(url == nil){ return }
         
@@ -121,7 +126,7 @@ class SpellCheckController{
                 print(json["isCorrect"])
                 print(json["suggested"])
                 
-                completion(SpellCheckModel(isCorrect: (json["isCorrect"] != nil), alternatives: json["suggested"] as! [String]))
+                //completion(SpellCheckModel(isCorrect: (json["isCorrect"] != nil), alternatives: json["suggested"] as! [String]))
                 
             } catch {
                 print("error")
