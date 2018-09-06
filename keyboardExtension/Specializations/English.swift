@@ -20,6 +20,7 @@ class EnglishQ : Specialization{
     
     let spellCheckfilename = "english"
     let autocompleteCutoffFrequency = 3;
+    let spaceAfterAutoComplete = true;
 }
 
 class EnglishQTurkishExtended : Specialization{
@@ -34,10 +35,11 @@ class EnglishQTurkishExtended : Specialization{
     
     let spellCheckfilename = "english" // for now
     let autocompleteCutoffFrequency = 3;
+    
+    let spaceAfterAutoComplete = true;
 }
 
 class EnglishDvorak : Specialization{
-    
     public let layout = [["q||.", "p||1", "y||2", "f||3", "g||4", "c||5", "r||6", "l||7", "z||9"],
                          ["a||-", "o||/", "e||;", "u||(", "i||)", "d", "h||$", "t||&", "n||@", "s||\""],
                          ["j||,", "k||?", "x||!", "b||:", "m||!", "w||'", "v||8"]];
@@ -48,4 +50,5 @@ class EnglishDvorak : Specialization{
     
     let spellCheckfilename = "english"
     let autocompleteCutoffFrequency = 3;
+    let spaceAfterAutoComplete = true;
 }

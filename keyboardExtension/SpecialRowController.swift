@@ -23,11 +23,13 @@ class SpecialRowController{
     private let rowSpacing: CGFloat = 9
     
     private var lastUpdated : Date = Date()
+    private var spaceAfterAutoComplete = false;
     
-    init(textTracker: TextTracker, parentView: UIView, spellCheckController: SpellCheckController) {
+    init(textTracker: TextTracker, parentView: UIView, spellCheckController: SpellCheckController, specialization: Specialization) {
         self.textTracker = textTracker
         self.parentView = parentView;
         self.spellCheckController = spellCheckController
+        self.spaceAfterAutoComplete = specialization.spaceAfterAutoComplete
     }
     
     func getSpecialRow(){
@@ -68,7 +70,12 @@ class SpecialRowController{
             
             self.spellCheckController.checkSpelling(currentWord: currentWord, completion: { result in
                 if checkSpellingInitiateTime > self.lastUpdated {
-                    alternatives.append(contentsOf: result.alternatives)
+                    
+                    if(self.spaceAfterAutoComplete == false){
+                        alternatives.append(contentsOf: result.alternatives.map({$0 + ":s"}))
+                    }else{
+                        alternatives.append(contentsOf: result.alternatives)
+                    }
                     self.drawSpecialRow(array: [alternatives])
                     self.lastUpdated = Date()
                 }
@@ -117,10 +124,12 @@ class SpecialRowController{
         }
     }
     
+    // probably we should look at these at some point.
     // modes:
     // r : replace
     // a : append
     // n : number
+    // s : no space after append
     @objc private func specialKeyPressed(sender: KeyButton) {
         if sender.mode == "r"{
             if self.textTracker?.currentWord == ""{
@@ -133,6 +142,17 @@ class SpecialRowController{
         if sender.mode == "r" || sender.mode == "a"{
             self.textTracker?.insertText(text: (sender.titleLabel?.text)! + " ")
             self.clearSpecialKeys()
+        }
+        
+        if sender.mode == "s"{
+            if self.textTracker?.currentWord == ""{
+                self.textTracker?.deleteLastWord()
+            }else{
+                self.textTracker?.deleteCurrentWord()
+            }
+            self.textTracker?.insertText(text: (sender.titleLabel?.text)!)
+            self.clearSpecialKeys()
+            self.textTracker?.signalWordEnd()
         }
         
         if sender.mode == "n"{

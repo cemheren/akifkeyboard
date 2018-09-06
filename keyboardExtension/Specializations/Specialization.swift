@@ -13,4 +13,6 @@ protocol Specialization{
     
     var spellCheckfilename: String {get}
     var autocompleteCutoffFrequency: Int {get}
+    
+    var spaceAfterAutoComplete: Bool {get}
 }

@@ -151,6 +151,8 @@ class KeyboardViewController: UIInputViewController {
                     self.settings = TurkishQ()
                 }else if(flavor == "Dvorak"){
                     self.settings = EnglishDvorak()
+                }else if(flavor == "Chinese"){
+                    self.settings = Chinese()
                 }
             }
         }
@@ -173,7 +175,8 @@ class KeyboardViewController: UIInputViewController {
         self.specialRowController = SpecialRowController(
             textTracker: self.textTracker!,
             parentView: self.view,
-            spellCheckController: SpellCheckController(filename: self.settings.spellCheckfilename, autocompleteCutoffFrequency: self.settings.autocompleteCutoffFrequency))
+            spellCheckController: SpellCheckController(specialization: self.settings),
+            specialization: self.settings)
         
         self.specialRowController?.drawSpecialRow(array: [["", "", ""]])
     }

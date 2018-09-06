@@ -18,4 +18,6 @@ class TurkishQ : Specialization{
     
     let spellCheckfilename = "turkish"
     let autocompleteCutoffFrequency = 100;
+    
+    let spaceAfterAutoComplete = false
 }

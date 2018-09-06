@@ -10,12 +10,22 @@ import Foundation
 
 final class Word: Searchable {
     var word: String
-    var keywords: [String] { return [word] }
+    var keywords: [String] { return _keywords }
+    private var _keywords: [String]
+    
     var weight: Int
     
     init(word: String, weight: Int) {
         self.word = word
         self.weight = weight;
+        
+        self._keywords = [word]
+    }
+    
+    init(word: String, weight: Int, keywords: [String]) {
+        self.word = word
+        self.weight = weight;
+        self._keywords = keywords
     }
 }
 

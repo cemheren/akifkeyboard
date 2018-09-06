@@ -33,9 +33,9 @@ class SpellCheckController{
     var filename = ""
     var autocompleteCutoffFrequency = 3;
     
-    init(filename: String, autocompleteCutoffFrequency: Int) {
-        self.filename = filename;
-        self.autocompleteCutoffFrequency = autocompleteCutoffFrequency;
+    init(specialization: Specialization) {
+        self.filename = specialization.spellCheckfilename;
+        self.autocompleteCutoffFrequency = specialization.autocompleteCutoffFrequency;
         
         DispatchQueue.global(qos: .background).async {
             self.loadData()
@@ -74,6 +74,20 @@ class SpellCheckController{
                     }
                     self.correctSpelling.insertWord(word: Word(word: word, weight: frequency))
                 }
+                if(lineItems.count == 3){
+                    let frequency = Int(lineItems[1]) ?? 1;
+                    let word = String(lineItems[0]);
+                    let keywords = lineItems[2].replacingOccurrences(of: "[", with: "")
+                        .replacingOccurrences(of: "]", with: "")
+                        .replacingOccurrences(of: "\'", with: "")
+                        .folding(options: .diacriticInsensitive, locale: nil)
+                        .components(separatedBy: ",")
+                    
+                    if(frequency > self.autocompleteCutoffFrequency){
+                        self.autoComplete.insert(Word(word: word, weight: frequency, keywords: keywords))
+                    }
+                    self.correctSpelling.insertWord(word: Word(word: word, weight: frequency))
+                }
             })
         } catch {
             print(error)
@@ -102,38 +116,6 @@ class SpellCheckController{
                    alternatives: alternatives.sorted(by: { $0.weight > $1.weight })))
             }
         }
-    }
-    
-    func getURI(url: String, completion: @escaping (_ result: SpellCheckModel)->()){
-        let url = URL(string: url) ?? nil
-        
-        if(url == nil){ return }
-        
-        var request = URLRequest(url: url!)
-        request.httpMethod = "GET"
-        //request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
-            if(response == nil){
-                return;
-            }
-            
-            print(response!)
-            do {
-                let json = try JSONSerialization.jsonObject(with: data!) as! Dictionary<String, AnyObject>
-                print(json["isCorrect"])
-                print(json["suggested"])
-                
-                //completion(SpellCheckModel(isCorrect: (json["isCorrect"] != nil), alternatives: json["suggested"] as! [String]))
-                
-            } catch {
-                print("error")
-            }
-        })
-        
-        task.resume()
     }
     
     func getAlternatives(word: String) -> [String]{
@@ -170,7 +152,7 @@ class SpellCheckController{
         
         func abc(left: Substring, right: Substring) -> [String]{
             let char = String(right.first!).lowercased()
-            var exists = characterMapping[char] != nil
+            let exists = characterMapping[char] != nil
             if exists == false{
                 return [];
             }

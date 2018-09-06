@@ -173,6 +173,11 @@ class TextTracker{
         }
     }
     
+    func signalWordEnd(){
+        self.lastWord = self.currentWord
+        self.currentWord = ""
+    }
+    
     @objc func spaceTimeout() {
         spaceTimer = nil
         spacePressed = false

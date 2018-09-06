@@ -10,7 +10,7 @@ import UIKit
 
 class SettingsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let flavors: [String] = ["English", "Dvorak", "Turkish", "EnglishWithTurkishChars"]
+    let flavors: [String] = ["English", "Dvorak", "Turkish", "EnglishWithTurkishChars", "Chinese"]
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "cell"
