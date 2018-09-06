@@ -37,49 +37,51 @@ class SpecialRowController{
     }
     
     func updateSpecialRow(){
-        let currentWord = self.textTracker?.currentWord ?? ""
-        var alternatives = Array<String>()
-        
-        if currentWord == "i" {
-            alternatives.append("I")
-            self.drawSpecialRow(array: [alternatives])
-        }
-        let lowercasedCurrentWord = currentWord.lowercased();
-        
-        if lowercasedCurrentWord == "im" {
-            alternatives.append("I'm")
-            self.drawSpecialRow(array: [alternatives])
-        }
-        
-        if lowercasedCurrentWord == "ill"{
-            alternatives.append("I'll")
-            self.drawSpecialRow(array: [alternatives])
-        }
-        
-        let lowercased = self.textTracker?.currentSentence.lowercased().components(separatedBy: " ");
-        let s = NSMutableSet()
-        s.addObjects(from: lowercased!)
-        
-        if(s.contains("how") || s.contains("what") || s.contains("who") || s.contains("where") || s.contains("why") || s.contains("which") || s.contains("when")){
-            alternatives.append("?:a") //? as an append
-            self.drawSpecialRow(array: [alternatives])
-        }
-        
-        if(currentWord.count >= 1){
-            let checkSpellingInitiateTime = Date();
+        DispatchQueue.global(qos: .background).async {
+            let currentWord = self.textTracker?.currentWord ?? ""
+            var alternatives = Array<String>()
             
-            self.spellCheckController.checkSpelling(currentWord: currentWord, completion: { result in
-                if checkSpellingInitiateTime > self.lastUpdated {
-                    
-                    if(self.spaceAfterAutoComplete == false){
-                        alternatives.append(contentsOf: result.alternatives.map({$0 + ":s"}))
-                    }else{
-                        alternatives.append(contentsOf: result.alternatives)
+            if currentWord == "i" {
+                alternatives.append("I")
+                self.drawSpecialRow(array: [alternatives])
+            }
+            let lowercasedCurrentWord = currentWord.lowercased();
+            
+            if lowercasedCurrentWord == "im" {
+                alternatives.append("I'm")
+                self.drawSpecialRow(array: [alternatives])
+            }
+            
+            if lowercasedCurrentWord == "ill"{
+                alternatives.append("I'll")
+                self.drawSpecialRow(array: [alternatives])
+            }
+            
+            let lowercased = self.textTracker?.currentSentence.lowercased().components(separatedBy: " ");
+            let s = NSMutableSet()
+            s.addObjects(from: lowercased!)
+            
+            if(s.contains("how") || s.contains("what") || s.contains("who") || s.contains("where") || s.contains("why") || s.contains("which") || s.contains("when")){
+                alternatives.append("?:a") //? as an append
+                self.drawSpecialRow(array: [alternatives])
+            }
+            
+            if(currentWord.count >= 1){
+                let checkSpellingInitiateTime = Date();
+                
+                self.spellCheckController.checkSpelling(currentWord: currentWord, completion: { result in
+                    if checkSpellingInitiateTime > self.lastUpdated {
+                        
+                        if(self.spaceAfterAutoComplete == false){
+                            alternatives.append(contentsOf: result.alternatives.map({$0 + ":s"}))
+                        }else{
+                            alternatives.append(contentsOf: result.alternatives)
+                        }
+                        self.drawSpecialRow(array: [alternatives])
+                        self.lastUpdated = Date()
                     }
-                    self.drawSpecialRow(array: [alternatives])
-                    self.lastUpdated = Date()
-                }
-            })
+                })
+            }
         }
     }
     

@@ -368,6 +368,20 @@ class KeyboardViewController: UIInputViewController {
     }
     
     @objc func keyPressed(sender: UIButton) {
+        sender.transform = CGAffineTransform(scaleX: 1.6, y: 1.6)
+        
+        //sender.transform = CGAffineTransform(translationX: 0, y: -65)
+        
+        UIView.animate(
+            withDuration: 0.14,
+            delay: 0,
+            options: UIViewAnimationOptions.allowUserInteraction,
+            animations: {
+                sender.transform = CGAffineTransform.identity
+            },
+            completion: { Void in()  }
+        )
+        
         textTracker?.addCharacter(ch: sender.titleLabel?.text, redrawButtons: {
             redrawButtonsForShift()
         })

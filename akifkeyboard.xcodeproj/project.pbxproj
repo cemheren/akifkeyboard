@@ -15,6 +15,10 @@
 		3A34F4512140FC0D009FA33C /* chinese_chars.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3A34F44F2140FC0D009FA33C /* chinese_chars.csv */; };
 		3A34F45321410352009FA33C /* Chinese.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A34F45221410352009FA33C /* Chinese.swift */; };
 		3A34F45421410352009FA33C /* Chinese.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A34F45221410352009FA33C /* Chinese.swift */; };
+		3A34F456214129BD009FA33C /* english.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3A34F455214129BD009FA33C /* english.csv */; };
+		3A34F457214129BD009FA33C /* english.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3A34F455214129BD009FA33C /* english.csv */; };
+		3A34F4592141327E009FA33C /* NextWordPredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A34F4582141327E009FA33C /* NextWordPredictor.swift */; };
+		3A34F45A2141327E009FA33C /* NextWordPredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A34F4582141327E009FA33C /* NextWordPredictor.swift */; };
 		3A79C4C5213E85FF00218EE8 /* English.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4C4213E85FF00218EE8 /* English.swift */; };
 		3A79C4C6213E85FF00218EE8 /* English.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4C4213E85FF00218EE8 /* English.swift */; };
 		3A79C4C8213E885900218EE8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4C7213E885900218EE8 /* SettingsViewController.swift */; };
@@ -46,8 +50,6 @@
 		3AF03E03212E7271000C07C7 /* my_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3AF03E01212E7271000C07C7 /* my_model.mlmodel */; };
 		3AF03E05212E81DB000C07C7 /* CorrectSpelling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF03E04212E81DB000C07C7 /* CorrectSpelling.swift */; };
 		3AF03E06212E81DB000C07C7 /* CorrectSpelling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF03E04212E81DB000C07C7 /* CorrectSpelling.swift */; };
-		3AF03E08212F99FA000C07C7 /* english.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3AF03E07212F99FA000C07C7 /* english.csv */; };
-		3AF03E09212F99FA000C07C7 /* english.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3AF03E07212F99FA000C07C7 /* english.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,8 @@
 		3A0133C12138E05000FF88A3 /* KeybuttonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeybuttonView.xib; sourceTree = "<group>"; };
 		3A34F44F2140FC0D009FA33C /* chinese_chars.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = chinese_chars.csv; path = prep/chinese_chars.csv; sourceTree = SOURCE_ROOT; };
 		3A34F45221410352009FA33C /* Chinese.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chinese.swift; sourceTree = "<group>"; };
+		3A34F455214129BD009FA33C /* english.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = english.csv; path = prep/english/english.csv; sourceTree = SOURCE_ROOT; };
+		3A34F4582141327E009FA33C /* NextWordPredictor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextWordPredictor.swift; sourceTree = "<group>"; };
 		3A79C4C4213E85FF00218EE8 /* English.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = English.swift; sourceTree = "<group>"; };
 		3A79C4C7213E885900218EE8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		3A79C4CA213E8E0D00218EE8 /* keyboardExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = keyboardExtension.entitlements; sourceTree = "<group>"; };
@@ -103,7 +107,6 @@
 		3AEE55272129E65A006979FE /* TextTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTracker.swift; sourceTree = "<group>"; };
 		3AF03E01212E7271000C07C7 /* my_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = my_model.mlmodel; sourceTree = "<group>"; };
 		3AF03E04212E81DB000C07C7 /* CorrectSpelling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectSpelling.swift; sourceTree = "<group>"; };
-		3AF03E07212F99FA000C07C7 /* english.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = english.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +134,7 @@
 				3A939AD4212BC8A700631519 /* autocomplete.swift */,
 				3AF03E04212E81DB000C07C7 /* CorrectSpelling.swift */,
 				3A0133B821338FE100FF88A3 /* Word.swift */,
+				3A34F4582141327E009FA33C /* NextWordPredictor.swift */,
 			);
 			path = Spelling;
 			sourceTree = "<group>";
@@ -192,14 +196,14 @@
 			children = (
 				3A79C4CC213FAE6D00218EE8 /* Helpers */,
 				3A79C4CA213E8E0D00218EE8 /* keyboardExtension.entitlements */,
+				3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */,
 				3A0133B721338FB400FF88A3 /* Spelling */,
 				3AF03E01212E7271000C07C7 /* my_model.mlmodel */,
-				3AF03E07212F99FA000C07C7 /* english.csv */,
+				3A34F455214129BD009FA33C /* english.csv */,
 				3A34F44F2140FC0D009FA33C /* chinese_chars.csv */,
 				3A9F28DE213D0F7B007934C5 /* turkish.csv */,
 				3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */,
 				3A0133C12138E05000FF88A3 /* KeybuttonView.xib */,
-				3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */,
 				3AEE55272129E65A006979FE /* TextTracker.swift */,
 				3A79C4C3213E85E100218EE8 /* Specializations */,
 				3ACC4A2121253901006A7EC5 /* Info.plist */,
@@ -301,10 +305,10 @@
 				3ACC4A12212538EE006A7EC5 /* LaunchScreen.storyboard in Resources */,
 				3A34F4502140FC0D009FA33C /* chinese_chars.csv in Resources */,
 				3A9F28DF213D0F7B007934C5 /* turkish.csv in Resources */,
-				3AF03E08212F99FA000C07C7 /* english.csv in Resources */,
 				3A0133C22138E05000FF88A3 /* KeybuttonView.xib in Resources */,
 				3ACC4A0F212538EE006A7EC5 /* Assets.xcassets in Resources */,
 				3ACC4A0D212538ED006A7EC5 /* Main.storyboard in Resources */,
+				3A34F456214129BD009FA33C /* english.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,7 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A9F28E0213D0F7B007934C5 /* turkish.csv in Resources */,
-				3AF03E09212F99FA000C07C7 /* english.csv in Resources */,
+				3A34F457214129BD009FA33C /* english.csv in Resources */,
 				3A34F4512140FC0D009FA33C /* chinese_chars.csv in Resources */,
 				3A0133C32138E05000FF88A3 /* KeybuttonView.xib in Resources */,
 			);
@@ -333,6 +337,7 @@
 				3A79C4C5213E85FF00218EE8 /* English.swift in Sources */,
 				3AEE55282129E65A006979FE /* TextTracker.swift in Sources */,
 				3A79C4D4213FB6B200218EE8 /* Turkish.swift in Sources */,
+				3A34F4592141327E009FA33C /* NextWordPredictor.swift in Sources */,
 				3A34F45321410352009FA33C /* Chinese.swift in Sources */,
 				3A79C4D1213FB53900218EE8 /* Specialization.swift in Sources */,
 				3AF03E05212E81DB000C07C7 /* CorrectSpelling.swift in Sources */,
@@ -352,6 +357,7 @@
 				3A79C4D5213FB6B200218EE8 /* Turkish.swift in Sources */,
 				3A79C4D2213FB53900218EE8 /* Specialization.swift in Sources */,
 				3A79C4CF213FAE7D00218EE8 /* StreamReader.swift in Sources */,
+				3A34F45A2141327E009FA33C /* NextWordPredictor.swift in Sources */,
 				3AEE55292129E65A006979FE /* TextTracker.swift in Sources */,
 				3A0133BA21338FE100FF88A3 /* Word.swift in Sources */,
 				3A34F45421410352009FA33C /* Chinese.swift in Sources */,
