@@ -120,9 +120,13 @@ class SpellCheckController{
         }
     }
     
-    func checkSpelling(currentWord: String, completion: @escaping (_ result: SpellCheckModel)->()){
+    func checkSpelling(lastWord: String, currentWord: String, completion: @escaping (_ result: SpellCheckModel)->()){
         DispatchQueue.global(qos: .background).async {
         
+            let nextWordPredictions = Set(self.nextWordPredictor.knownWords[lastWord]?.p.map({ (p: Prediction) -> Word in
+                Word(word: p.w, weight: p.c)
+            }) ?? [Word]())
+            
             let results = self.autoComplete.search(currentWord)
         
             let keyDist1 = self.getAlternatives(word: currentWord)
@@ -133,9 +137,16 @@ class SpellCheckController{
                 corrections = self.correctSpelling.getCorrection(word: currentWord.lowercased());
             }
 
-            let alternatives = results
+            var alternatives = results
                 + keyDist1Results
                 + corrections
+            
+            alternatives = alternatives.map({ (word : Word) -> Word in
+                if(nextWordPredictions.contains(word)){
+                    word.weight = word.weight * 5;
+                }
+                return word;
+            })
 
             DispatchQueue.main.async {
                 completion(SpellCheckModel(isCorrect: false,

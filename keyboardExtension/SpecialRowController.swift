@@ -69,7 +69,7 @@ class SpecialRowController{
             if(currentWord.count >= 1){
                 let checkSpellingInitiateTime = Date();
                 
-                self.spellCheckController.checkSpelling(currentWord: currentWord, completion: { result in
+                self.spellCheckController.checkSpelling(lastWord: self.textTracker?.lastWord ?? "", currentWord: currentWord, completion: { result in
                     if checkSpellingInitiateTime > self.lastUpdated {
                         
                         if(self.spaceAfterAutoComplete == false){
