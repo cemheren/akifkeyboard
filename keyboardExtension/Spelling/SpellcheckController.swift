@@ -123,7 +123,7 @@ class SpellCheckController{
     func checkSpelling(lastWord: String, currentWord: String, completion: @escaping (_ result: SpellCheckModel)->()){
         DispatchQueue.global(qos: .background).async {
         
-            let nextWordPredictions = Set(self.nextWordPredictor.knownWords[lastWord]?.p.map({ (p: Prediction) -> Word in
+            let nextWordPredictions = Set(self.nextWordPredictor.knownWords[lastWord.lowercased()]?.p.map({ (p: Prediction) -> Word in
                 Word(word: p.w, weight: p.c)
             }) ?? [Word]())
             
@@ -156,7 +156,7 @@ class SpellCheckController{
     }
     
     func getNextWordPredictions(lastWord: String) -> SpellCheckModel{
-        let predictions = self.nextWordPredictor.knownWords[lastWord]?.p.map({ (p: Prediction) -> Word in
+        let predictions = self.nextWordPredictor.knownWords[lastWord.lowercased()]?.p.map({ (p: Prediction) -> Word in
             Word(word: p.w, weight: p.c)
         }) ?? [Word]()
         
