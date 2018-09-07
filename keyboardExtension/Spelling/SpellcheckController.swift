@@ -27,6 +27,7 @@ class SpellCheckModel{
 class SpellCheckController{
     var autoComplete = AutoComplete<Word>()
     var correctSpelling = CorrectSpelling()
+    var nextWordPredictor = NextWordPredictor()
     
     let endpoint: String = "https://2hwrmsajo2.execute-api.eu-central-1.amazonaws.com/Prod/spellcheck?prompt="
 
@@ -101,6 +102,19 @@ class SpellCheckController{
                     self.correctSpelling.insertWord(word: Word(word: word, weight: frequency))
                 }
             })
+            
+            let nextwordpath = Bundle.main.path(forResource: "english_bigram_probabilities", ofType: "csv")
+            let nextwordpathdata = try String(contentsOfFile: (nextwordpath)!, encoding: .utf8)
+            try nextwordpathdata.components(separatedBy: .newlines).forEach({
+                let data = $0.data(using: .utf8)!
+                do{
+                    let parsed = try JSONDecoder().decode(NextWord.self, from: data)
+                    nextWordPredictor.insertWord(word: parsed)
+                }
+                catch {
+                    print($0)
+                }
+            })
         } catch {
             print(error)
         }
@@ -128,6 +142,17 @@ class SpellCheckController{
                    alternatives: alternatives.sorted(by: { $0.weight > $1.weight })))
             }
         }
+    }
+    
+    func getNextWordPredictions(lastWord: String) -> SpellCheckModel{
+        let predictions = self.nextWordPredictor.knownWords[lastWord]?.p.map({ (p: Prediction) -> Word in
+            Word(word: p.w, weight: p.c)
+        }) ?? [Word]()
+        
+        let scm = SpellCheckModel(isCorrect: false,
+                                  alternatives: predictions.sorted(by: { $0.weight > $1.weight }))
+        
+        return scm
     }
     
     func getAlternatives(word: String) -> [String]{

@@ -81,6 +81,9 @@ class SpecialRowController{
                         self.lastUpdated = Date()
                     }
                 })
+            }else{
+                let result = self.spellCheckController.getNextWordPredictions(lastWord: (self.textTracker?.lastWord)!)
+                self.drawSpecialRow(array: [result.alternatives.map{$0 + ":a"}])
             }
         }
     }
@@ -133,6 +136,10 @@ class SpecialRowController{
     // n : number
     // s : no space after append
     @objc private func specialKeyPressed(sender: KeyButton) {
+        if sender.titleLabel?.text == nil{
+            return
+        }
+        
         if sender.mode == "r"{
             if self.textTracker?.currentWord == ""{
                 self.textTracker?.deleteLastWord()
@@ -160,6 +167,8 @@ class SpecialRowController{
         if sender.mode == "n"{
             self.textTracker?.insertText(text: (sender.titleLabel?.text)!)
         }
+        
+        self.updateSpecialRow()
     }
     
     func clearSpecialKeys(){

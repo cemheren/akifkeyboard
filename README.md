@@ -16,6 +16,7 @@ What's supported:
 11. Support for Turkish lang and characters
 12. Support for Dvorak layout
 13. Support for Chinese (pinyin)
+14. Next word prediction (English only)
 
 <p align="center">
   <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-08-24%20at%2023.58.51.png" width="120" title="hover text">

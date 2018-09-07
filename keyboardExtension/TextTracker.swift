@@ -161,7 +161,7 @@ class TextTracker{
         }
         
         if(insertText.range(of:" ") != nil){ // " " exists
-            self.lastWord = text!
+            self.lastWord = text!.trimmingCharacters(in: .whitespacesAndNewlines)
             self.currentWord = ""
         }else{
             self.currentWord = text!
@@ -174,7 +174,7 @@ class TextTracker{
     }
     
     func signalWordEnd(){
-        self.lastWord = self.currentWord
+        self.lastWord = self.currentWord.trimmingCharacters(in: .whitespacesAndNewlines)
         self.currentWord = ""
     }
     

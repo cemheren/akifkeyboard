@@ -9,4 +9,9 @@
 import Foundation
 class NextWordPredictor{
     
+    var knownWords = [String: NextWord](minimumCapacity: 1)
+    
+    func insertWord(word: NextWord){
+        self.knownWords[word.w] = word;
+    }
 }
