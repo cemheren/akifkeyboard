@@ -89,6 +89,18 @@ class SpellCheckController{
                     self.correctSpelling.insertWord(word: Word(word: word, weight: frequency))
                 }
             })
+            
+            let bipath = Bundle.main.path(forResource: "english_bigrams", ofType: "csv")
+            let bigramdata = try String(contentsOfFile: (bipath)!, encoding: .utf8)
+            bigramdata.components(separatedBy: .newlines).forEach({
+                let lineItems  = $0.split(separator: ",")
+                if(lineItems.count == 2){
+                    let frequency = Int(lineItems[1]) ?? 1;
+                    let word = String(lineItems[0]);
+                    
+                    self.correctSpelling.insertWord(word: Word(word: word, weight: frequency))
+                }
+            })
         } catch {
             print(error)
         }
