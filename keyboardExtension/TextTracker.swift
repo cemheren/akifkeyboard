@@ -83,11 +83,12 @@ class TextTracker{
     }
     
     func deleteCharacter() -> String {
-        
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         proxy.deleteBackward()
-        currentSentence = String(currentSentence.dropLast())
-        currentWord = String(currentWord.dropLast())
+        let text = (proxy.documentContextBeforeInput ?? "")
+        
+        currentSentence = text
+        currentWord = String(text.split(separator: " ").last ?? "")
         
         return ""
     }
