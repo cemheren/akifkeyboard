@@ -49,7 +49,6 @@ class TextTracker{
             }
         }
         else {
-            proxy.insertText(insertText)
             spacePressed = ch == " "
             
             if spacePressed {
@@ -59,11 +58,14 @@ class TextTracker{
                                                   selector: #selector(spaceTimeout),
                                                   userInfo: nil,
                                                   repeats: false)
+                replaceLastWordAtNewWordDetection(newLastWord: fixer(word: Substring(currentWord)))
                 lastWord = currentWord
                 currentWord = ""
             }else{
                 currentWord = currentWord + insertText;
             }
+            
+            proxy.insertText(insertText)
             
             if (shiftKey!.isSelected) {
                 self.setShiftValue(shiftVal: false)
@@ -88,13 +90,25 @@ class TextTracker{
         let text = (proxy.documentContextBeforeInput ?? "")
         
         currentSentence = text
-        currentWord = String(text.split(separator: " ").last ?? "")
+        currentWord = String(text.split(separator: " ", maxSplits: 1000, omittingEmptySubsequences: false).last ?? "")
+        
+        if(currentWord == ""){
+            lastWord = String(text.split(separator: " ").last ?? "")
+        }
         
         return ""
     }
 
-    func replaceLastWord(newWord: String){
+    func replaceLastWordAtNewWordDetection(newLastWord: String){
+        let proxy = self.textDocumentProxy as UITextDocumentProxy
         
+        for ch in self.currentWord{
+            proxy.deleteBackward()
+            currentSentence = String(currentSentence.dropLast())
+            //print("del " + String(ch))
+        }
+        
+        insertText(text: newLastWord)
     }
     
     func getLastWord() -> String{
@@ -148,9 +162,28 @@ class TextTracker{
         self.currentWord = ""
     }
     
+    func fixer(word: Substring) -> String{
+        if word == "i" {
+            return "I"
+        }
+        let lowercasedCurrentWord = word.lowercased();
+        if lowercasedCurrentWord == "im" || lowercasedCurrentWord == "i'm" {
+            return "I'm"
+        }
+        if lowercasedCurrentWord == "i'll"{
+            return "I'll"
+        }
+        
+        return String(word)
+    }
+    
     func insertText(text: String?){
         let proxy = self.textDocumentProxy as UITextDocumentProxy
-        let insertText = text ?? "";
+        var insertText = text ?? "";
+        
+        let substrings = insertText.split(separator: " ", maxSplits: 1000, omittingEmptySubsequences: false);
+        let fixed = substrings.map{fixer(word: $0)}
+        insertText = fixed.joined(separator: " ")
         
         proxy.insertText(insertText)
         
@@ -162,10 +195,10 @@ class TextTracker{
         }
         
         if(insertText.range(of:" ") != nil){ // " " exists
-            self.lastWord = text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            self.lastWord = String(text!.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: " ").last ?? "")
             self.currentWord = ""
         }else{
-            self.currentWord = text!
+            self.currentWord = insertText
         }
         
         if (shiftKey!.isSelected) {

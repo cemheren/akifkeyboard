@@ -206,7 +206,6 @@
 			children = (
 				3A79C4CC213FAE6D00218EE8 /* Helpers */,
 				3A79C4CA213E8E0D00218EE8 /* keyboardExtension.entitlements */,
-				3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */,
 				3A0133B721338FB400FF88A3 /* Spelling */,
 				3AF03E01212E7271000C07C7 /* my_model.mlmodel */,
 				3A34F455214129BD009FA33C /* english.csv */,
@@ -215,6 +214,7 @@
 				3A34F44F2140FC0D009FA33C /* chinese_chars.csv */,
 				3A9F28DE213D0F7B007934C5 /* turkish.csv */,
 				3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */,
+				3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */,
 				3A0133C12138E05000FF88A3 /* KeybuttonView.xib */,
 				3AEE55272129E65A006979FE /* TextTracker.swift */,
 				3A79C4C3213E85E100218EE8 /* Specializations */,

@@ -41,22 +41,6 @@ class SpecialRowController{
             let currentWord = self.textTracker?.currentWord ?? ""
             var alternatives = Array<String>()
             
-            if currentWord == "i" {
-                alternatives.append("I")
-                self.drawSpecialRow(array: [alternatives])
-            }
-            let lowercasedCurrentWord = currentWord.lowercased();
-            
-            if lowercasedCurrentWord == "im" {
-                alternatives.append("I'm")
-                self.drawSpecialRow(array: [alternatives])
-            }
-            
-            if lowercasedCurrentWord == "ill"{
-                alternatives.append("I'll")
-                self.drawSpecialRow(array: [alternatives])
-            }
-            
             let lowercased = self.textTracker?.currentSentence.lowercased().components(separatedBy: " ");
             let s = NSMutableSet()
             s.addObjects(from: lowercased!)
