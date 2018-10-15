@@ -82,7 +82,7 @@ class CorrectSpelling{
     
     func getCorrection(word: String) -> [Word]{
         let edits = self.edits(word: word);
-        let candidates = known(words: [word]) ?? known(words: edits) ?? []
+        let candidates = known(words: edits) ?? []
      
         return Array(candidates)
     }
