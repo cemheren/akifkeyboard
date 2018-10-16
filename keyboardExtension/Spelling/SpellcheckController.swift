@@ -150,7 +150,7 @@ class SpellCheckController{
             alternatives = alternatives.map({ (word : Word) -> Word in
                 var w2:Word;
                 if(nextWordPredictions.contains(word)){
-                    w2 = Word(word: word.word, weight: Int(word.weight * 5));
+                    w2 = Word(word: word.word, weight: Int(word.weight) * 5);
                     return w2;
                 }
                 return word;
