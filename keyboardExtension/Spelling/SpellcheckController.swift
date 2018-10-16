@@ -63,17 +63,18 @@ class SpellCheckController{
 //                }
 //            }
             
-            let data = try String(contentsOfFile: (path)!, encoding: .utf8)
-            data.components(separatedBy: .newlines).forEach({
+            var data:String? = try String(contentsOfFile: (path)!, encoding: .utf8)
+            data?.components(separatedBy: .newlines).forEach({
                 let lineItems  = $0.split(separator: ",")
                 if(lineItems.count == 2){
                     let frequency = Int(lineItems[1]) ?? 1;
-                    let word = String(lineItems[0]);
-
+                    let wordString = String(lineItems[0]);
+                    
+                    let wordObject = Word(word: wordString, weight: frequency);
                     if(frequency > self.autocompleteCutoffFrequency){
-                        self.autoComplete.insert(Word(word: word, weight: frequency))
+                        self.autoComplete.insert(wordObject)
                     }
-                    self.correctSpelling.insertWord(word: Word(word: word, weight: frequency))
+                    self.correctSpelling.insertWord(word: wordObject)
                 }
                 if(lineItems.count == 3){
                     let frequency = Int(lineItems[1]) ?? 1;
@@ -84,16 +85,18 @@ class SpellCheckController{
                         .folding(options: .diacriticInsensitive, locale: nil)
                         .components(separatedBy: ",")
                     
+                    let wordObject = Word(word: word, weight: frequency, keywords: keywords)
                     if(frequency > self.autocompleteCutoffFrequency){
-                        self.autoComplete.insert(Word(word: word, weight: frequency, keywords: keywords))
+                        self.autoComplete.insert(wordObject)
                     }
-                    self.correctSpelling.insertWord(word: Word(word: word, weight: frequency))
+                    self.correctSpelling.insertWord(word: wordObject)
                 }
             })
+            data = nil
             
             let bipath = Bundle.main.path(forResource: "english_bigrams", ofType: "csv")
-            let bigramdata = try String(contentsOfFile: (bipath)!, encoding: .utf8)
-            bigramdata.components(separatedBy: .newlines).forEach({
+            var bigramdata:String? = try String(contentsOfFile: (bipath)!, encoding: .utf8)
+            bigramdata?.components(separatedBy: .newlines).forEach({
                 let lineItems  = $0.split(separator: ",")
                 if(lineItems.count == 2){
                     let frequency = Int(lineItems[1]) ?? 1;
@@ -102,10 +105,11 @@ class SpellCheckController{
                     self.correctSpelling.insertWord(word: Word(word: word, weight: frequency))
                 }
             })
+            bigramdata = nil
             
             let nextwordpath = Bundle.main.path(forResource: "english_bigram_probabilities", ofType: "csv")
-            let nextwordpathdata = try String(contentsOfFile: (nextwordpath)!, encoding: .utf8)
-            try nextwordpathdata.components(separatedBy: .newlines).forEach({
+            var nextwordpathdata:String? = try String(contentsOfFile: (nextwordpath)!, encoding: .utf8)
+            try nextwordpathdata?.components(separatedBy: .newlines).forEach({
                 let data = $0.data(using: .utf8)!
                 do{
                     let parsed = try JSONDecoder().decode(NextWord.self, from: data)
@@ -115,6 +119,8 @@ class SpellCheckController{
                     print($0)
                 }
             })
+            nextwordpathdata = nil
+            
         } catch {
             print(error)
         }
@@ -142,8 +148,10 @@ class SpellCheckController{
                 + corrections
             
             alternatives = alternatives.map({ (word : Word) -> Word in
+                var w2:Word;
                 if(nextWordPredictions.contains(word)){
-                    word.weight = word.weight * 5;
+                    w2 = Word(word: word.word, weight: Int(word.weight * 5));
+                    return w2;
                 }
                 return word;
             })
