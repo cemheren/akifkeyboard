@@ -1,4 +1,4 @@
-# qwerty (akifkeyboard)
+# kif - keyboard
 
 I'm sick of random companies watching every word I type. So I created this simple custom keyboard for my personal use. I'm adding features as I go along. It doesn't need any internet connectivity for the full feature set. 
 
@@ -32,8 +32,5 @@ What's supported:
 </p>
 
 The app is in AppStore now https://itunes.apple.com/us/app/qwerty-keyboard/id1434021039?mt=8
-
-Special note: The app is named after the legendary spectre player qwerty
-https://www.reddit.com/r/DotA2/comments/2ok7d9/qwerty/
 
 https://www.youtube.com/watch?v=V-oi0BrpXMs
