@@ -50,15 +50,19 @@ class TextTracker{
         }
         else {
             spacePressed = ch == " "
+            let enterPressed = ch == "\n"
             
-            if spacePressed {
+            if spacePressed || enterPressed{
                 spaceTimer?.invalidate()
                 spaceTimer = Timer.scheduledTimer(timeInterval: 1,
                                                   target: self,
                                                   selector: #selector(spaceTimeout),
                                                   userInfo: nil,
                                                   repeats: false)
-                replaceLastWordAtNewWordDetection(newLastWord: fixer(word: Substring(currentWord)))
+                
+                if(!enterPressed){
+                    self.replaceLastWordAtNewWordDetection(newLastWord: fixer(word: Substring(currentWord)))
+                }
                 lastWord = currentWord
                 currentWord = ""
             }else{
@@ -101,8 +105,11 @@ class TextTracker{
 
     func replaceLastWordAtNewWordDetection(newLastWord: String){
         let proxy = self.textDocumentProxy as UITextDocumentProxy
+        let text = (proxy.documentContextBeforeInput ?? "")
         
-        for ch in self.currentWord{
+        currentWord = String(text.split(separator: " ", maxSplits: 1000, omittingEmptySubsequences: false).last ?? "")
+        
+        for _ in self.currentWord{
             proxy.deleteBackward()
             currentSentence = String(currentSentence.dropLast())
             //print("del " + String(ch))

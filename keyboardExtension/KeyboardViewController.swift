@@ -319,8 +319,11 @@ class KeyboardViewController: UIInputViewController {
     }
 
     @objc func returnKeyPressed(sender: UIButton) {
-        var proxy = self.textDocumentProxy as UITextDocumentProxy
-        proxy.insertText("\n")
+        
+        self.textTracker?.addCharacter(ch: "\n", redrawButtons: {
+            redrawButtonsForShift()
+        })
+
         numCharacters = numCharacters + 1;
         shiftPosArr[shiftPosArr.count - 1] = shiftPosArr[shiftPosArr.count - 1] + 1;
         if shiftKey!.isSelected {
@@ -382,7 +385,7 @@ class KeyboardViewController: UIInputViewController {
             completion: { Void in()  }
         )
         
-        textTracker?.addCharacter(ch: sender.titleLabel?.text, redrawButtons: {
+        self.textTracker?.addCharacter(ch: sender.titleLabel?.text, redrawButtons: {
             redrawButtonsForShift()
         })
         self.specialRowController?.updateSpecialRow()
