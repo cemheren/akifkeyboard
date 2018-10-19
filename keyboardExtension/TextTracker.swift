@@ -60,7 +60,9 @@ class TextTracker{
                                                   userInfo: nil,
                                                   repeats: false)
                 
-                if(!enterPressed){
+                if(!enterPressed && shouldFix(word: Substring(currentWord))){
+                    let text = (proxy.documentContextBeforeInput ?? "")
+                    currentWord = String(text.split(separator: " ", maxSplits: 1000, omittingEmptySubsequences: false).last ?? "")
                     self.replaceLastWordAtNewWordDetection(newLastWord: fixer(word: Substring(currentWord)))
                 }
                 lastWord = currentWord
@@ -167,6 +169,21 @@ class TextTracker{
         self.currentSentence = ""
         self.lastWord = ""
         self.currentWord = ""
+    }
+    
+    func shouldFix(word: Substring) -> Bool {
+        if word == "i" {
+            return true
+        }
+        let lowercasedCurrentWord = word.lowercased();
+        if lowercasedCurrentWord == "im" || lowercasedCurrentWord == "i'm" {
+            return true
+        }
+        if lowercasedCurrentWord == "i'll"{
+            return true
+        }
+
+        return false
     }
     
     func fixer(word: Substring) -> String{

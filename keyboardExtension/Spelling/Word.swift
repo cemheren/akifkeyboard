@@ -28,17 +28,16 @@ final class Word: Searchable {
     private var _keywords: [String]?
     private var _word: String?
     
-    // use a memory efficient integer implementati
-    let weight: uint_least16_t
+    let weight: Int
     
     init(word: String, weight: Int) {
-        self.weight = weight > 65535 ? uint_least16_t.max : uint_least16_t.init(exactly: NSNumber(value: weight)) ?? 0;
+        self.weight = weight
         self._word = word
         self._single = true;
     }
     
     init(word: String, weight: Int, keywords: [String]) {
-        self.weight = weight > 65535 ? uint_least16_t.max : uint_least16_t.init(exactly: NSNumber(value: weight)) ?? 0;
+        self.weight = weight
         self._keywords = keywords
         self._single = false
     }
