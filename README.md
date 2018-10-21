@@ -19,18 +19,16 @@ What's supported:
 14. Next word prediction (English only)
 
 <p align="center">
-  <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-08-24%20at%2023.58.51.png" width="120" title="hover text">
+  <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-08-24%20at%2023.58.51.png" width="120">
   
-  <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-08-24%20at%2023.59.24.png" width="120" title="hover text">
+  <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-08-24%20at%2023.59.24.png" width="120">
   
-  <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-09-05%20at%2016.32.50.png" width="120" title="hover text">
+  <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-09-09%20at%2022.33.05.png" width="120">
   
-  <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-09-05%20at%2016.32.54.png" width="120" title="hover text">
+  <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-09-09%20at%2022.37.17.png" width="120">
   
-  <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-09-05%20at%2016.33.13.png" width="120" title="hover text">
+  <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-09-05%20at%2016.33.13.png" width="120">
   
 </p>
 
 The app is in AppStore now https://itunes.apple.com/us/app/qwerty-keyboard/id1434021039?mt=8
-
-https://www.youtube.com/watch?v=V-oi0BrpXMs
