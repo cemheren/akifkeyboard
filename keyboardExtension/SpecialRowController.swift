@@ -25,6 +25,9 @@ class SpecialRowController{
     private var lastUpdated : Date = Date()
     private var spaceAfterAutoComplete = false;
     
+    private var lastemoji: String? = nil;
+    private var lastarray: Array<Array<String>>? = nil
+    
     init(textTracker: TextTracker, parentView: UIView, spellCheckController: SpellCheckController, specialization: Specialization) {
         self.textTracker = textTracker
         self.parentView = parentView;
@@ -50,6 +53,8 @@ class SpecialRowController{
                 self.drawSpecialRow(array: [alternatives])
             }
             
+            self.emojiSetter(text: self.textTracker?.currentSentence ?? "")
+            
             if(currentWord.count >= 1){
                 let checkSpellingInitiateTime = Date();
                 
@@ -72,12 +77,26 @@ class SpecialRowController{
         }
     }
     
+    func updateSpecialRow(text: String){
+        
+        if self.lastarray == nil {return}
+        
+        self.lastarray?[0].append(text)
+        self.drawSpecialRow(array: self.lastarray!)
+    }
+    
     func drawSpecialRow(array: Array<Array<String>>){
         DispatchQueue.main.async {
             var y: CGFloat = self.specialRowPadding
             let width = UIScreen.main.applicationFrame.size.width
             let count = CGFloat(array[0].count);
-            let dynamicWidth = width/count - self.keySpacing
+            var effectiveCount = count;
+            
+            //if self.lastemoji != nil && self.lastemoji != "" { effectiveCount = effectiveCount + 1 }
+            
+            let dynamicWidth = width/effectiveCount - self.keySpacing
+            
+            self.lastarray = array;
             
             for sb in self.specialButtons{
                 sb.removeFromSuperview();
@@ -86,7 +105,7 @@ class SpecialRowController{
             self.specialButtons.removeAll()
             
             for row in array {
-                var x: CGFloat = ceil((width - (CGFloat(row.count) - 1) * (self.keySpacing + dynamicWidth) - dynamicWidth) / 2.0)
+                var x: CGFloat = ceil((width - (CGFloat(effectiveCount) - 1) * (self.keySpacing + dynamicWidth) - dynamicWidth) / 2.0)
                 for var label in row {
                     
                     let labelArr = label.components(separatedBy: ":")
@@ -109,6 +128,58 @@ class SpecialRowController{
                 }
                 
                 y += self.specialKeyHeight + self.rowSpacing
+            }
+        }
+    }
+    
+    func emojiSetter(text: String){
+        if text.count < 5 {
+            self.lastemoji = nil
+            return
+        }
+        
+        if text.last != " "{
+            return
+        }
+        
+        func getURI(url: String, completion: @escaping (_ result: String)->()){
+            
+            let uri = URL(string: url)
+            
+            if uri == nil { completion(""); print("not a uri: " + url); return }
+            
+            var request = URLRequest(url: uri!)
+            request.httpMethod = "GET"
+            //request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+            //request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            let session = URLSession.shared
+            let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
+                if(response == nil){
+                    return;
+                }
+                
+                print(response!)
+                print(data!)
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!) as! Array<String>
+                    completion(json[0])
+                    
+                } catch {
+                    print("error")
+                }
+            })
+            
+            task.resume()
+        }
+        
+        var k = text ?? ""
+        k = k.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
+        k = k.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
+        getURI(url: "http://104.42.124.221:5000/" + k) { (result) in
+            DispatchQueue.main.async {
+                self.lastemoji = result
+                self.updateSpecialRow(text: result + ":a")
             }
         }
     }
