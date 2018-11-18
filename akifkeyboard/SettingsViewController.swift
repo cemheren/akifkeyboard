@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import LionheartExtensions
+import QuickTableView
 
 class SettingsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -17,6 +19,8 @@ class SettingsController: UIViewController, UITableViewDelegate, UITableViewData
     
     // don't forget to hook this up from the storyboard
     @IBOutlet var tableView: UITableView!
+    
+    @IBOutlet var tipJarButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,10 +40,10 @@ class SettingsController: UIViewController, UITableViewDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func BackButton(_ sender: Any) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: "Home") as! HomeController
-        self.present(newViewController, animated: false, completion: nil)
+    @IBAction func tipjarClicked(_ sender: Any) {
+        let tc = TipJarViewController<ExampleTipJarOptions>();
+        
+        self.navigationController?.pushViewController(tc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,4 +69,42 @@ class SettingsController: UIViewController, UITableViewDelegate, UITableViewData
             userDefaults.set(self.flavors[indexPath.row], forKey: "flavor")
         }
     }
+}
+
+struct ExampleTipJarOptions: TipJarConfiguration {
+    static var topHeader = "Hi there"
+    
+    static var topDescription = """
+If you've been enjoying this keyboard and would like to show your support, please consider a tip. They go such a long way, and every little bit helps. Thanks! :)
+Don't forget to leave feedback or feature requests!
+"""
+    
+    static func subscriptionProductIdentifier(for row: SubscriptionRow) -> String {
+        switch row {
+        case .monthly: return "tip.monthly"
+        case .yearly: return "tip.yearly"
+        }
+    }
+    
+    static func oneTimeProductIdentifier(for row: OneTimeRow) -> String {
+        switch row {
+        case .small: return "small.tip"
+        case .medium: return "medium.tip"
+        case .large: return "large.tip"
+//        case .huge:
+//            return "huge.tip"
+//        case .massive:
+//            return "massive.tip"
+        }
+    }
+    
+    static var termsOfUseURLString = "https://github.com/cemheren/akifkeyboard"
+    static var privacyPolicyURLString = "https://github.com/cemheren/akifkeyboard/blob/master/privacyPolicy.md"
+}
+
+extension ExampleTipJarOptions: TipJarOptionalConfiguration {
+    static var title = "Tip Jar"
+    static var oneTimeTipsTitle = "One-Time Tips"
+    static var subscriptionTipsTitle = "Ongoing Tips ❤️"
+    static var receiptVerifierURLString = ""
 }

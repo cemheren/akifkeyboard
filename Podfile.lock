@@ -1,0 +1,40 @@
+PODS:
+  - KeyboardAdjuster (3.0.3)
+  - LionheartExtensions (3.15.0):
+    - LionheartExtensions/Core (= 3.15.0)
+  - LionheartExtensions/Core (3.15.0)
+  - QuickTableView (2.6.2):
+    - KeyboardAdjuster (~> 3)
+  - SuperLayout (1.0.1):
+    - SuperLayout/Core (= 1.0.1)
+  - SuperLayout/Core (1.0.1)
+  - TipJarViewController (0.1.3):
+    - LionheartExtensions (~> 3.0)
+    - QuickTableView (~> 2.0)
+    - SuperLayout (~> 1.0)
+
+DEPENDENCIES:
+  - KeyboardAdjuster (~> 3)
+  - LionheartExtensions
+  - QuickTableView
+  - SuperLayout
+  - TipJarViewController
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - KeyboardAdjuster
+    - LionheartExtensions
+    - QuickTableView
+    - SuperLayout
+    - TipJarViewController
+
+SPEC CHECKSUMS:
+  KeyboardAdjuster: 3a7d4c7ce5c120f2fdfce88334ee59339e01dd6b
+  LionheartExtensions: 199f618c204b3d6a3a31fb5adef49d049bb3206d
+  QuickTableView: 6c7689b1b392e8d4d01c26161ca0c3b7a2079435
+  SuperLayout: 8d8a8399366e130f244963d97bd04a66fd08d368
+  TipJarViewController: fa08321344b0989304817ffe26a00b13291fc65e
+
+PODFILE CHECKSUM: 6e6657b59d785c8be98101e294129b0316f4a034
+
+COCOAPODS: 1.5.3
