@@ -66,7 +66,7 @@ class HomeController: UIViewController, UITextViewDelegate {
                 print(data!)
                 do {
                     let json = try JSONSerialization.jsonObject(with: data!) as! Array<String>
-                    completion(json[0])
+                    completion(json[0] + ", " + json[1] + ", " + json[2] + ", " + json[3] + ", " + json[4])
                     
                 } catch {
                     print("error")
@@ -77,7 +77,7 @@ class HomeController: UIViewController, UITextViewDelegate {
         }
         
         var k = self.maintview.text ?? ""
-        k.trim(" ")
+        k = k.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
         k = k.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
         getURI(url: "http://104.42.124.221:5000/" + k) { (result) in
             DispatchQueue.main.async {
