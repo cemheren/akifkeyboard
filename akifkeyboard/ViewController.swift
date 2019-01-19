@@ -79,7 +79,7 @@ class HomeController: UIViewController, UITextViewDelegate {
         var k = self.maintview.text ?? ""
         k = k.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
         k = k.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
-        getURI(url: "http://104.42.124.221:5000/" + k) { (result) in
+        getURI(url: "http://104.42.255.66:5000/" + k) { (result) in
             DispatchQueue.main.async {
                 self.label.text = result;
             }

@@ -45,6 +45,7 @@
 		3A79C4D2213FB53900218EE8 /* Specialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4D0213FB53900218EE8 /* Specialization.swift */; };
 		3A79C4D4213FB6B200218EE8 /* Turkish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4D3213FB6B200218EE8 /* Turkish.swift */; };
 		3A79C4D5213FB6B200218EE8 /* Turkish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4D3213FB6B200218EE8 /* Turkish.swift */; };
+		3A7A54B321EA95BD007956F2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A7A54B221EA95BD007956F2 /* StoreKit.framework */; };
 		3A939AD5212BC8A700631519 /* autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A939AD4212BC8A700631519 /* autocomplete.swift */; };
 		3A939AD6212BC8DE00631519 /* autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A939AD4212BC8A700631519 /* autocomplete.swift */; };
 		3A9F28DF213D0F7B007934C5 /* turkish.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F28DE213D0F7B007934C5 /* turkish.csv */; };
@@ -121,6 +122,7 @@
 		3A79C4CD213FAE7D00218EE8 /* StreamReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
 		3A79C4D0213FB53900218EE8 /* Specialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Specialization.swift; sourceTree = "<group>"; };
 		3A79C4D3213FB6B200218EE8 /* Turkish.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Turkish.swift; sourceTree = "<group>"; };
+		3A7A54B221EA95BD007956F2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3A939AD4212BC8A700631519 /* autocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = autocomplete.swift; sourceTree = "<group>"; };
 		3A9F28DE213D0F7B007934C5 /* turkish.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = turkish.csv; sourceTree = "<group>"; };
 		3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialRowController.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D37ED7FF1928D521A95AD3C /* Pods_akifkeyboard.framework in Frameworks */,
+				3A7A54B321EA95BD007956F2 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +288,7 @@
 		DB4B63BB284596AB8FF5B917 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3A7A54B221EA95BD007956F2 /* StoreKit.framework */,
 				F3852B6A7E7865D4D450CA51 /* Pods_akifkeyboard.framework */,
 				CB2D736769E84C821075F3B6 /* Pods_keyboardExtension.framework */,
 			);
@@ -347,6 +351,9 @@
 						CreatedOnToolsVersion = 9.4.1;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 						};
