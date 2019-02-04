@@ -74,6 +74,8 @@ class KeyboardViewController: UIInputViewController {
 
     @IBOutlet var nextKeyboardButton: UIButton!
     
+    
+    let lightImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
     var settings: Specialization = EnglishQ()
     
     var selectedRows = [[""]]
@@ -320,6 +322,8 @@ class KeyboardViewController: UIInputViewController {
 
     @objc func returnKeyPressed(sender: UIButton) {
         
+        lightImpactFeedbackGenerator.impactOccurred();
+        
         self.textTracker?.addCharacter(ch: "\n", redrawButtons: {
             redrawButtonsForShift()
         })
@@ -342,12 +346,15 @@ class KeyboardViewController: UIInputViewController {
     
     var timer: Timer?
     @objc func deleteKeyLongPressed(sender: UILongPressGestureRecognizer) {
+        
         if sender.state == .began {
             timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(handleTimer(timer:)), userInfo: nil, repeats: true)
+            lightImpactFeedbackGenerator.impactOccurred();
+            
         } else if sender.state == .ended || sender.state == .cancelled {
             timer?.invalidate()
             timer = nil
-        }
+            }
         spacePressed = false
     }
     
@@ -399,6 +406,8 @@ class KeyboardViewController: UIInputViewController {
         if sender.state == .ended{
             let button = sender.view as! KeyButton
             
+            lightImpactFeedbackGenerator.impactOccurred();
+            
             self.secondaryButtonAction(button: button)
         }
     }
@@ -425,6 +434,8 @@ class KeyboardViewController: UIInputViewController {
             self.poundKeyCurrentState = 0;
         }
         let nextState = self.poundKeyStates[self.poundKeyCurrentState]
+        
+        lightImpactFeedbackGenerator.impactOccurred();
         
         if nextState == "numeric"{
             self.selectedRows = self.settings.secondaryLayout;
