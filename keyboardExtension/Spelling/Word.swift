@@ -10,7 +10,7 @@ import Foundation
 
 final class Word: Searchable {
     var word: String {
-        if(_single) {
+        if(_word != nil) {
             return _word!
         }
         return _keywords![0]
@@ -24,6 +24,7 @@ final class Word: Searchable {
     }
     
     // keep non-array Word objects separately. This helps save memory.
+    // if the word doesn't have keywords no reason to keep it as an array.
     private var _single: Bool
     private var _keywords: [String]?
     private var _word: String?
@@ -36,10 +37,17 @@ final class Word: Searchable {
         self._single = true;
     }
     
-    init(word: String, weight: Int, keywords: [String]) {
+    init(weight: Int, keywords: [String]) {
         self.weight = weight
         self._keywords = keywords
         self._single = false
+    }
+    
+    init(word: String, weight: Int, keywords: [String], single: Bool) {
+        self.weight = weight
+        self._word = word
+        self._keywords = keywords
+        self._single = single
     }
 }
 

@@ -79,6 +79,7 @@ class KeyboardViewController: UIInputViewController {
     var settings: Specialization = EnglishQ()
     
     var selectedRows = [[""]]
+    var keyProbabilities = [[1.0]]
     
     let poundKeyStates = ["off", "numeric"]
     var poundKeyCurrentState = 0
@@ -171,6 +172,8 @@ class KeyboardViewController: UIInputViewController {
         self.setupBottomRow()
         
         self.selectedRows = self.settings.layout;
+        self.keyProbabilities = self.settings.layout_prob;
+        
         self.setupKeys()
         
         self.textTracker = TextTracker(shiftKey: self.shiftKey, textDocumentProxy: self.textDocumentProxy)
@@ -249,9 +252,11 @@ class KeyboardViewController: UIInputViewController {
         }
         self.buttons.removeAll()
         
-        for row in self.selectedRows {
+        for (i, row) in self.selectedRows.enumerated() {
             var x: CGFloat = ceil((width - (CGFloat(row.count) - 1) * (keySpacing + keyWidth) - keyWidth) / 2.0)
-            for var label in row {
+            for var (k, label) in row.enumerated() {
+                
+                let keyProb = self.keyProbabilities[i][k]
                 
                 let labelArr = label.components(separatedBy: "||")
                 var secondTitle = "";
@@ -276,6 +281,20 @@ class KeyboardViewController: UIInputViewController {
                 //button.autoresizingMask = .FlexibleWidth | .FlexibleLeftMargin | .FlexibleRightMargin
                 button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: 0)
                 
+                let xRange: [CGFloat] = [3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
+                let yRange: [CGFloat] = [3.0, 4.0, 5.0, 6.0, 7.0, 8.0]
+                var effective: CGFloat = CGFloat(keyProb - 100.0/26.0)
+                if(effective > 8) { effective = 8; }
+                
+                let marginX = xRange.first(where: { $0 >= effective })!
+                let marginY = yRange.first(where: { $0 >= effective })!
+                
+                button.setMargin(
+                    marginX: marginX,
+                    marginY: marginY,
+                    offsetX: 0,
+                    offsetY: 0)
+
                 // Hack for A and L mimicking IOS keyboard. We need to make these adaptive later.
                 if(label.uppercased() == "A"){
                     button.setMargin(marginX: 15, marginY: 4, offsetX: 0, offsetY: 0)

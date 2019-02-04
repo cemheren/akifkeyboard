@@ -9,6 +9,7 @@
 protocol Specialization{
     
     var layout: [[String]] {get}
+    var layout_prob: [[Double]] {get}
     var secondaryLayout: [[String]] {get}
     
     var spellCheckfilename: String {get}

@@ -85,7 +85,7 @@ class SpellCheckController{
                         .folding(options: .diacriticInsensitive, locale: nil)
                         .components(separatedBy: ",")
                     
-                    let wordObject = Word(word: word, weight: frequency, keywords: keywords)
+                    let wordObject = Word(word: word, weight: frequency, keywords: keywords, single: false)
                     if(frequency > self.autocompleteCutoffFrequency){
                         self.autoComplete.insert(wordObject)
                     }
