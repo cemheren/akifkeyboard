@@ -25,6 +25,8 @@ class KeyButton: UIButton {
     var mode: String?;
     var secondaryTitle: String?;
     
+    public var longSelected = false;
+    
     init(frame: CGRect, settings: Specialization)  {
         super.init(frame: frame)
     
@@ -191,18 +193,20 @@ class KeyboardViewController: UIInputViewController {
     
     func setupThirdRow(){
         let thirdRowTopPadding: CGFloat = topPadding + (keyHeight + rowSpacing) * 2
-        shiftKey = KeyButton(
+        self.shiftKey = KeyButton(
             frame: CGRect(x: 2.0, y: thirdRowTopPadding, width:shiftWidth, height:shiftHeight),
             settings: self.settings)
         
-        shiftKey!.setMargin(marginX: 10, marginY: 4, offsetX: 0, offsetY: 0)
+        self.shiftKey!.setMargin(marginX: 10, marginY: 4, offsetX: 0, offsetY: 0)
         
-        shiftKey!.addTarget(self, action:#selector(shiftKeyPressed(sender:)), for: .touchUpInside)
-        shiftKey!.isSelected = true
-        shiftKey!.setTitle("^", for: .normal)
-        shiftKey!.setTitle("^^", for: .selected)
+        self.shiftKey!.addTarget(self, action:#selector(shiftKeyPressed(sender:)), for: .touchUpInside)
+        self.shiftKey!.isSelected = true
+        self.shiftKey!.setTitle("^", for: .normal)
+        self.shiftKey!.setTitle("^^", for: .selected)
         self.view.addSubview(shiftKey!)
-        
+        let longShiftGesture = UILongPressGestureRecognizer(target: self, action: #selector(shiftKeyLongPressed(sender: )))
+        self.shiftKey!.addGestureRecognizer(longShiftGesture)
+        self.shiftKey!.addTarget(self, action:#selector(shiftKeyLongPressed(sender:)), for: .touchDragExit)
         
         let viewWidth = UIScreen.main.applicationFrame.size.width
         deleteKey = KeyButton(
@@ -374,7 +378,8 @@ class KeyboardViewController: UIInputViewController {
         shiftPosArr[shiftPosArr.count - 1] = shiftPosArr[shiftPosArr.count - 1] + 1;
         if shiftKey!.isSelected {
             shiftPosArr.append(0)
-            self.textTracker?.setShiftValue(shiftVal: true)
+            self.shiftKey?.isSelected = false
+            self.textTracker?.setShiftValue(shiftVal: self.shiftKey!)
         }
         
         spacePressed = false
@@ -406,7 +411,43 @@ class KeyboardViewController: UIInputViewController {
     }
     
     @objc func shiftKeyPressed(sender: UIButton) {
-        self.textTracker?.setShiftValue(shiftVal: !shiftKey!.isSelected)
+        if (self.shiftKey?.longSelected == true){
+            self.shiftKey!.isSelected = false
+            self.shiftKey!.longSelected = false;
+        }else{
+            self.shiftKey!.isSelected = !self.shiftKey!.isSelected
+            self.shiftKey!.longSelected = false;
+        }
+        
+        self.textTracker?.setShiftValue(shiftVal: self.shiftKey!)
+        self.shiftKey?.backgroundColor = self.settings.buttonBgColor
+        
+        if shiftKey!.isSelected {
+            shiftPosArr.append(0)
+        }
+        else if shiftPosArr[shiftPosArr.count - 1] == 0 {
+            shiftPosArr.removeLast()
+        }
+        
+        spacePressed = false
+        
+        redrawButtonsForShift()
+    }
+    
+    @objc func shiftKeyLongPressed(sender: UIButton) {
+        
+        if(self.shiftKey!.longSelected == true){
+            self.shiftKey!.longSelected = false
+            self.shiftKey!.isSelected = false;
+            self.shiftKey?.backgroundColor = self.settings.buttonBgColor
+        }else{
+            self.shiftKey!.longSelected = true
+            self.shiftKey!.isSelected = true;
+            self.shiftKey?.backgroundColor = UIColor.red
+        }
+        
+        self.textTracker?.setShiftValue(shiftVal: self.shiftKey!)
+        
         if shiftKey!.isSelected {
             shiftPosArr.append(0)
         }

@@ -16,7 +16,7 @@ class TextTracker{
     var currentSentence: String
     var lastSentence: String
     
-    var shiftKey: UIButton?
+    var shiftKey: KeyButton?
     var textDocumentProxy: UITextDocumentProxy
     
     private var shiftPosArr = [0]
@@ -24,12 +24,12 @@ class TextTracker{
     private var spacePressed = false
     private var spaceTimer: Timer?
 
-    init(shiftKey: UIButton?, textDocumentProxy: UITextDocumentProxy) {
+    init(shiftKey: KeyButton!, textDocumentProxy: UITextDocumentProxy) {
         lastWord = ""
         currentWord = ""
         currentSentence = ""
         lastSentence = ""
-        self.shiftKey = shiftKey
+        self.shiftKey = shiftKey!
         self.textDocumentProxy = textDocumentProxy
     }
     
@@ -44,7 +44,7 @@ class TextTracker{
             spacePressed = false
             
             if (shiftKey!.isSelected == false) {
-                self.setShiftValue(shiftVal: true)
+                self.shiftKey?.isSelected = true;
                 redrawButtons()
             }
         }
@@ -73,8 +73,8 @@ class TextTracker{
             
             proxy.insertText(insertText)
             
-            if (shiftKey!.isSelected) {
-                self.setShiftValue(shiftVal: false)
+            if (self.shiftKey!.isSelected && self.shiftKey!.longSelected == false) {
+                self.shiftKey?.isSelected = false
                 redrawButtons()
             }
         }
@@ -182,6 +182,9 @@ class TextTracker{
         if lowercasedCurrentWord == "i'll"{
             return true
         }
+        if lowercasedCurrentWord == "i've"{
+            return true
+        }
 
         return false
     }
@@ -197,6 +200,9 @@ class TextTracker{
         if lowercasedCurrentWord == "i'll"{
             return "I'll"
         }
+        if lowercasedCurrentWord == "i've"{
+            return "I've"
+        }
         
         return String(word)
     }
@@ -204,6 +210,14 @@ class TextTracker{
     func insertText(text: String?){
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         var insertText = text ?? "";
+
+        if(self.shiftKey!.isSelected == true){
+            insertText = insertText.capitalized
+        }
+        
+        if(self.shiftKey?.longSelected == true){
+            insertText = insertText.uppercased()
+        }
         
         let substrings = insertText.split(separator: " ", maxSplits: 1000, omittingEmptySubsequences: false);
         let fixed = substrings.map{fixer(word: $0)}
@@ -225,9 +239,9 @@ class TextTracker{
             self.currentWord = insertText
         }
         
-        if (shiftKey!.isSelected) {
-            self.setShiftValue(shiftVal: false)
-            //redrawButtons()
+        if (shiftKey!.isSelected && self.shiftKey!.longSelected == false) {
+            self.shiftKey!.isSelected = false
+            // redraw buttons
         }
     }
     
@@ -241,9 +255,7 @@ class TextTracker{
         spacePressed = false
     }
     
-    func setShiftValue(shiftVal: Bool) {
-        if shiftKey?.isSelected != shiftVal {
-            shiftKey!.isSelected = shiftVal
-        }
+    func setShiftValue(shiftVal: KeyButton) {
+        self.shiftKey = shiftVal
     }
 }
