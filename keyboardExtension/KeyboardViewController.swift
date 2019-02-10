@@ -13,7 +13,7 @@ class KeyButton: UIButton {
     
     override var isHighlighted: Bool {
         didSet {
-            backgroundColor = isHighlighted ? UIColor.lightGray : UIColor.white
+            //backgroundColor = isHighlighted ? UIColor.lightGray : UIColor.white
         }
     }
     var marginX: CGFloat = 3
@@ -25,20 +25,21 @@ class KeyButton: UIButton {
     var mode: String?;
     var secondaryTitle: String?;
     
-    override init(frame: CGRect)  {
+    init(frame: CGRect, settings: Specialization)  {
         super.init(frame: frame)
     
         self.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 22.0)
         self.titleLabel?.textAlignment = .center
-        self.setTitleColor(UIColor(white: 20.0/255, alpha: 1), for: [])
+        let buttonTextColor = settings.textColor
+        self.setTitleColor(buttonTextColor, for: [])
         self.titleLabel?.sizeToFit()
 
         self.clipsToBounds = true
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor(red: 216.0/255, green: 211.0/255, blue: 199.0/255, alpha: 1).cgColor
+        self.layer.borderColor = settings.buttonBorderColor.cgColor
         self.layer.cornerRadius = 6
         
-        self.backgroundColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
+        self.backgroundColor = settings.buttonBgColor // UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
         self.contentVerticalAlignment = .center
         self.contentHorizontalAlignment = .center
         
@@ -150,6 +151,8 @@ class KeyboardViewController: UIInputViewController {
                     self.settings = EnglishQ()
                 }else if(flavor == "EnglishWithTurkishChars"){
                     self.settings = EnglishQTurkishExtended()
+                }else if(flavor == "EnglishQDark"){
+                    self.settings = EnglishQDark()
                 }else if(flavor == "Turkish"){
                     self.settings = TurkishQ()
                 }else if(flavor == "Dvorak"){
@@ -161,7 +164,7 @@ class KeyboardViewController: UIInputViewController {
         }
         
         // Perform custom UI setup here
-        self.view.backgroundColor = UIColor(red: 227/255.0, green: 228/255.0, blue: 229/255.0, alpha: 1)
+        self.view.backgroundColor = self.settings.keyboardBgColor;
         
         let border = UIView(frame: CGRect(x:CGFloat(0.0), y:CGFloat(0.0), width:self.view.frame.size.width, height:CGFloat(0.5)))
         border.autoresizingMask = UIViewAutoresizing.flexibleWidth
@@ -188,7 +191,10 @@ class KeyboardViewController: UIInputViewController {
     
     func setupThirdRow(){
         let thirdRowTopPadding: CGFloat = topPadding + (keyHeight + rowSpacing) * 2
-        shiftKey = KeyButton(frame: CGRect(x: 2.0, y: thirdRowTopPadding, width:shiftWidth, height:shiftHeight))
+        shiftKey = KeyButton(
+            frame: CGRect(x: 2.0, y: thirdRowTopPadding, width:shiftWidth, height:shiftHeight),
+            settings: self.settings)
+        
         shiftKey!.setMargin(marginX: 10, marginY: 4, offsetX: 0, offsetY: 0)
         
         shiftKey!.addTarget(self, action:#selector(shiftKeyPressed(sender:)), for: .touchUpInside)
@@ -199,7 +205,10 @@ class KeyboardViewController: UIInputViewController {
         
         
         let viewWidth = UIScreen.main.applicationFrame.size.width
-        deleteKey = KeyButton(frame: CGRect(x:viewWidth - shiftWidth - 2.0, y: thirdRowTopPadding, width:shiftWidth, height:shiftHeight))
+        deleteKey = KeyButton(
+            frame: CGRect(x:viewWidth - shiftWidth - 2.0, y: thirdRowTopPadding, width:shiftWidth, height:shiftHeight),
+            settings: self.settings)
+        
         deleteKey!.setMargin(marginX: 10, marginY: 4, offsetX: 0, offsetY: 0)
         deleteKey!.addTarget(self, action:#selector(deleteKeyPressed(sender:)), for: .touchUpInside)
         let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(deleteKeyLongPressed(sender: )))
@@ -216,26 +225,38 @@ class KeyboardViewController: UIInputViewController {
         let bottomRowTopPadding = topPadding + keyHeight * 3 + rowSpacing * 2 + 8
         self.spaceWidth = viewWidth - 2 - returnWidth - 2 - nextWidth - 2 - nextWidth;
         
-        spaceKey = KeyButton(frame: CGRect(x:(viewWidth - returnWidth - 2  - spaceWidth), y: bottomRowTopPadding, width:spaceWidth, height:spaceHeight))
+        spaceKey = KeyButton(
+            frame: CGRect(x:(viewWidth - returnWidth - 2  - spaceWidth), y: bottomRowTopPadding, width:spaceWidth, height:spaceHeight),
+            settings: self.settings)
+        
         spaceKey!.setTitle(" ", for: .normal)
         spaceKey!.addTarget(self, action:#selector(keyPressed(sender:)), for: .touchUpInside)
         self.view.addSubview(spaceKey!)
         
-        self.nextKeyboardButton = KeyButton(frame:CGRect(x: 4 + nextWidth, y: bottomRowTopPadding, width:nextWidth, height:spaceHeight))
+        self.nextKeyboardButton = KeyButton(
+            frame:CGRect(x: 4 + nextWidth, y: bottomRowTopPadding, width:nextWidth, height:spaceHeight),
+            settings: self.settings)
+        
         nextKeyboardButton!.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size:18)
-        nextKeyboardButton!.setTitle(NSLocalizedString("N", comment: "Title for 'Next Keyboard' button"), for: .normal)
+        nextKeyboardButton!.setTitle("N", for: .normal)
         nextKeyboardButton!.addTarget(self, action: #selector(handleInputModeList(from:with:)), for: .allTouchEvents)
         view.addSubview(self.nextKeyboardButton!)
         
         self.nextKeyboardButton.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         //self.nextKeyboardButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         
-        poundKey = KeyButton(frame: CGRect(x: 2, y: bottomRowTopPadding, width:nextWidth, height:spaceHeight))
+        poundKey = KeyButton(
+            frame: CGRect(x: 2, y: bottomRowTopPadding, width:nextWidth, height:spaceHeight),
+            settings: self.settings)
+        
         poundKey!.setTitle("#", for: .normal)
         poundKey!.addTarget(self, action:#selector(poundKeyPressed(sender:)), for: .touchUpInside)
         self.view.addSubview(poundKey!)
         
-        returnButton = KeyButton(frame: CGRect(x:viewWidth - returnWidth - 2, y: bottomRowTopPadding, width:self.returnWidth, height:spaceHeight))
+        returnButton = KeyButton(
+            frame: CGRect(x:viewWidth - returnWidth - 2, y: bottomRowTopPadding, width:self.returnWidth, height:spaceHeight),
+            settings: self.settings)
+        
         returnButton!.setTitle(NSLocalizedString("Ret", comment: "Title for 'Return Key' button"), for: .normal)
         returnButton!.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size:18)
         returnButton!.addTarget(self, action:#selector(returnKeyPressed(sender:)), for: .touchUpInside)
@@ -267,7 +288,9 @@ class KeyboardViewController: UIInputViewController {
                     label = labelArr[0]
                 }
                 
-                let button = KeyButton(frame: CGRect(x: x, y: y, width: keyWidth, height: keyHeight))
+                let button = KeyButton(
+                    frame: CGRect(x: x, y: y, width: keyWidth, height: keyHeight),
+                    settings: self.settings)
                 
                 button.setTitle(self.shiftKey?.isSelected ?? false ? label.uppercased() : label.lowercased(), for: .normal)
                 button.addTarget(self, action:#selector(keyPressed(sender:)), for: .touchUpInside)
@@ -336,7 +359,7 @@ class KeyboardViewController: UIInputViewController {
         } else {
             textColor = UIColor.black
         }
-        self.nextKeyboardButton.setTitleColor(textColor, for: [])
+        //self.nextKeyboardButton.setTitleColor(textColor, for: [])
     }
 
     @objc func returnKeyPressed(sender: UIButton) {

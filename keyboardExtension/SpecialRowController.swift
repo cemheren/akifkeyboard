@@ -28,11 +28,15 @@ class SpecialRowController{
     private var lastemoji: String? = nil;
     private var lastarray: Array<Array<String>>? = nil
     
+    private var settings: Specialization
+    
     init(textTracker: TextTracker, parentView: UIView, spellCheckController: SpellCheckController, specialization: Specialization) {
         self.textTracker = textTracker
         self.parentView = parentView;
         self.spellCheckController = spellCheckController
         self.spaceAfterAutoComplete = specialization.spaceAfterAutoComplete
+        
+        self.settings = specialization
     }
     
     func getSpecialRow(){
@@ -115,7 +119,10 @@ class SpecialRowController{
                         mode = labelArr[1]
                     }
                     
-                    let button = KeyButton(frame: CGRect(x: x, y: y, width: dynamicWidth, height: self.specialKeyHeight))
+                    let button = KeyButton(
+                        frame: CGRect(x: x, y: y, width: dynamicWidth, height: self.specialKeyHeight),
+                        settings: self.settings)
+                    
                     button.titleLabel?.adjustsFontSizeToFitWidth = true
                     button.mode = mode
                     button.setTitle(label, for: .normal)

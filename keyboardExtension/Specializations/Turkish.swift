@@ -7,7 +7,17 @@
 //
 
 import Foundation
+import UIKit
+
 class TurkishQ : Specialization{
+    public let keyboardBgColor = UIColor(red: 227/255.0, green: 228/255.0, blue: 229/255.0, alpha: 1)
+    
+    public let buttonBgColor =  UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
+    
+    public let textColor = UIColor(white: 20.0/255, alpha: 1)
+    
+    public let buttonBorderColor = UIColor(red: 216.0/255, green: 211.0/255, blue: 199.0/255, alpha: 1)
+    
     public let layout = [["q||1", "w||2", "e||3", "r||4", "t||5", "y||6", "u||ü", "i||ı", "o||ö", "p||0" ],
                          ["a||-", "s||ş", "d||;", "f||(", "g||ğ", "h||$", "j||&", "k||@", "l||\""],
                          ["z||.", "x||,", "c||ç", "v||,", "b||:", "n||!", "m||'"]];
