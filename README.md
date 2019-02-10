@@ -17,11 +17,15 @@ What's supported:
 12. Support for Dvorak layout
 13. Support for Chinese (pinyin)
 14. Next word prediction (English only)
+15. Caps-lock 
+16. Dark theme
 
 <p align="center">
   <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-08-24%20at%2023.58.51.png" width="120">
   
   <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-08-24%20at%2023.59.24.png" width="120">
+
+<img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202019-02-09%20at%2017.36.35.png" width="120">
   
   <img src="https://github.com/cemheren/akifkeyboard/blob/master/Screenshots/Simulator%20Screen%20Shot%20-%20iPhone%208%20Plus%20-%202018-09-09%20at%2022.33.05.png" width="120">
   
