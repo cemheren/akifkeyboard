@@ -48,6 +48,14 @@
                                     <action selector="tipjarClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ht3-CS-xaG"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ccR-8R-w8b">
+                                <rect key="frame" x="20" y="82" width="75" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Extensions"/>
+                                <connections>
+                                    <action selector="OpenExtensions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lKA-Id-xB3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -87,6 +95,31 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pfi-Wy-e2l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="375" y="-34.859154929577464"/>
+        </scene>
+        <!--Extensions Controller-->
+        <scene sceneID="rDP-xe-Et4">
+            <objects>
+                <viewController storyboardIdentifier="Extensions" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hqy-cy-qGi" customClass="ExtensionsController" customModule="akifkeyboard" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="Extensions" id="Q4K-vJ-iU6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KV7-Zo-l4e">
+                                <rect key="frame" x="22" y="222" width="369" height="292"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Xct-cU-yun"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="KV7-Zo-l4e" id="jAm-Lz-KYl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vdt-Oc-G3u" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="374" y="643"/>
         </scene>
     </scenes>
 </document>

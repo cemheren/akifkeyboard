@@ -12,6 +12,7 @@
 		3A0133BA21338FE100FF88A3 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0133B821338FE100FF88A3 /* Word.swift */; };
 		3A0133C22138E05000FF88A3 /* KeybuttonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A0133C12138E05000FF88A3 /* KeybuttonView.xib */; };
 		3A0133C32138E05000FF88A3 /* KeybuttonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A0133C12138E05000FF88A3 /* KeybuttonView.xib */; };
+		3A070C2B221530B900BB76EB /* ExtensionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A070C2A221530B900BB76EB /* ExtensionsViewController.swift */; };
 		3A1F65BA219D0C630035D4F7 /* TipJarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1F65B1219D0C610035D4F7 /* TipJarViewController.swift */; };
 		3A1F65BB219D0C630035D4F7 /* TipJarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1F65B2219D0C620035D4F7 /* TipJarButton.swift */; };
 		3A1F65BC219D0C630035D4F7 /* TipJarViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1F65B3219D0C620035D4F7 /* TipJarViewControllerDelegate.swift */; };
@@ -99,6 +100,7 @@
 		1C7DF9C7C2DA6CE990A82A86 /* Pods-keyboardExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-keyboardExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-keyboardExtension/Pods-keyboardExtension.release.xcconfig"; sourceTree = "<group>"; };
 		3A0133B821338FE100FF88A3 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		3A0133C12138E05000FF88A3 /* KeybuttonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeybuttonView.xib; sourceTree = "<group>"; };
+		3A070C2A221530B900BB76EB /* ExtensionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsViewController.swift; sourceTree = "<group>"; };
 		3A1F65B1219D0C610035D4F7 /* TipJarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarViewController.swift; sourceTree = "<group>"; };
 		3A1F65B2219D0C620035D4F7 /* TipJarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarButton.swift; sourceTree = "<group>"; };
 		3A1F65B3219D0C620035D4F7 /* TipJarViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarViewControllerDelegate.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				3ACC4A0E212538EE006A7EC5 /* Assets.xcassets */,
 				3ACC4A10212538EE006A7EC5 /* LaunchScreen.storyboard */,
 				3ACC4A13212538EE006A7EC5 /* Info.plist */,
+				3A070C2A221530B900BB76EB /* ExtensionsViewController.swift */,
 			);
 			path = akifkeyboard;
 			sourceTree = "<group>";
@@ -500,6 +503,7 @@
 				3A79C4D4213FB6B200218EE8 /* Turkish.swift in Sources */,
 				3A34F4592141327E009FA33C /* NextWordPredictor.swift in Sources */,
 				3A34F45321410352009FA33C /* Chinese.swift in Sources */,
+				3A070C2B221530B900BB76EB /* ExtensionsViewController.swift in Sources */,
 				3A1F65BE219D0C630035D4F7 /* TipJarFrequency.swift in Sources */,
 				3A1F65BB219D0C630035D4F7 /* TipJarButton.swift in Sources */,
 				3A79C4D1213FB53900218EE8 /* Specialization.swift in Sources */,
