@@ -21,7 +21,7 @@ protocol Extension{
 //    func OnWordAddedAsync(lastWord: String, completionFunction: CompletionFunction) -> Void
 //    func OnWordAddedAsyncCompletion(result: String) -> String
 //
-    func OnSentenceCompletedAsync(sentence: String, completionFunction: CompletionFunction) -> Void
+    func OnSentenceCompletedAsync(sentence: String, placeholderId: Int, completionFunction: CompletionFunction) -> Void
     
 //    var OnTextChangedAsyncCompletion : CompletionFunction {get}
 //    func OnTextChangedAsync(currentText: String, completionFunction: CompletionFunction) -> Void
@@ -29,5 +29,5 @@ protocol Extension{
 
 protocol CompletionFunction{
     
-    func OnComplete(result: String) -> Void
+    func OnComplete(result: String, placeholderId: Int) -> Void
 }

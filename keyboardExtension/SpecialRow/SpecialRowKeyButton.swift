@@ -20,14 +20,18 @@ class SpecialRowKeyPlaceHolder{
     var operationMode: SpecialKeyOperationMode!
     var text: String?
     
+    var id: Int
+    
     init(text: String, operationMode: SpecialKeyOperationMode){
         self.operationMode = operationMode
         self.text = text;
+        self.id = Int.random(in: 0 ... 10000)
     }
     
     init(text: String){
         self.text = text
         self.operationMode = SpecialKeyOperationMode.replace
+        self.id = Int.random(in: 0 ... 10000)
     }
 }
 

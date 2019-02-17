@@ -48,7 +48,7 @@ class EmojiExtension: Extension{
         task.resume()
     }
     
-    func OnSentenceCompletedAsync(sentence: String, completionFunction: CompletionFunction) {
+    func OnSentenceCompletedAsync(sentence: String, placeholderId: Int, completionFunction: CompletionFunction) {
         if sentence.count < 5 {
             self.lastemoji = nil
             return
@@ -65,7 +65,7 @@ class EmojiExtension: Extension{
             DispatchQueue.main.async {
                 self.lastemoji = result
                 
-                completionFunction.OnComplete(result: result)
+                completionFunction.OnComplete(result: result, placeholderId: placeholderId)
             }
         }
     }

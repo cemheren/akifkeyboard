@@ -73,7 +73,11 @@ class SpecialRowController: CompletionFunction{
             
             for e in self.selectedExtensions{
                 if(e.implementsAsync){
+                    var placeholder = SpecialRowKeyPlaceHolder(text: "...", operationMode: SpecialKeyOperationMode.append)
+                    alternatives.append(placeholder)
+                    
                     e.OnSentenceCompletedAsync(sentence: self.textTracker?.currentSentence ?? "",
+                                               placeholderId: placeholder.id,
                                                completionFunction: self)
                 }
             }
@@ -97,20 +101,29 @@ class SpecialRowController: CompletionFunction{
                 })
             }else{
                 let result = self.spellCheckController.getNextWordPredictions(lastWord: (self.textTracker?.lastWord)!)
-                self.drawSpecialRow(array: [result.alternatives.map{SpecialRowKeyPlaceHolder(text: $0, operationMode: SpecialKeyOperationMode.append)}])
+                let nextWordPlaceholders = result.alternatives.map{SpecialRowKeyPlaceHolder(text: $0, operationMode: SpecialKeyOperationMode.append)};
+                alternatives.append(contentsOf: nextWordPlaceholders)
+                
+                self.drawSpecialRow(array: [alternatives])
             }
         }
     }
     
-    func OnComplete(result: String) {
-        self.appendToSpecialRow(text: result)
+    func OnComplete(result: String, placeholderId: Int) {
+        self.appendToSpecialRow(text: result, placeholderId: placeholderId)
     }
     
-    func appendToSpecialRow(text: String){
+    func appendToSpecialRow(text: String, placeholderId: Int){
         
         if self.lastarray == nil {return}
         
-        self.lastarray?[0].append(SpecialRowKeyPlaceHolder(text: text))
+        for item in (self.lastarray?[0])! {
+            if(item.id == placeholderId){
+                item.text = text;
+            }
+        }
+        
+        //self.lastarray?[0].append(SpecialRowKeyPlaceHolder(text: text))
         self.drawSpecialRow(array: self.lastarray!)
     }
     
