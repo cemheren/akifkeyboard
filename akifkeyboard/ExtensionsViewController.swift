@@ -11,7 +11,7 @@ import UIKit
 
 class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let extensions: [String] = ["Emoji", "Stocks"]
+    let extensions: [String] = ["EmojiExtension"]
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "extension"
@@ -35,7 +35,6 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
             let arr = userDefaults.stringArray(forKey: "extensions") ?? []
             self.selectedExtensions = Set(arr)
         }
-        
         
         // This view controller itself will provide the delegate methods and row data for the table view.
         tableView.delegate = self

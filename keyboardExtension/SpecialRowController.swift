@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SpecialRowController{
+class SpecialRowController: CompletionFunction{
     
     private var textTracker: TextTracker?
     private var parentView: UIView?
@@ -25,10 +25,11 @@ class SpecialRowController{
     private var lastUpdated : Date = Date()
     private var spaceAfterAutoComplete = false;
     
-    private var lastemoji: String? = nil;
     private var lastarray: Array<Array<String>>? = nil
     
     private var settings: Specialization
+    
+    private var selectedExtensions: [Extension]
     
     init(textTracker: TextTracker, parentView: UIView, spellCheckController: SpellCheckController, specialization: Specialization) {
         self.textTracker = textTracker
@@ -37,6 +38,19 @@ class SpecialRowController{
         self.spaceAfterAutoComplete = specialization.spaceAfterAutoComplete
         
         self.settings = specialization
+        let namespace = Bundle.main.infoDictionary!["CFBundleExecutable"] as! String;
+        self.selectedExtensions = [Extension]()
+        
+        if let userDefaults = UserDefaults(suiteName: "group.heren.kifboard") {
+            let arr = userDefaults.stringArray(forKey: "extensions") ?? []
+
+            for e in arr {
+                var extensionClass: AnyClass = (NSClassFromString("\(namespace).\(e)") as! AnyClass) ;
+                var extensionClass1 = extensionClass as! Extension.Type
+                
+                self.selectedExtensions.append(extensionClass1.init())
+            }
+        }
     }
     
     func getSpecialRow(){
@@ -57,7 +71,12 @@ class SpecialRowController{
                 self.drawSpecialRow(array: [alternatives])
             }
             
-            self.emojiSetter(text: self.textTracker?.currentSentence ?? "")
+            for e in self.selectedExtensions{
+                if(e.implementsAsync){
+                    e.OnSentenceCompletedAsync(sentence: self.textTracker?.currentSentence ?? "",
+                                               completionFunction: self)
+                }
+            }
             
             if(currentWord.count >= 1){
                 let checkSpellingInitiateTime = Date();
@@ -81,7 +100,11 @@ class SpecialRowController{
         }
     }
     
-    func updateSpecialRow(text: String){
+    func OnComplete(result: String) {
+        self.appendToSpecialRow(text: result + ":a")
+    }
+    
+    func appendToSpecialRow(text: String){
         
         if self.lastarray == nil {return}
         
@@ -135,58 +158,6 @@ class SpecialRowController{
                 }
                 
                 y += self.specialKeyHeight + self.rowSpacing
-            }
-        }
-    }
-    
-    func emojiSetter(text: String){
-        if text.count < 5 {
-            self.lastemoji = nil
-            return
-        }
-        
-        if text.last != " "{
-            return
-        }
-        
-        func getURI(url: String, completion: @escaping (_ result: String)->()){
-            
-            let uri = URL(string: url)
-            
-            if uri == nil { completion(""); print("not a uri: " + url); return }
-            
-            var request = URLRequest(url: uri!)
-            request.httpMethod = "GET"
-            //request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
-            //request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-            
-            let session = URLSession.shared
-            let task = session.dataTask(with: request, completionHandler: { data, response, error -> Void in
-                if(response == nil){
-                    return;
-                }
-                
-                print(response!)
-                print(data!)
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data!) as! Array<String>
-                    completion(json[0])
-                    
-                } catch {
-                    print("error")
-                }
-            })
-            
-            task.resume()
-        }
-        
-        var k = text ?? ""
-        k = k.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
-        k = k.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
-        getURI(url: "http://104.42.255.66:5000/" + k) { (result) in
-            DispatchQueue.main.async {
-                self.lastemoji = result
-                self.updateSpecialRow(text: result + ":a")
             }
         }
     }

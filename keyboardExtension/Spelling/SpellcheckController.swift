@@ -29,8 +29,6 @@ class SpellCheckController{
     var correctSpelling = CorrectSpelling()
     var nextWordPredictor = NextWordPredictor()
     
-    let endpoint: String = "https://2hwrmsajo2.execute-api.eu-central-1.amazonaws.com/Prod/spellcheck?prompt="
-
     var filename = ""
     var autocompleteCutoffFrequency = 3;
     

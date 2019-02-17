@@ -69,6 +69,10 @@
 		3AF03E03212E7271000C07C7 /* my_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3AF03E01212E7271000C07C7 /* my_model.mlmodel */; };
 		3AF03E05212E81DB000C07C7 /* CorrectSpelling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF03E04212E81DB000C07C7 /* CorrectSpelling.swift */; };
 		3AF03E06212E81DB000C07C7 /* CorrectSpelling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF03E04212E81DB000C07C7 /* CorrectSpelling.swift */; };
+		3AF10FA42218F2B800CA845E /* ExtensionInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF10FA32218F2B800CA845E /* ExtensionInterface.swift */; };
+		3AF10FA52218F2B800CA845E /* ExtensionInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF10FA32218F2B800CA845E /* ExtensionInterface.swift */; };
+		3AF10FA72218FAD300CA845E /* EmojiExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF10FA62218FAD300CA845E /* EmojiExtension.swift */; };
+		3AF10FA82218FAD300CA845E /* EmojiExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF10FA62218FAD300CA845E /* EmojiExtension.swift */; };
 		88A0C8671BB8B47214F239CC /* Pods_keyboardExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2D736769E84C821075F3B6 /* Pods_keyboardExtension.framework */; };
 /* End PBXBuildFile section */
 
@@ -142,6 +146,8 @@
 		3AEE55272129E65A006979FE /* TextTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTracker.swift; sourceTree = "<group>"; };
 		3AF03E01212E7271000C07C7 /* my_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = my_model.mlmodel; sourceTree = "<group>"; };
 		3AF03E04212E81DB000C07C7 /* CorrectSpelling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectSpelling.swift; sourceTree = "<group>"; };
+		3AF10FA32218F2B800CA845E /* ExtensionInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionInterface.swift; sourceTree = "<group>"; };
+		3AF10FA62218FAD300CA845E /* EmojiExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiExtension.swift; sourceTree = "<group>"; };
 		8E2748D636A3390FFB9C23D2 /* Pods-keyboardExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-keyboardExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-keyboardExtension/Pods-keyboardExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		AD64D8715539475515A6A6CD /* Pods-akifkeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-akifkeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-akifkeyboard/Pods-akifkeyboard.debug.xcconfig"; sourceTree = "<group>"; };
 		CB2D736769E84C821075F3B6 /* Pods_keyboardExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_keyboardExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -258,6 +264,7 @@
 		3ACC4A1E21253901006A7EC5 /* keyboardExtension */ = {
 			isa = PBXGroup;
 			children = (
+				3AF10FA22218F27000CA845E /* Extensions */,
 				3A79C4CC213FAE6D00218EE8 /* Helpers */,
 				3A79C4CA213E8E0D00218EE8 /* keyboardExtension.entitlements */,
 				3A0133B721338FB400FF88A3 /* Spelling */,
@@ -275,6 +282,15 @@
 				3ACC4A2121253901006A7EC5 /* Info.plist */,
 			);
 			path = keyboardExtension;
+			sourceTree = "<group>";
+		};
+		3AF10FA22218F27000CA845E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3AF10FA32218F2B800CA845E /* ExtensionInterface.swift */,
+				3AF10FA62218FAD300CA845E /* EmojiExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		A6A085CBD75FDC57B3EF4890 /* Pods */ = {
@@ -501,7 +517,9 @@
 				3A79C4C5213E85FF00218EE8 /* English.swift in Sources */,
 				3AEE55282129E65A006979FE /* TextTracker.swift in Sources */,
 				3A79C4D4213FB6B200218EE8 /* Turkish.swift in Sources */,
+				3AF10FA72218FAD300CA845E /* EmojiExtension.swift in Sources */,
 				3A34F4592141327E009FA33C /* NextWordPredictor.swift in Sources */,
+				3AF10FA42218F2B800CA845E /* ExtensionInterface.swift in Sources */,
 				3A34F45321410352009FA33C /* Chinese.swift in Sources */,
 				3A070C2B221530B900BB76EB /* ExtensionsViewController.swift in Sources */,
 				3A1F65BE219D0C630035D4F7 /* TipJarFrequency.swift in Sources */,
@@ -527,6 +545,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A79C4D5213FB6B200218EE8 /* Turkish.swift in Sources */,
+				3AF10FA52218F2B800CA845E /* ExtensionInterface.swift in Sources */,
 				3A79C4D2213FB53900218EE8 /* Specialization.swift in Sources */,
 				3A79C4CF213FAE7D00218EE8 /* StreamReader.swift in Sources */,
 				3A34F45A2141327E009FA33C /* NextWordPredictor.swift in Sources */,
@@ -535,6 +554,7 @@
 				3A34F45421410352009FA33C /* Chinese.swift in Sources */,
 				3ACC4A2021253901006A7EC5 /* KeyboardViewController.swift in Sources */,
 				3AF03E03212E7271000C07C7 /* my_model.mlmodel in Sources */,
+				3AF10FA82218FAD300CA845E /* EmojiExtension.swift in Sources */,
 				3AA7F0AB212BA76E00949D0B /* SpecialRowController.swift in Sources */,
 				3A79C4C6213E85FF00218EE8 /* English.swift in Sources */,
 				3A34F46321426DA9009FA33C /* NextWord.swift in Sources */,
