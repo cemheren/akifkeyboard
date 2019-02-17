@@ -188,7 +188,9 @@ class KeyboardViewController: UIInputViewController {
             spellCheckController: SpellCheckController(specialization: self.settings),
             specialization: self.settings)
         
-        self.specialRowController?.drawSpecialRow(array: [["", "", ""]])
+        self.specialRowController?.drawSpecialRow(array: [
+            [SpecialRowKeyPlaceHolder(text: ""), SpecialRowKeyPlaceHolder(text: ""), SpecialRowKeyPlaceHolder(text: "")]
+            ])
     }
     
     func setupThirdRow(){
@@ -523,7 +525,18 @@ class KeyboardViewController: UIInputViewController {
         if nextState == "numeric"{
             self.selectedRows = self.settings.secondaryLayout;
             self.setupKeys()
-            self.specialRowController?.drawSpecialRow(array: [["😂:n", "😘:n", "💕:n", "❤️:n", "👍:n", "😅:n", "😥:n", "😎:n", "☺️:n", "🙃:n"]])
+            self.specialRowController?.drawSpecialRow(array: [
+                [SpecialRowKeyPlaceHolder(text: "😂", operationMode: SpecialKeyOperationMode.number),
+                 SpecialRowKeyPlaceHolder(text: "😘", operationMode: SpecialKeyOperationMode.number),
+                 SpecialRowKeyPlaceHolder(text: "💕", operationMode: SpecialKeyOperationMode.number),
+                 SpecialRowKeyPlaceHolder(text: "❤️", operationMode: SpecialKeyOperationMode.number),
+                 SpecialRowKeyPlaceHolder(text: "👍", operationMode: SpecialKeyOperationMode.number),
+                 SpecialRowKeyPlaceHolder(text: "😅", operationMode: SpecialKeyOperationMode.number),
+                 SpecialRowKeyPlaceHolder(text: "😥", operationMode: SpecialKeyOperationMode.number),
+                 SpecialRowKeyPlaceHolder(text: "😎", operationMode: SpecialKeyOperationMode.number),
+                 SpecialRowKeyPlaceHolder(text: "☺️", operationMode: SpecialKeyOperationMode.number),
+                 SpecialRowKeyPlaceHolder(text: "🙃", operationMode: SpecialKeyOperationMode.number)]
+                ])
         }else{
             self.selectedRows = self.settings.layout;
             self.setupKeys()
