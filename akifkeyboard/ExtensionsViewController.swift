@@ -65,6 +65,7 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
         
         if(self.selectedExtensions.contains(self.extensions[indexPath.row])){
             self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.none)
+            //self.tableView.delegate?.tableView!(self.tableView, didSelectRowAt: indexPath)
         }
     }
     
@@ -82,6 +83,7 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
         // create a new cell if needed or reuse an old one
         let c = self.tableView.dequeueReusableCell(withIdentifier: self.cellReuseIdentifier);
         let cell: ExtensionCell = c as! ExtensionCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.none;
         
         // set the text from the data model
         //cell.textLabel?.text = self.extensions[indexPath.row]
@@ -89,10 +91,14 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.cellDescription.text = self.descriptions[indexPath.row]
         
         cell.purchaseButton.setTitle(self.prices[indexPath.row], for: UIControlState.normal)
+            
+        if(cell.isSelected || self.selectedExtensions.contains(self.extensions[indexPath.row])){
+            cell.purchaseButton.setTitle("Added", for: UIControlState.normal)
+        }
+        
         cell.purchaseButton.layer.borderColor = self.view.tintColor.cgColor;
         cell.purchaseButton.layer.borderWidth = 1.0;
         cell.purchaseButton.layer.cornerRadius = 10;
-        
         
         return cell
     }
@@ -104,6 +110,9 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         print("You de-selected cell \(self.extensions[indexPath.row]).")
         
+        var selectedCell = self.tableView.cellForRow(at: indexPath) as! ExtensionCell
+        selectedCell.purchaseButton.setTitle("Removed", for: UIControlState.normal)
+        
         self.selectedExtensions.remove(self.extensions[indexPath.row])
         
         if let userDefaults = UserDefaults(suiteName: "group.heren.kifboard") {
@@ -114,6 +123,9 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
     // method to run when table view cell is tapped
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You tapped cell \(self.extensions[indexPath.row]).")
+    
+        var selectedCell = self.tableView.cellForRow(at: indexPath) as! ExtensionCell
+        selectedCell.purchaseButton.setTitle("Added", for: UIControlState.normal)
         
         self.selectedExtensions.insert(self.extensions[indexPath.row])
         
