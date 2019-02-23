@@ -23,14 +23,18 @@ class TextTracker{
     private var numCharacters = 0
     private var spacePressed = false
     private var spaceTimer: Timer?
+    
+    private var selectedExtensions: [Extension]
 
-    init(shiftKey: KeyButton!, textDocumentProxy: UITextDocumentProxy) {
+    init(shiftKey: KeyButton!, textDocumentProxy: UITextDocumentProxy, selectedExtensions: [Extension]) {
         lastWord = ""
         currentWord = ""
         currentSentence = ""
         lastSentence = ""
         self.shiftKey = shiftKey!
         self.textDocumentProxy = textDocumentProxy
+        
+        self.selectedExtensions = selectedExtensions
     }
     
     func addCharacter(ch: String?, redrawButtons: () -> ()){
@@ -60,11 +64,20 @@ class TextTracker{
                                                   userInfo: nil,
                                                   repeats: false)
                 
-                if(!enterPressed && shouldFix(word: Substring(currentWord))){
+                if(!enterPressed){
+                    
                     let text = (proxy.documentContextBeforeInput ?? "")
                     currentWord = String(text.split(separator: " ", maxSplits: 1000, omittingEmptySubsequences: false).last ?? "")
-                    self.replaceLastWordAtNewWordDetection(newLastWord: fixer(word: Substring(currentWord)))
+                    
+                    for e in self.selectedExtensions{
+                        let corrrectedWord = e.OnWordAdded(lastWord: currentWord);
+                        if(currentWord != corrrectedWord){
+                            
+                            self.replaceLastWordAtNewWordDetection(newLastWord: corrrectedWord)
+                        }
+                    }
                 }
+                
                 lastWord = currentWord
                 currentWord = ""
             }else{
@@ -104,7 +117,7 @@ class TextTracker{
         
         return ""
     }
-
+	
     func replaceLastWordAtNewWordDetection(newLastWord: String){
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         let text = (proxy.documentContextBeforeInput ?? "")
@@ -171,42 +184,6 @@ class TextTracker{
         self.currentWord = ""
     }
     
-    func shouldFix(word: Substring) -> Bool {
-        if word == "i" {
-            return true
-        }
-        let lowercasedCurrentWord = word.lowercased();
-        if lowercasedCurrentWord == "im" || lowercasedCurrentWord == "i'm" {
-            return true
-        }
-        if lowercasedCurrentWord == "i'll"{
-            return true
-        }
-        if lowercasedCurrentWord == "i've"{
-            return true
-        }
-
-        return false
-    }
-    
-    func fixer(word: Substring) -> String{
-        if word == "i" {
-            return "I"
-        }
-        let lowercasedCurrentWord = word.lowercased();
-        if lowercasedCurrentWord == "im" || lowercasedCurrentWord == "i'm" {
-            return "I'm"
-        }
-        if lowercasedCurrentWord == "i'll"{
-            return "I'll"
-        }
-        if lowercasedCurrentWord == "i've"{
-            return "I've"
-        }
-        
-        return String(word)
-    }
-    
     func insertText(text: String?){
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         var insertText = text ?? "";
@@ -220,7 +197,17 @@ class TextTracker{
         }
         
         let substrings = insertText.split(separator: " ", maxSplits: 1000, omittingEmptySubsequences: false);
-        let fixed = substrings.map{fixer(word: $0)}
+        
+        var fixed = [String]()
+        
+        for substring in substrings{
+            var s = String(substring)
+            for e in self.selectedExtensions{
+                s = e.OnWordAdded(lastWord: s);
+            }
+            fixed.append(s)
+        }
+        
         insertText = fixed.joined(separator: " ")
         
         proxy.insertText(insertText)

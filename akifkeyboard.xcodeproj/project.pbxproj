@@ -75,6 +75,8 @@
 		3AF10FA82218FAD300CA845E /* EmojiExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF10FA62218FAD300CA845E /* EmojiExtension.swift */; };
 		3AF10FAB22192D4000CA845E /* SpecialRowKeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF10FAA22192D4000CA845E /* SpecialRowKeyButton.swift */; };
 		3AF10FAC22192D4000CA845E /* SpecialRowKeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF10FAA22192D4000CA845E /* SpecialRowKeyButton.swift */; };
+		3AF10FAE221A39B400CA845E /* QuickFixTextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF10FAD221A39B400CA845E /* QuickFixTextExtension.swift */; };
+		3AF10FAF221A39B400CA845E /* QuickFixTextExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF10FAD221A39B400CA845E /* QuickFixTextExtension.swift */; };
 		88A0C8671BB8B47214F239CC /* Pods_keyboardExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2D736769E84C821075F3B6 /* Pods_keyboardExtension.framework */; };
 /* End PBXBuildFile section */
 
@@ -151,6 +153,7 @@
 		3AF10FA32218F2B800CA845E /* ExtensionInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionInterface.swift; sourceTree = "<group>"; };
 		3AF10FA62218FAD300CA845E /* EmojiExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiExtension.swift; sourceTree = "<group>"; };
 		3AF10FAA22192D4000CA845E /* SpecialRowKeyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialRowKeyButton.swift; sourceTree = "<group>"; };
+		3AF10FAD221A39B400CA845E /* QuickFixTextExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickFixTextExtension.swift; sourceTree = "<group>"; };
 		8E2748D636A3390FFB9C23D2 /* Pods-keyboardExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-keyboardExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-keyboardExtension/Pods-keyboardExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		AD64D8715539475515A6A6CD /* Pods-akifkeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-akifkeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-akifkeyboard/Pods-akifkeyboard.debug.xcconfig"; sourceTree = "<group>"; };
 		CB2D736769E84C821075F3B6 /* Pods_keyboardExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_keyboardExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -292,6 +295,7 @@
 			children = (
 				3AF10FA32218F2B800CA845E /* ExtensionInterface.swift */,
 				3AF10FA62218FAD300CA845E /* EmojiExtension.swift */,
+				3AF10FAD221A39B400CA845E /* QuickFixTextExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -547,6 +551,7 @@
 				3AEE5526212951A8006979FE /* SpellcheckController.swift in Sources */,
 				3A79C4CE213FAE7D00218EE8 /* StreamReader.swift in Sources */,
 				3A1F65C0219D0C630035D4F7 /* MultilineTableViewCell.swift in Sources */,
+				3AF10FAE221A39B400CA845E /* QuickFixTextExtension.swift in Sources */,
 				3A1F65C1219D0C630035D4F7 /* UIImage+TipJarViewController.swift in Sources */,
 				3A79C4C8213E885900218EE8 /* SettingsViewController.swift in Sources */,
 				3A1F65BD219D0C630035D4F7 /* IAPRow.swift in Sources */,
@@ -571,6 +576,7 @@
 				3AF10FA82218FAD300CA845E /* EmojiExtension.swift in Sources */,
 				3AA7F0AB212BA76E00949D0B /* SpecialRowController.swift in Sources */,
 				3A79C4C6213E85FF00218EE8 /* English.swift in Sources */,
+				3AF10FAF221A39B400CA845E /* QuickFixTextExtension.swift in Sources */,
 				3A34F46321426DA9009FA33C /* NextWord.swift in Sources */,
 				3AF03E06212E81DB000C07C7 /* CorrectSpelling.swift in Sources */,
 				3AEE552521294BB4006979FE /* SpellcheckController.swift in Sources */,

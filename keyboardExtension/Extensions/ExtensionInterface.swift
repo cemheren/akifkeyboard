@@ -21,6 +21,8 @@ protocol Extension{
 //    func OnWordAddedAsync(lastWord: String, completionFunction: CompletionFunction) -> Void
 //    func OnWordAddedAsyncCompletion(result: String) -> String
 //
+    func ShouldTriggerAsync(sentence: String) -> Bool
+    
     func OnSentenceCompletedAsync(sentence: String, placeholderId: Int, completionFunction: CompletionFunction) -> Void
     
 //    var OnTextChangedAsyncCompletion : CompletionFunction {get}

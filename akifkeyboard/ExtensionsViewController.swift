@@ -9,12 +9,26 @@
 import Foundation
 import UIKit
 
+class ExtensionCell : UITableViewCell{
+    @IBOutlet weak var cellDescription: UITextView!
+    @IBOutlet weak var cellTitle: UILabel!
+    @IBOutlet weak var purchaseButton: UIButton!
+}
+
 class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let extensions: [String] = ["EmojiExtension"]
+    let extensions: [String] = ["EmojiExtension", "QuickFixTextExtension"]
+    let descriptions: [String] = [
+        "Uses advanced machine learning to come up with the most suitable emoji! Requires internet access to communicate to the model. Since it's backed by a server costs 1$ a year.",
+        "Applies quick fixes to simple English structures such as i'll -> I'll or hes -> he's, im -> I'm. Useful for quick typing."]
+    let prices: [String] = [
+        "$0.99",
+        "Free"
+    ]
+    
     
     // cell reuse id (cells that scroll out of view can be reused)
-    let cellReuseIdentifier = "extension"
+    let cellReuseIdentifier = "extensionCell"
     
     // don't forget to hook this up from the storyboard
     @IBOutlet var tableView: UITableView!
@@ -24,7 +38,7 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
+        //self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.cellReuseIdentifier)
     
         self.tableView.allowsMultipleSelection = true;
         
@@ -39,6 +53,12 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
         // This view controller itself will provide the delegate methods and row data for the table view.
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    @IBAction func OnGithubClicked(_ sender: Any) {
+        if let link = URL(string: "https://github.com/cemheren/akifkeyboard/tree/master/keyboardExtension/Extensions") {
+            UIApplication.shared.open(link)
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -60,12 +80,25 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
     // create a cell for each table view row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // create a new cell if needed or reuse an old one
-        let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
+        let c = self.tableView.dequeueReusableCell(withIdentifier: self.cellReuseIdentifier);
+        let cell: ExtensionCell = c as! ExtensionCell
         
         // set the text from the data model
-        cell.textLabel?.text = self.extensions[indexPath.row]
+        //cell.textLabel?.text = self.extensions[indexPath.row]
+        cell.cellTitle.text = self.extensions[indexPath.row]
+        cell.cellDescription.text = self.descriptions[indexPath.row]
+        
+        cell.purchaseButton.setTitle(self.prices[indexPath.row], for: UIControlState.normal)
+        cell.purchaseButton.layer.borderColor = self.view.tintColor.cgColor;
+        cell.purchaseButton.layer.borderWidth = 1.0;
+        cell.purchaseButton.layer.cornerRadius = 10;
+        
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

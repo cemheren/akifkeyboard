@@ -181,12 +181,30 @@ class KeyboardViewController: UIInputViewController {
         
         self.setupKeys()
         
-        self.textTracker = TextTracker(shiftKey: self.shiftKey, textDocumentProxy: self.textDocumentProxy)
+        let namespace = Bundle.main.infoDictionary!["CFBundleExecutable"] as! String;
+        var selectedExtensions = [Extension]()
+        if let userDefaults = UserDefaults(suiteName: "group.heren.kifboard") {
+            let arr = userDefaults.stringArray(forKey: "extensions") ?? []
+            
+            for e in arr {
+                var extensionClass: AnyClass = (NSClassFromString("\(namespace).\(e)") as! AnyClass) ;
+                let extensionClass1 = extensionClass as! Extension.Type
+                
+                selectedExtensions.append(extensionClass1.init())
+            }
+        }
+        
+        self.textTracker = TextTracker(
+            shiftKey: self.shiftKey,
+            textDocumentProxy: self.textDocumentProxy,
+            selectedExtensions: selectedExtensions)
+        
         self.specialRowController = SpecialRowController(
             textTracker: self.textTracker!,
             parentView: self.view,
             spellCheckController: SpellCheckController(specialization: self.settings),
-            specialization: self.settings)
+            specialization: self.settings,
+            selectedExtensions: selectedExtensions)
         
         self.specialRowController?.drawSpecialRow(array: [
             [SpecialRowKeyPlaceHolder(text: ""), SpecialRowKeyPlaceHolder(text: ""), SpecialRowKeyPlaceHolder(text: "")]

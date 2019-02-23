@@ -31,26 +31,19 @@ class SpecialRowController: CompletionFunction{
     
     private var selectedExtensions: [Extension]
     
-    init(textTracker: TextTracker, parentView: UIView, spellCheckController: SpellCheckController, specialization: Specialization) {
+    init(textTracker: TextTracker,
+         parentView: UIView,
+         spellCheckController: SpellCheckController,
+         specialization: Specialization,
+         selectedExtensions: [Extension])
+    {
         self.textTracker = textTracker
         self.parentView = parentView;
         self.spellCheckController = spellCheckController
         self.spaceAfterAutoComplete = specialization.spaceAfterAutoComplete
         
         self.settings = specialization
-        let namespace = Bundle.main.infoDictionary!["CFBundleExecutable"] as! String;
-        self.selectedExtensions = [Extension]()
-        
-        if let userDefaults = UserDefaults(suiteName: "group.heren.kifboard") {
-            let arr = userDefaults.stringArray(forKey: "extensions") ?? []
-
-            for e in arr {
-                var extensionClass: AnyClass = (NSClassFromString("\(namespace).\(e)") as! AnyClass) ;
-                let extensionClass1 = extensionClass as! Extension.Type
-                
-                self.selectedExtensions.append(extensionClass1.init())
-            }
-        }
+        self.selectedExtensions = selectedExtensions //[Extension]()
     }
     
     func getSpecialRow(){
@@ -71,14 +64,19 @@ class SpecialRowController: CompletionFunction{
                 self.drawSpecialRow(array: [alternatives])
             }
             
+            let currentSentence = self.textTracker?.currentSentence ?? "";
+            
             for e in self.selectedExtensions{
                 if(e.implementsAsync){
-                    var placeholder = SpecialRowKeyPlaceHolder(text: "...", operationMode: SpecialKeyOperationMode.append)
-                    alternatives.append(placeholder)
                     
-                    e.OnSentenceCompletedAsync(sentence: self.textTracker?.currentSentence ?? "",
-                                               placeholderId: placeholder.id,
-                                               completionFunction: self)
+                    if(e.ShouldTriggerAsync(sentence: currentSentence)){
+                        let placeholder = SpecialRowKeyPlaceHolder(text: "...", operationMode: SpecialKeyOperationMode.append)
+                        alternatives.append(placeholder)
+                        
+                        e.OnSentenceCompletedAsync(sentence: currentSentence,
+                            placeholderId: placeholder.id,
+                            completionFunction: self)
+                    }
                 }
             }
             

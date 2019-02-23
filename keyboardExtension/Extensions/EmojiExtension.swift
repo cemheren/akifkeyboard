@@ -70,6 +70,19 @@ class EmojiExtension: Extension{
         }
     }
     
+    func ShouldTriggerAsync(sentence: String) -> Bool {
+        if sentence.count < 5 {
+            self.lastemoji = nil
+            return false
+        }
+        
+        if sentence.last != " "{
+            return false
+        }
+
+        return true;
+    }
+    
     let implementsAsync = true;
     
     func OnWordAdded(lastWord: String) -> String {
