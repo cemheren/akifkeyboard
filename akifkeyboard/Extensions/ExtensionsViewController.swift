@@ -17,15 +17,7 @@ class ExtensionCell : UITableViewCell{
 
 class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let extensions: [String] = ["EmojiExtension", "QuickFixTextExtension"]
-    let descriptions: [String] = [
-        "Uses advanced machine learning to come up with the most suitable emoji! Requires internet access to communicate to the model. Since it's backed by a server costs 1$ a year.",
-        "Applies quick fixes to simple English structures such as i'll -> I'll or hes -> he's, im -> I'm. Useful for quick typing."]
-    let prices: [String] = [
-        "$0.99",
-        "Free"
-    ]
-    
+    let extensions: [ExtensionConfiguration] = ExtensionConfigurations.Instance
     
     // cell reuse id (cells that scroll out of view can be reused)
     let cellReuseIdentifier = "extensionCell"
@@ -34,6 +26,8 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet var tableView: UITableView!
     
     var selectedExtensions : Set<String> = Set()
+    
+    var storeKit = ExtensionsStoreKitDelegate();
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +44,8 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
             self.selectedExtensions = Set(arr)
         }
         
+        self.storeKit.fetchProducts()
+        
         // This view controller itself will provide the delegate methods and row data for the table view.
         tableView.delegate = self
         tableView.dataSource = self
@@ -63,7 +59,7 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        if(self.selectedExtensions.contains(self.extensions[indexPath.row])){
+        if(self.selectedExtensions.contains(self.extensions[indexPath.row].identifier)){
             self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.none)
             //self.tableView.delegate?.tableView!(self.tableView, didSelectRowAt: indexPath)
         }
@@ -87,12 +83,14 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // set the text from the data model
         //cell.textLabel?.text = self.extensions[indexPath.row]
-        cell.cellTitle.text = self.extensions[indexPath.row]
-        cell.cellDescription.text = self.descriptions[indexPath.row]
+        cell.cellTitle.text = self.extensions[indexPath.row].identifier
+        cell.cellDescription.text = self.extensions[indexPath.row].description
         
-        cell.purchaseButton.setTitle(self.prices[indexPath.row], for: UIControlState.normal)
-            
-        if(cell.isSelected || self.selectedExtensions.contains(self.extensions[indexPath.row])){
+        cell.purchaseButton.setTitle(self.extensions[indexPath.row].price, for: UIControlState.normal)
+        
+        if(cell.isSelected ||
+            self.selectedExtensions.contains(self.extensions[indexPath.row].identifier))
+        {
             cell.purchaseButton.setTitle("Added", for: UIControlState.normal)
         }
         
@@ -113,7 +111,7 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
         var selectedCell = self.tableView.cellForRow(at: indexPath) as! ExtensionCell
         selectedCell.purchaseButton.setTitle("Removed", for: UIControlState.normal)
         
-        self.selectedExtensions.remove(self.extensions[indexPath.row])
+        self.selectedExtensions.remove(self.extensions[indexPath.row].identifier)
         
         if let userDefaults = UserDefaults(suiteName: "group.heren.kifboard") {
             userDefaults.set(Array(self.selectedExtensions), forKey: "extensions")
@@ -127,7 +125,7 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
         var selectedCell = self.tableView.cellForRow(at: indexPath) as! ExtensionCell
         selectedCell.purchaseButton.setTitle("Added", for: UIControlState.normal)
         
-        self.selectedExtensions.insert(self.extensions[indexPath.row])
+        self.selectedExtensions.insert(self.extensions[indexPath.row].identifier)
         
         if let userDefaults = UserDefaults(suiteName: "group.heren.kifboard") {
             userDefaults.set(Array(self.selectedExtensions), forKey: "extensions")

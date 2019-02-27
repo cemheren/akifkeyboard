@@ -53,6 +53,10 @@
 		3A9F28E0213D0F7B007934C5 /* turkish.csv in Resources */ = {isa = PBXBuildFile; fileRef = 3A9F28DE213D0F7B007934C5 /* turkish.csv */; };
 		3AA7F0AA212BA76E00949D0B /* SpecialRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */; };
 		3AA7F0AB212BA76E00949D0B /* SpecialRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */; };
+		3ABB722B22264587003B7AC9 /* ExtensionsStoreKitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABB722A22264587003B7AC9 /* ExtensionsStoreKitDelegate.swift */; };
+		3ABB722C22264587003B7AC9 /* ExtensionsStoreKitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABB722A22264587003B7AC9 /* ExtensionsStoreKitDelegate.swift */; };
+		3ABB722E22264819003B7AC9 /* ExtensionConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABB722D22264819003B7AC9 /* ExtensionConfigurations.swift */; };
+		3ABB722F22264819003B7AC9 /* ExtensionConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABB722D22264819003B7AC9 /* ExtensionConfigurations.swift */; };
 		3ACC4A08212538ED006A7EC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC4A07212538ED006A7EC5 /* AppDelegate.swift */; };
 		3ACC4A0A212538ED006A7EC5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC4A09212538ED006A7EC5 /* ViewController.swift */; };
 		3ACC4A0D212538ED006A7EC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ACC4A0B212538ED006A7EC5 /* Main.storyboard */; };
@@ -136,6 +140,8 @@
 		3A939AD4212BC8A700631519 /* autocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = autocomplete.swift; sourceTree = "<group>"; };
 		3A9F28DE213D0F7B007934C5 /* turkish.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = turkish.csv; sourceTree = "<group>"; };
 		3AA7F0A9212BA76E00949D0B /* SpecialRowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialRowController.swift; sourceTree = "<group>"; };
+		3ABB722A22264587003B7AC9 /* ExtensionsStoreKitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsStoreKitDelegate.swift; sourceTree = "<group>"; };
+		3ABB722D22264819003B7AC9 /* ExtensionConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionConfigurations.swift; sourceTree = "<group>"; };
 		3ACC4A04212538ED006A7EC5 /* akifkeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = akifkeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ACC4A07212538ED006A7EC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3ACC4A09212538ED006A7EC5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -230,6 +236,16 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		3ABB722922264507003B7AC9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3A070C2A221530B900BB76EB /* ExtensionsViewController.swift */,
+				3ABB722A22264587003B7AC9 /* ExtensionsStoreKitDelegate.swift */,
+				3ABB722D22264819003B7AC9 /* ExtensionConfigurations.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		3ACC49FB212538ED006A7EC5 = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +269,7 @@
 		3ACC4A06212538ED006A7EC5 /* akifkeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				3ABB722922264507003B7AC9 /* Extensions */,
 				3A1F65B0219D0C3E0035D4F7 /* TipJar */,
 				3A79C4CB213E8E2200218EE8 /* akifkeyboard.entitlements */,
 				3ACC4A07212538ED006A7EC5 /* AppDelegate.swift */,
@@ -262,7 +279,6 @@
 				3ACC4A0E212538EE006A7EC5 /* Assets.xcassets */,
 				3ACC4A10212538EE006A7EC5 /* LaunchScreen.storyboard */,
 				3ACC4A13212538EE006A7EC5 /* Info.plist */,
-				3A070C2A221530B900BB76EB /* ExtensionsViewController.swift */,
 			);
 			path = akifkeyboard;
 			sourceTree = "<group>";
@@ -541,10 +557,12 @@
 				3A070C2B221530B900BB76EB /* ExtensionsViewController.swift in Sources */,
 				3A1F65BE219D0C630035D4F7 /* TipJarFrequency.swift in Sources */,
 				3A1F65BB219D0C630035D4F7 /* TipJarButton.swift in Sources */,
+				3ABB722E22264819003B7AC9 /* ExtensionConfigurations.swift in Sources */,
 				3A79C4D1213FB53900218EE8 /* Specialization.swift in Sources */,
 				3AF03E05212E81DB000C07C7 /* CorrectSpelling.swift in Sources */,
 				3A1F65BF219D0C630035D4F7 /* ActivityIndicatorTableViewCell.swift in Sources */,
 				3A1F65BC219D0C630035D4F7 /* TipJarViewControllerDelegate.swift in Sources */,
+				3ABB722B22264587003B7AC9 /* ExtensionsStoreKitDelegate.swift in Sources */,
 				3ACC4A08212538ED006A7EC5 /* AppDelegate.swift in Sources */,
 				3A0133B921338FE100FF88A3 /* Word.swift in Sources */,
 				3AF03E02212E7271000C07C7 /* my_model.mlmodel in Sources */,
@@ -576,9 +594,11 @@
 				3AF10FA82218FAD300CA845E /* EmojiExtension.swift in Sources */,
 				3AA7F0AB212BA76E00949D0B /* SpecialRowController.swift in Sources */,
 				3A79C4C6213E85FF00218EE8 /* English.swift in Sources */,
+				3ABB722C22264587003B7AC9 /* ExtensionsStoreKitDelegate.swift in Sources */,
 				3AF10FAF221A39B400CA845E /* QuickFixTextExtension.swift in Sources */,
 				3A34F46321426DA9009FA33C /* NextWord.swift in Sources */,
 				3AF03E06212E81DB000C07C7 /* CorrectSpelling.swift in Sources */,
+				3ABB722F22264819003B7AC9 /* ExtensionConfigurations.swift in Sources */,
 				3AEE552521294BB4006979FE /* SpellcheckController.swift in Sources */,
 				3A939AD5212BC8A700631519 /* autocomplete.swift in Sources */,
 			);
