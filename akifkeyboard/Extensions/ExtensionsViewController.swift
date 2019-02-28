@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import StoreKit
 
 class ExtensionCell : UITableViewCell{
     @IBOutlet weak var cellDescription: UITextView!
@@ -15,7 +16,7 @@ class ExtensionCell : UITableViewCell{
     @IBOutlet weak var purchaseButton: UIButton!
 }
 
-class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDataSource, StoreKitItemRequestFetchCompleteDelegate {
     
     let extensions: [ExtensionConfiguration] = ExtensionConfigurations.Instance
     
@@ -27,9 +28,12 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var selectedExtensions : Set<String> = Set()
     
-    var storeKit = ExtensionsStoreKitDelegate();
+    var storeKit : StoreKitItemDelegate?
     
     override func viewDidLoad() {
+        self.storeKit = StoreKitItemDelegate(extensionRequestFetchCompleteDelegate: self)
+        self.storeKit?.fetchProducts(extensionConfigurations: self.extensions)
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: self.cellReuseIdentifier)
@@ -43,8 +47,6 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
             let arr = userDefaults.stringArray(forKey: "extensions") ?? []
             self.selectedExtensions = Set(arr)
         }
-        
-        self.storeKit.fetchProducts()
         
         // This view controller itself will provide the delegate methods and row data for the table view.
         tableView.delegate = self
@@ -122,6 +124,8 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("You tapped cell \(self.extensions[indexPath.row]).")
     
+        self.storeKit?.purchase(productID: self.extensions[indexPath.row].sku)
+        
         var selectedCell = self.tableView.cellForRow(at: indexPath) as! ExtensionCell
         selectedCell.purchaseButton.setTitle("Added", for: UIControlState.normal)
         
@@ -131,5 +135,18 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
             userDefaults.set(Array(self.selectedExtensions), forKey: "extensions")
         }
     }
+    
+    func OnFetchProductsComplete(products: [SKProduct]) {
+        
+        // make eligible
+        self.extensions.forEach{ ext in
+            
+        }
+    }
+    
+    func OnPurchaseProductComplete(Sku: String) {
+        print("purchase complete")
+    }
+    
 }
 

@@ -8,13 +8,13 @@
 
 import Foundation
 
-class ExtensionConfiguration {
+class ExtensionConfiguration : StoreKitItemConfiguration{
     var title : String
     var description: String
     var sku : String
     var isFree: Bool
     var identifier : String
-    var price: String
+    var price: String	
     
     init(identifier: String, title: String, description: String, sku: String, isFree: Bool, priceText: String) {
         self.title = title
@@ -32,7 +32,7 @@ class ExtensionConfigurations : NSObject{
             identifier: "EmojiExtension",
             title: "Emoji extension",
             description: "Uses advanced machine learning to come up with the most suitable emoji! Requires internet access to communicate to the model. Since it's backed by a server costs 1$ a year.",
-            sku: "emoji.extension",
+            sku: "large.tip", //"emoji.extension",
             isFree: false,
             priceText: "$0.99"
         ),
