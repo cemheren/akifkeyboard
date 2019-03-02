@@ -30,6 +30,9 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var storeKit : StoreKitItemDelegate?
     
+    var selectedCell: ExtensionCell?
+    var selectedExtension: ExtensionConfiguration?
+    
     override func viewDidLoad() {
         self.storeKit = StoreKitItemDelegate(extensionRequestFetchCompleteDelegate: self)
         self.storeKit?.fetchProducts(extensionConfigurations: self.extensions)
@@ -57,6 +60,10 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
         if let link = URL(string: "https://github.com/cemheren/akifkeyboard/tree/master/keyboardExtension/Extensions") {
             UIApplication.shared.open(link)
         }
+    }
+    
+    @IBAction func OnRestoreClicked(_ sender: Any) {
+        self.storeKit?.restorePurchases()
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -93,7 +100,7 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
         if(cell.isSelected ||
             self.selectedExtensions.contains(self.extensions[indexPath.row].identifier))
         {
-            cell.purchaseButton.setTitle("Added", for: UIControlState.normal)
+            cell.purchaseButton.setTitle("Enabled", for: UIControlState.normal)
         }
         
         cell.purchaseButton.layer.borderColor = self.view.tintColor.cgColor;
@@ -126,13 +133,14 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
     
         self.storeKit?.purchase(productID: self.extensions[indexPath.row].sku)
         
-        var selectedCell = self.tableView.cellForRow(at: indexPath) as! ExtensionCell
-        selectedCell.purchaseButton.setTitle("Added", for: UIControlState.normal)
+        let selectedCell = self.tableView.cellForRow(at: indexPath) as! ExtensionCell
+        selectedCell.purchaseButton.setTitle("Waiting", for: UIControlState.normal)
         
-        self.selectedExtensions.insert(self.extensions[indexPath.row].identifier)
+        self.selectedCell = selectedCell
+        self.selectedExtension = self.extensions[indexPath.row]
         
-        if let userDefaults = UserDefaults(suiteName: "group.heren.kifboard") {
-            userDefaults.set(Array(self.selectedExtensions), forKey: "extensions")
+        if(self.selectedExtension!.isFree){
+            self.AddSelectedExtension()
         }
     }
     
@@ -146,7 +154,60 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func OnPurchaseProductComplete(Sku: String) {
         print("purchase complete")
+        
+        if(self.selectedExtension == nil || self.selectedCell == nil){
+            return
+        }
+        
+        self.AddSelectedExtension()
     }
     
+    func OnRestoreProductComplete(Sku: String) {
+        print("purchase complete")
+        
+        var i = 0;
+        self.extensions.forEach{ e in
+            if(e.sku == Sku){
+                self.selectedExtension = e;
+                self.selectedCell = self.tableView.cellForRow(at: IndexPath(row: i, section: 0)) as! ExtensionCell
+                
+                self.tableView.selectRow(at: IndexPath(row: i, section: 0), animated: true, scrollPosition: UITableViewScrollPosition.none)
+                
+                return
+            }
+            
+            i = i + 1;
+        }
+        
+        self.AddSelectedExtension()
+    }
+    
+    func AddSelectedExtension(){
+        self.selectedExtensions.insert(self.selectedExtension!.identifier)
+        
+        self.selectedCell!.purchaseButton.setTitle("Enabled", for: UIControlState.normal)
+        
+        if let userDefaults = UserDefaults(suiteName: "group.heren.kifboard") {
+            userDefaults.set(Array(self.selectedExtensions), forKey: "extensions")
+        }
+    }
+    
+    func OnTransactionError(error: NSError) {
+        let alert = UIAlertController(title: "Error", message: "There was an error with your transaction. Please try restoring your purchases.", preferredStyle: .actionSheet)
+        
+        self.selectedCell!.purchaseButton.setTitle("Error", for: UIControlState.normal)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+            }}))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
-

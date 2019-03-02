@@ -17,6 +17,9 @@ protocol StoreKitItemConfiguration {
 protocol StoreKitItemRequestFetchCompleteDelegate{
     func OnFetchProductsComplete(products: [SKProduct])
     func OnPurchaseProductComplete(Sku: String)
+    
+    func OnRestoreProductComplete(Sku: String)
+    func OnTransactionError(error: NSError)
 }
 
 class StoreKitItemDelegate: NSObject {
@@ -110,16 +113,27 @@ extension StoreKitItemDelegate: SKPaymentTransactionObserver {
         guard let productIdentifier = transaction.original?.payment.productIdentifier else { return }
         
         print("restore... \(productIdentifier)")
-        deliverPurchaseNotificationFor(identifier: productIdentifier)
+        
+        self.requestFetchCompleteDelegate.OnRestoreProductComplete(Sku: productIdentifier)
+        
         SKPaymentQueue.default().finishTransaction(transaction)
     }
     
     private func fail(transaction: SKPaymentTransaction) {
         print("fail...")
-        if let transactionError = transaction.error as NSError?,
-            let localizedDescription = transaction.error?.localizedDescription,
-            transactionError.code != SKError.paymentCancelled.rawValue {
+        if
+        let transactionError = transaction.error as NSError?,
+        let localizedDescription = transaction.error?.localizedDescription,
+        transactionError.code != SKError.paymentCancelled.rawValue {
             print("Transaction Error: \(localizedDescription)")
+            
+        }
+        if
+        let transactionError = transaction.error as NSError?,
+        let localizedDescription = transaction.error?.localizedDescription {
+            
+            self.requestFetchCompleteDelegate.OnTransactionError(error: transactionError)
+            
         }
         
         SKPaymentQueue.default().finishTransaction(transaction)
