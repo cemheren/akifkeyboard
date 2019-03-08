@@ -34,7 +34,7 @@ class ExtensionConfigurations : NSObject{
             description: "Uses advanced machine learning to come up with the most suitable emoji! Requires internet access to communicate to the model. Since it's backed by a server costs 1$ a month.",
             sku: "emoji.extension",
             isFree: false,
-            priceText: "$0.99"
+            priceText: "$0.99 month"
         ),
         ExtensionConfiguration(
             identifier: "QuickFixTextExtension",

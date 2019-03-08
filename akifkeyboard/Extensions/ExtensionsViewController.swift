@@ -62,6 +62,18 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    @IBAction func OnPrivacyPolicyClicked(_ sender: Any) {
+        if let link = URL(string: "https://github.com/cemheren/akifkeyboard/blob/master/privacyPolicy.md") {
+            UIApplication.shared.open(link)
+        }
+    }
+    
+    @IBAction func OnTermsOfServiceClicked(_ sender: Any) {
+        if let link = URL(string: "https://github.com/cemheren/akifkeyboard/blob/master/termsOfService.md") {
+            UIApplication.shared.open(link)
+        }
+    }
+    
     @IBAction func OnRestoreClicked(_ sender: Any) {
         self.storeKit?.restorePurchases()
     }
