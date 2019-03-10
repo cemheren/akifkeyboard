@@ -14,7 +14,7 @@ class CorrectSpelling{
     
     /// Given a word, produce a set of possible alternatives with
     /// letters transposed, deleted, replaced or rogue characters inserted
-    func edits(word: String) -> Set<String> {
+    private func edits(word: String) -> Set<String> {
         if word.isEmpty { return [] }
         
         let splits = word.indices.map {
@@ -67,7 +67,7 @@ class CorrectSpelling{
         return known_edits.isEmpty ? nil : known_edits
     }
     
-    func known<S: Sequence>(words: S) -> Set<Word>? where S.Iterator.Element == String {
+    private func known<S: Sequence>(words: S) -> Set<Word>? where S.Iterator.Element == String {
         var s = Set<Word>();
         
         for word in words{
@@ -78,6 +78,10 @@ class CorrectSpelling{
         }
         
         return s.isEmpty ? nil : s;
+    }
+    
+    func isKnowWord(word: Word) -> Bool{
+        return self.knownWords.contains(word)
     }
     
     func getCorrection(word: String) -> [Word]{

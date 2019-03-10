@@ -37,6 +37,8 @@
 		3A34F46221426DA9009FA33C /* NextWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A34F46121426DA9009FA33C /* NextWord.swift */; };
 		3A34F46321426DA9009FA33C /* NextWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A34F46121426DA9009FA33C /* NextWord.swift */; };
 		3A3D28322186CB630058B4EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ACC4A0B212538ED006A7EC5 /* Main.storyboard */; };
+		3A55FBCC223598C1006C4C8C /* KeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A55FBCB223598C1006C4C8C /* KeyButton.swift */; };
+		3A55FBCD223598C1006C4C8C /* KeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A55FBCB223598C1006C4C8C /* KeyButton.swift */; };
 		3A79C4C5213E85FF00218EE8 /* English.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4C4213E85FF00218EE8 /* English.swift */; };
 		3A79C4C6213E85FF00218EE8 /* English.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4C4213E85FF00218EE8 /* English.swift */; };
 		3A79C4C8213E885900218EE8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4C7213E885900218EE8 /* SettingsViewController.swift */; };
@@ -129,6 +131,7 @@
 		3A34F45B214264A4009FA33C /* english_bigrams.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = english_bigrams.csv; path = prep/english/english_bigrams.csv; sourceTree = SOURCE_ROOT; };
 		3A34F45E21426CA4009FA33C /* english_bigram_probabilities.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = english_bigram_probabilities.csv; path = prep/english/english_bigram_probabilities.csv; sourceTree = SOURCE_ROOT; };
 		3A34F46121426DA9009FA33C /* NextWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextWord.swift; sourceTree = "<group>"; };
+		3A55FBCB223598C1006C4C8C /* KeyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyButton.swift; sourceTree = "<group>"; };
 		3A79C4C4213E85FF00218EE8 /* English.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = English.swift; sourceTree = "<group>"; };
 		3A79C4C7213E885900218EE8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		3A79C4CA213E8E0D00218EE8 /* keyboardExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = keyboardExtension.entitlements; sourceTree = "<group>"; };
@@ -217,6 +220,16 @@
 			path = TipJar;
 			sourceTree = "<group>";
 		};
+		3A55FBCA22359890006C4C8C /* KeyboardVisual */ = {
+			isa = PBXGroup;
+			children = (
+				3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */,
+				3A0133C12138E05000FF88A3 /* KeybuttonView.xib */,
+				3A55FBCB223598C1006C4C8C /* KeyButton.swift */,
+			);
+			path = KeyboardVisual;
+			sourceTree = "<group>";
+		};
 		3A79C4C3213E85E100218EE8 /* Specializations */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +307,7 @@
 		3ACC4A1E21253901006A7EC5 /* keyboardExtension */ = {
 			isa = PBXGroup;
 			children = (
+				3A55FBCA22359890006C4C8C /* KeyboardVisual */,
 				3AF10FA922192CFC00CA845E /* SpecialRow */,
 				3AF10FA22218F27000CA845E /* Extensions */,
 				3A79C4CC213FAE6D00218EE8 /* Helpers */,
@@ -305,8 +319,6 @@
 				3A34F45E21426CA4009FA33C /* english_bigram_probabilities.csv */,
 				3A34F44F2140FC0D009FA33C /* chinese_chars.csv */,
 				3A9F28DE213D0F7B007934C5 /* turkish.csv */,
-				3ACC4A1F21253901006A7EC5 /* KeyboardViewController.swift */,
-				3A0133C12138E05000FF88A3 /* KeybuttonView.xib */,
 				3AEE55272129E65A006979FE /* TextTracker.swift */,
 				3A79C4C3213E85E100218EE8 /* Specializations */,
 				3ACC4A2121253901006A7EC5 /* Info.plist */,
@@ -554,6 +566,7 @@
 				3A939AD6212BC8DE00631519 /* autocomplete.swift in Sources */,
 				3A34F46221426DA9009FA33C /* NextWord.swift in Sources */,
 				3ACC4A2A21253B41006A7EC5 /* KeyboardViewController.swift in Sources */,
+				3A55FBCC223598C1006C4C8C /* KeyButton.swift in Sources */,
 				3A1F65C2219D0C630035D4F7 /* TipJarTableViewCell.swift in Sources */,
 				3AF10FAB22192D4000CA845E /* SpecialRowKeyButton.swift in Sources */,
 				3AA7F0AA212BA76E00949D0B /* SpecialRowController.swift in Sources */,
@@ -598,6 +611,7 @@
 				3A34F45A2141327E009FA33C /* NextWordPredictor.swift in Sources */,
 				3AEE55292129E65A006979FE /* TextTracker.swift in Sources */,
 				3A0133BA21338FE100FF88A3 /* Word.swift in Sources */,
+				3A55FBCD223598C1006C4C8C /* KeyButton.swift in Sources */,
 				3A34F45421410352009FA33C /* Chinese.swift in Sources */,
 				3AF10FAC22192D4000CA845E /* SpecialRowKeyButton.swift in Sources */,
 				3ACC4A2021253901006A7EC5 /* KeyboardViewController.swift in Sources */,
