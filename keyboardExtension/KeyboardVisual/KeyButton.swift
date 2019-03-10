@@ -29,7 +29,7 @@ class KeyButton: UIButton {
     
     public var longSelected = false;
     
-    init(frame: CGRect, settings: Specialization)  {
+    init(frame: CGRect, settings: Specialization, noBackground: Bool = false)  {
         super.init(frame: frame)
         
         self.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 22.0)
@@ -40,10 +40,16 @@ class KeyButton: UIButton {
         
         self.clipsToBounds = true
         self.layer.borderWidth = 1
-        self.layer.borderColor = settings.buttonBorderColor.cgColor
         self.layer.cornerRadius = 6
         
-        self.backgroundColor = settings.buttonBgColor // UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
+        if (noBackground){
+            self.layer.borderColor = settings.keyboardBgColor.cgColor
+            self.backgroundColor = settings.keyboardBgColor
+        }else{
+            self.layer.borderColor = settings.buttonBorderColor.cgColor
+            self.backgroundColor = settings.buttonBgColor // UIColor(red: 255/255.0, green: 255/255.0, blue: 255/255.0, alpha: 1)
+        }
+        
         self.contentVerticalAlignment = .center
         self.contentHorizontalAlignment = .center
         

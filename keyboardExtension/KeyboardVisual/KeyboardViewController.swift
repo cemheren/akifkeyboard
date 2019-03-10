@@ -153,7 +153,8 @@ class KeyboardViewController: UIInputViewController {
         let thirdRowTopPadding: CGFloat = topPadding + (keyHeight + rowSpacing) * 2
         self.shiftKey = KeyButton(
             frame: CGRect(x: 2.0, y: thirdRowTopPadding, width:shiftWidth, height:shiftHeight),
-            settings: self.settings)
+            settings: self.settings,
+            noBackground: true)
         
         self.shiftKey!.setMargin(marginX: 10, marginY: 4, offsetX: 0, offsetY: 0)
         
@@ -164,12 +165,13 @@ class KeyboardViewController: UIInputViewController {
         self.view.addSubview(shiftKey!)
         let longShiftGesture = UILongPressGestureRecognizer(target: self, action: #selector(shiftKeyLongPressed(sender: )))
         self.shiftKey!.addGestureRecognizer(longShiftGesture)
-        self.shiftKey!.addTarget(self, action:#selector(shiftKeyLongPressed(sender:)), for: .touchDragExit)
+        self.shiftKey!.addTarget(self, action:#selector(shiftKeySlideOut(sender:)), for: .touchDragExit)
         
         let viewWidth = UIScreen.main.applicationFrame.size.width
         deleteKey = KeyButton(
             frame: CGRect(x:viewWidth - shiftWidth - 2.0, y: thirdRowTopPadding, width:shiftWidth, height:shiftHeight),
-            settings: self.settings)
+            settings: self.settings,
+            noBackground: true)
         
         deleteKey!.setMargin(marginX: 10, marginY: 4, offsetX: 0, offsetY: 0)
         deleteKey!.addTarget(self, action:#selector(deleteKeyPressed(sender:)), for: .touchUpInside)
@@ -197,7 +199,8 @@ class KeyboardViewController: UIInputViewController {
         
         self.nextKeyboardButton = KeyButton(
             frame:CGRect(x: 4 + nextWidth, y: bottomRowTopPadding, width:nextWidth, height:spaceHeight),
-            settings: self.settings)
+            settings: self.settings,
+            noBackground: true)
         
         nextKeyboardButton!.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size:18)
         nextKeyboardButton!.setTitle("N", for: .normal)
@@ -209,7 +212,8 @@ class KeyboardViewController: UIInputViewController {
         
         poundKey = KeyButton(
             frame: CGRect(x: 2, y: bottomRowTopPadding, width:nextWidth, height:spaceHeight),
-            settings: self.settings)
+            settings: self.settings,
+            noBackground: true)
         
         poundKey!.setTitle("#", for: .normal)
         poundKey!.addTarget(self, action:#selector(poundKeyPressed(sender:)), for: .touchUpInside)
@@ -217,7 +221,8 @@ class KeyboardViewController: UIInputViewController {
         
         returnButton = KeyButton(
             frame: CGRect(x:viewWidth - returnWidth - 2, y: bottomRowTopPadding, width:self.returnWidth, height:spaceHeight),
-            settings: self.settings)
+            settings: self.settings,
+            noBackground: true)
         
         returnButton!.setTitle(NSLocalizedString("Ret", comment: "Title for 'Return Key' button"), for: .normal)
         returnButton!.titleLabel?.font = UIFont(name: "HelveticaNeue-Light", size:18)
@@ -378,7 +383,7 @@ class KeyboardViewController: UIInputViewController {
         }
         
         self.textTracker?.setShiftValue(shiftVal: self.shiftKey!)
-        self.shiftKey?.backgroundColor = self.settings.buttonBgColor
+        self.shiftKey?.backgroundColor = self.settings.keyboardBgColor
         
         if shiftKey!.isSelected {
             shiftPosArr.append(0)
@@ -392,12 +397,23 @@ class KeyboardViewController: UIInputViewController {
         redrawButtonsForShift()
     }
     
-    @objc func shiftKeyLongPressed(sender: UIButton) {
-        
+    @objc func shiftKeyLongPressed(sender: UILongPressGestureRecognizer) {
+        if sender.state == .ended{
+            let button = sender.view as! KeyButton
+            lightImpactFeedbackGenerator.impactOccurred();
+            self.shiftKeyLongPressedAction(sender: button)
+        }
+    }
+    
+    @objc func shiftKeySlideOut(sender: UIButton) {
+       self.shiftKeyLongPressedAction(sender: sender)
+    }
+    
+    private func shiftKeyLongPressedAction(sender: UIButton){
         if(self.shiftKey!.longSelected == true){
             self.shiftKey!.longSelected = false
             self.shiftKey!.isSelected = false;
-            self.shiftKey?.backgroundColor = self.settings.buttonBgColor
+            self.shiftKey?.backgroundColor = self.settings.keyboardBgColor
         }else{
             self.shiftKey!.longSelected = true
             self.shiftKey!.isSelected = true;
