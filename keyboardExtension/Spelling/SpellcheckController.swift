@@ -139,9 +139,19 @@ class SpellCheckController{
             }
 
             let keyDist1 = self.getAlternatives(word: currentWord)
-            let keyDist1Results = keyDist1.flatMap {self.autoComplete.search($0)}.map{Word(word: $0.word, weight: Int(Double($0.weight) / 4.0))}
+            let keyDist1KnownStrings = keyDist1.filter({ (s: String) -> Bool in
+                return self.correctSpelling.isKnowWord(word: Word(word: s, weight: 1000))
+            })
             
-            var alternatives = results
+            let keyDist1KnownWords = keyDist1KnownStrings.flatMap{Word(word: $0, weight: 1000)}
+            
+            var keyDist1Results: [Word] = [];
+            if(keyDist1KnownWords.count < 4){
+                keyDist1Results = keyDist1.flatMap {self.autoComplete.search($0)}.map{Word(word: $0.word, weight: Int(Double($0.weight) / 4.0))}
+            }
+            
+            var alternatives = keyDist1KnownWords
+                + results
                 + keyDist1Results
                 + corrections
             

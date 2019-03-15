@@ -148,6 +148,30 @@ class TextTracker{
         return currentSentence
     }
     
+    func deleteUntilLastSpace(){
+        let proxy = self.textDocumentProxy as UITextDocumentProxy
+        let text = (proxy.documentContextBeforeInput ?? "")
+        
+        var split = text.split(separator: " ", maxSplits: 1000, omittingEmptySubsequences: true)
+        var last = split.last ?? Substring()
+        
+        for ch in last{
+            proxy.deleteBackward()
+        }
+        
+        if text.last == " "{
+            proxy.deleteBackward()
+        }
+        
+        let remaining = split.prefix(upTo: split.count - 1)
+        currentSentence = remaining.joined(separator: " ")
+        currentWord = ""
+        
+        if(currentWord == ""){
+            lastWord = String(remaining.last ?? "")
+        }
+    }
+    
     func deleteCurrentWord(){
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         

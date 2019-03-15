@@ -177,6 +177,8 @@ class KeyboardViewController: UIInputViewController {
         deleteKey!.addTarget(self, action:#selector(deleteKeyPressed(sender:)), for: .touchUpInside)
         let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(deleteKeyLongPressed(sender: )))
         deleteKey!.addGestureRecognizer(longGesture)
+        self.deleteKey!.addTarget(self, action:#selector(deleteKeySlideOut(sender:)), for: .touchDragExit)
+        
         
         deleteKey!.setTitle("<-", for: .normal)
         //deleteKey!.setTitle("*", for: .highlighted)
@@ -366,6 +368,14 @@ class KeyboardViewController: UIInputViewController {
             timer = nil
             }
         spacePressed = false
+    }
+    
+    @objc func deleteKeySlideOut(sender: UIButton){
+        //lightImpactFeedbackGenerator.impactOccurred();
+        //AudioServicesPlaySystemSound(0x450)
+        
+        self.textTracker?.deleteUntilLastSpace()
+        self.specialRowController?.updateSpecialRow()
     }
     
     @objc private func handleTimer(timer: Timer) {
