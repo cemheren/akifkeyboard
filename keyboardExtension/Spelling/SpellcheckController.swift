@@ -12,15 +12,19 @@ class SpellCheckModel{
     
     let isCorrect: Bool
     let alternatives: [String]
+    
+    let autoReplaceable : Word?
+    
 //    let middle: String
 //    let left: String
 //    let right: String
     
-    init(isCorrect: Bool, alternatives: [Word]) {
+    init(isCorrect: Bool, alternatives: [Word], autoReplaceable: Word?) {
         self.isCorrect = isCorrect
         // Ensure the best prediction is on the most right.
         let setOfAlternatives = Array(Set(Array(alternatives.prefix(4))).sorted(by: { $0.weight < $1.weight }).map{value in value.word});
         self.alternatives = setOfAlternatives
+        self.autoReplaceable = autoReplaceable
     }
 }
 
@@ -91,6 +95,7 @@ class SpellCheckController{
                 }
             })
             data = nil
+            self.correctSpelling.isCompleted = true;
             
             let bipath = Bundle.main.path(forResource: "english_bigrams", ofType: "csv")
             var bigramdata:String? = try String(contentsOfFile: (bipath)!, encoding: .utf8)
@@ -138,12 +143,12 @@ class SpellCheckController{
                 corrections = self.correctSpelling.getCorrection(word: currentWord.lowercased());
             }
 
-            let keyDist1 = self.getAlternatives(word: currentWord)
-            let keyDist1KnownStrings = keyDist1.filter({ (s: String) -> Bool in
+            let keyDist1 = self.getAlternatives(word: currentWord.lowercased())
+            var keyDist1KnownStrings = keyDist1.filter({ (s: String) -> Bool in
                 return self.correctSpelling.isKnowWord(word: Word(word: s, weight: 1000))
             })
             
-            let keyDist1KnownWords = keyDist1KnownStrings.flatMap{Word(word: $0, weight: 1000)}
+            let keyDist1KnownWords = keyDist1KnownStrings.flatMap{Word(word: $0, weight: 50000)}
             
             var keyDist1Results: [Word] = [];
             if(keyDist1KnownWords.count < 4){
@@ -164,9 +169,31 @@ class SpellCheckController{
                 return word;
             })
 
+            var autoReplaceable: Word? = nil;
+            if (self.correctSpelling.isCompleted){
+                if (keyDist1KnownWords.count == 1){
+                    autoReplaceable = keyDist1KnownWords.first
+                }
+                if (keyDist1KnownWords.count > 1){
+                    autoReplaceable = keyDist1KnownWords.map{ self.correctSpelling.getWord(str: $0.word) }.sorted(by: { $0!.weight > $1!.weight }).first!
+                }
+                
+                let cw = Word(word: currentWord.lowercased(), weight: 1000);
+                if (self.correctSpelling.isKnowWord(word: cw)){
+                    autoReplaceable = cw
+                }
+                
+                if autoReplaceable != nil{
+                    alternatives = alternatives.filter{ $0.word != autoReplaceable?.word }
+                }
+            }
+            
             DispatchQueue.main.async {
-                completion(SpellCheckModel(isCorrect: false,
-                   alternatives: alternatives.sorted(by: { $0.weight > $1.weight })))
+                completion(SpellCheckModel(
+                    isCorrect: false,
+                    alternatives: alternatives.sorted(by: { $0.weight > $1.weight }),
+                    autoReplaceable: autoReplaceable
+                ))
             }
         }
     }
@@ -176,8 +203,10 @@ class SpellCheckController{
             Word(word: p.w, weight: p.c)
         }) ?? [Word]()
         
-        let scm = SpellCheckModel(isCorrect: false,
-                                  alternatives: predictions.sorted(by: { $0.weight > $1.weight }))
+        let scm = SpellCheckModel(
+            isCorrect: false,
+            alternatives: predictions.sorted(by: { $0.weight > $1.weight }),
+            autoReplaceable: nil)
         
         return scm
     }

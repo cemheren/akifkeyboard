@@ -31,6 +31,8 @@ class SpecialRowController: CompletionFunction{
     
     private var selectedExtensions: [Extension]
     
+    private var autoReplaceAction: SpecialRowKeyPlaceHolder?
+    
     init(textTracker: TextTracker,
          parentView: UIView,
          spellCheckController: SpellCheckController,
@@ -59,10 +61,10 @@ class SpecialRowController: CompletionFunction{
             let s = NSMutableSet()
             s.addObjects(from: lowercased!)
             
-            if(s.contains("how") || s.contains("what") || s.contains("who") || s.contains("where") || s.contains("why") || s.contains("which") || s.contains("when")){
-                alternatives.append(SpecialRowKeyPlaceHolder(text: "?", operationMode: SpecialKeyOperationMode.append)) //? as an append
-                self.drawSpecialRow(array: [alternatives])
-            }
+//            if(s.contains("how") || s.contains("what") || s.contains("who") || s.contains("where") || s.contains("why") || s.contains("which") || s.contains("when")){
+//                alternatives.append(SpecialRowKeyPlaceHolder(text: "?", operationMode: SpecialKeyOperationMode.append)) //? as an append
+//                self.drawSpecialRow(array: [alternatives])
+//            }
             
             let currentSentence = self.textTracker?.currentSentence ?? "";
             
@@ -80,6 +82,8 @@ class SpecialRowController: CompletionFunction{
                 }
             }
             
+            self.autoReplaceAction = nil;
+            
             if(currentWord.count >= 1){
                 let checkSpellingInitiateTime = Date();
                 
@@ -90,6 +94,12 @@ class SpecialRowController: CompletionFunction{
                             alternatives.append(contentsOf: result.alternatives.map({SpecialRowKeyPlaceHolder(text: $0, operationMode: SpecialKeyOperationMode.appendNoSpace)}))
                         }else{
                             alternatives.append(contentsOf: result.alternatives.map({SpecialRowKeyPlaceHolder(text: $0)}))
+                        }
+                        
+                        if result.autoReplaceable != nil{
+                            let autoReplaceAction = SpecialRowKeyPlaceHolder(text: result.autoReplaceable!.word, operationMode: SpecialKeyOperationMode.autoReplace);
+                            alternatives.append(autoReplaceAction)
+                            self.autoReplaceAction = autoReplaceAction
                         }
                         
                         self.drawSpecialRow(array: [alternatives])
@@ -153,6 +163,10 @@ class SpecialRowController: CompletionFunction{
                         operationMode: placeholder.operationMode,
                         settings: self.settings)
                     
+                    if placeholder.operationMode == SpecialKeyOperationMode.autoReplace{
+                        button.titleLabel?.font = UIFont.systemFont(ofSize: 22.0, weight: UIFont.Weight.semibold)
+                    }
+                    
                     button.titleLabel?.adjustsFontSizeToFitWidth = true
                     button.setTitle(placeholder.text, for: .normal)
                     button.addTarget(self, action:#selector(self.specialKeyPressed(sender:)), for: .touchUpInside)
@@ -168,12 +182,27 @@ class SpecialRowController: CompletionFunction{
         }
     }
     
+    func ExecuteAutoReplaces() {
+        if self.autoReplaceAction != nil{
+            let fakeButton = SpecialRowKeyButton(
+                frame: CGRect(x: 1, y: 1, width: 1, height: self.specialKeyHeight),
+                operationMode: SpecialKeyOperationMode.autoReplace,
+                settings: self.settings)
+        
+            fakeButton.setTitle(self.autoReplaceAction?.text, for: .normal)
+            
+            self.specialKeyPressed(sender: fakeButton)
+            
+            self.autoReplaceAction = nil
+        }
+    }
+    
     @objc private func specialKeyPressed(sender: SpecialRowKeyButton) {
         if sender.titleLabel?.text == nil{
             return
         }
         
-        if sender.operationMode == SpecialKeyOperationMode.replace{
+        if sender.operationMode == SpecialKeyOperationMode.replace || sender.operationMode == SpecialKeyOperationMode.autoReplace{
             if self.textTracker?.currentWord == ""{
                 self.textTracker?.deleteLastWord()
             }else{
@@ -181,8 +210,14 @@ class SpecialRowController: CompletionFunction{
             }
         }
         
-        if sender.operationMode == SpecialKeyOperationMode.replace || sender.operationMode == SpecialKeyOperationMode.append{
-            self.textTracker?.insertText(text: (sender.titleLabel?.text)! + " ")
+        if sender.operationMode == SpecialKeyOperationMode.replace || sender.operationMode == SpecialKeyOperationMode.autoReplace || sender.operationMode == SpecialKeyOperationMode.append{
+            var t = (sender.titleLabel?.text)!
+            
+            if sender.operationMode != SpecialKeyOperationMode.autoReplace{
+                t = t + " "
+            }
+            
+            self.textTracker?.insertText(text: t)
             self.clearSpecialKeys()
         }
         

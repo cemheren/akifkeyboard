@@ -32,6 +32,9 @@ class QuickFixTextExtension : Extension{
         if lowercasedCurrentWord == "lets"{
             return "let's"
         }
+        if lowercasedCurrentWord == "hows"{
+            return "how's"
+        }
         if lowercasedCurrentWord == "weare"{
             return "we're"
         }
@@ -88,6 +91,9 @@ class QuickFixTextExtension : Extension{
         }
         if lowercasedCurrentWord == "isnt"{
             return "isn't"
+        }
+        if lowercasedCurrentWord == "arent"{
+            return "aren't"
         }
         if lowercasedCurrentWord == "hadnt"{
             return "hadn't"

@@ -115,6 +115,8 @@ class TextTracker{
             lastWord = String(text.split(separator: " ").last ?? "")
         }
         
+        self.spacePressed = false
+        
         return ""
     }
 	
@@ -170,6 +172,8 @@ class TextTracker{
         if(currentWord == ""){
             lastWord = String(remaining.last ?? "")
         }
+        
+        self.spacePressed = false
     }
     
     func deleteCurrentWord(){
@@ -182,6 +186,7 @@ class TextTracker{
         }
         
         self.currentWord = ""
+        self.spacePressed = false
     }
     
     func deleteLastWord(){
@@ -199,6 +204,7 @@ class TextTracker{
         
         self.currentWord = ""
         self.lastWord = ""
+        self.spacePressed = false
     }
     
     func signalSentenceEnd(){
@@ -206,6 +212,7 @@ class TextTracker{
         self.currentSentence = ""
         self.lastWord = ""
         self.currentWord = ""
+        self.spacePressed = false
     }
     
     func insertText(text: String?){
@@ -254,6 +261,8 @@ class TextTracker{
             self.shiftKey!.isSelected = false
             // redraw buttons
         }
+        
+        self.spacePressed = false
     }
     
     func signalWordEnd(){

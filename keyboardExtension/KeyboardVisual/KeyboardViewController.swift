@@ -311,6 +311,7 @@ class KeyboardViewController: UIInputViewController {
     
     override func textWillChange(_ textInput: UITextInput?) {
         // The app is about to change the document's contents. Perform any preparation here.
+        
     }
     
     override func textDidChange(_ textInput: UITextInput?) {
@@ -335,6 +336,8 @@ class KeyboardViewController: UIInputViewController {
         
         lightImpactFeedbackGenerator.impactOccurred();
         
+        self.specialRowController?.ExecuteAutoReplaces()
+        
         self.textTracker?.addCharacter(ch: "\n", redrawButtons: {
             redrawButtonsForShift()
         })
@@ -346,6 +349,7 @@ class KeyboardViewController: UIInputViewController {
             self.shiftKey?.isSelected = false
             self.textTracker?.setShiftValue(shiftVal: self.shiftKey!)
         }
+        
         
         spacePressed = false
     }
@@ -376,6 +380,8 @@ class KeyboardViewController: UIInputViewController {
         
         self.textTracker?.deleteUntilLastSpace()
         self.specialRowController?.updateSpecialRow()
+        
+        spacePressed = false
     }
     
     @objc private func handleTimer(timer: Timer) {
@@ -458,6 +464,10 @@ class KeyboardViewController: UIInputViewController {
             },
             completion: { Void in()  }
         )
+        
+        if sender.titleLabel?.text == " "{
+            self.specialRowController?.ExecuteAutoReplaces()
+        }
         
         self.textTracker?.addCharacter(ch: sender.titleLabel?.text, redrawButtons: {
             redrawButtonsForShift()

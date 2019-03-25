@@ -14,6 +14,7 @@ enum SpecialKeyOperationMode{
     case appendNoSpace
     case replace
     case number
+    case autoReplace
 }
 
 class SpecialRowKeyPlaceHolder{

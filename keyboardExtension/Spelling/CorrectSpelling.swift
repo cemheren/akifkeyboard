@@ -12,6 +12,8 @@ class CorrectSpelling{
     
     var knownWords = Set<Word>(minimumCapacity: 1)
     
+    var isCompleted = false;
+    
     /// Given a word, produce a set of possible alternatives with
     /// letters transposed, deleted, replaced or rogue characters inserted
     private func edits(word: String) -> Set<String> {
@@ -82,6 +84,16 @@ class CorrectSpelling{
     
     func isKnowWord(word: Word) -> Bool{
         return self.knownWords.contains(word)
+    }
+    
+    func getWord(str: String) -> Word?{
+        let temp = Word(word: str, weight: 0);
+        if(self.isKnowWord(word: temp) == false){
+            return nil
+        }
+        
+        let indexOf = self.knownWords.index(of: temp)
+        return self.knownWords[indexOf!]
     }
     
     func getCorrection(word: String) -> [Word]{
