@@ -39,6 +39,8 @@
 		3A3D28322186CB630058B4EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ACC4A0B212538ED006A7EC5 /* Main.storyboard */; };
 		3A55FBCC223598C1006C4C8C /* KeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A55FBCB223598C1006C4C8C /* KeyButton.swift */; };
 		3A55FBCD223598C1006C4C8C /* KeyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A55FBCB223598C1006C4C8C /* KeyButton.swift */; };
+		3A55FBD022505D7B006C4C8C /* UndoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A55FBCF22505D7B006C4C8C /* UndoController.swift */; };
+		3A55FBD122505D7B006C4C8C /* UndoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A55FBCF22505D7B006C4C8C /* UndoController.swift */; };
 		3A79C4C5213E85FF00218EE8 /* English.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4C4213E85FF00218EE8 /* English.swift */; };
 		3A79C4C6213E85FF00218EE8 /* English.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4C4213E85FF00218EE8 /* English.swift */; };
 		3A79C4C8213E885900218EE8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A79C4C7213E885900218EE8 /* SettingsViewController.swift */; };
@@ -132,6 +134,7 @@
 		3A34F45E21426CA4009FA33C /* english_bigram_probabilities.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = english_bigram_probabilities.csv; path = prep/english/english_bigram_probabilities.csv; sourceTree = SOURCE_ROOT; };
 		3A34F46121426DA9009FA33C /* NextWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextWord.swift; sourceTree = "<group>"; };
 		3A55FBCB223598C1006C4C8C /* KeyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyButton.swift; sourceTree = "<group>"; };
+		3A55FBCF22505D7B006C4C8C /* UndoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoController.swift; sourceTree = "<group>"; };
 		3A79C4C4213E85FF00218EE8 /* English.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = English.swift; sourceTree = "<group>"; };
 		3A79C4C7213E885900218EE8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		3A79C4CA213E8E0D00218EE8 /* keyboardExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = keyboardExtension.entitlements; sourceTree = "<group>"; };
@@ -230,6 +233,14 @@
 			path = KeyboardVisual;
 			sourceTree = "<group>";
 		};
+		3A55FBCE22505D66006C4C8C /* Undo */ = {
+			isa = PBXGroup;
+			children = (
+				3A55FBCF22505D7B006C4C8C /* UndoController.swift */,
+			);
+			path = Undo;
+			sourceTree = "<group>";
+		};
 		3A79C4C3213E85E100218EE8 /* Specializations */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +318,7 @@
 		3ACC4A1E21253901006A7EC5 /* keyboardExtension */ = {
 			isa = PBXGroup;
 			children = (
+				3A55FBCE22505D66006C4C8C /* Undo */,
 				3A55FBCA22359890006C4C8C /* KeyboardVisual */,
 				3AF10FA922192CFC00CA845E /* SpecialRow */,
 				3AF10FA22218F27000CA845E /* Extensions */,
@@ -506,6 +518,7 @@
 				"${BUILT_PRODUCTS_DIR}/LionheartExtensions/LionheartExtensions.framework",
 				"${BUILT_PRODUCTS_DIR}/QuickTableView/QuickTableView.framework",
 				"${BUILT_PRODUCTS_DIR}/SuperLayout/SuperLayout.framework",
+				"${BUILT_PRODUCTS_DIR}/TipJarViewController/TipJarViewController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -513,6 +526,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LionheartExtensions.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QuickTableView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SuperLayout.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TipJarViewController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -567,6 +581,7 @@
 				3A34F46221426DA9009FA33C /* NextWord.swift in Sources */,
 				3ACC4A2A21253B41006A7EC5 /* KeyboardViewController.swift in Sources */,
 				3A55FBCC223598C1006C4C8C /* KeyButton.swift in Sources */,
+				3A55FBD022505D7B006C4C8C /* UndoController.swift in Sources */,
 				3A1F65C2219D0C630035D4F7 /* TipJarTableViewCell.swift in Sources */,
 				3AF10FAB22192D4000CA845E /* SpecialRowKeyButton.swift in Sources */,
 				3AA7F0AA212BA76E00949D0B /* SpecialRowController.swift in Sources */,
@@ -622,6 +637,7 @@
 				3ABB722C22264587003B7AC9 /* StoreKitItemDelegate.swift in Sources */,
 				3AF10FAF221A39B400CA845E /* QuickFixTextExtension.swift in Sources */,
 				3A34F46321426DA9009FA33C /* NextWord.swift in Sources */,
+				3A55FBD122505D7B006C4C8C /* UndoController.swift in Sources */,
 				3AF03E06212E81DB000C07C7 /* CorrectSpelling.swift in Sources */,
 				3ABB722F22264819003B7AC9 /* ExtensionConfigurations.swift in Sources */,
 				3AEE552521294BB4006979FE /* SpellcheckController.swift in Sources */,
@@ -716,6 +732,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -769,6 +786,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -783,14 +801,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 28RCJTKZ47;
 				INFOPLIST_FILE = akifkeyboard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.heren.kifboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -805,14 +823,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 28RCJTKZ47;
 				INFOPLIST_FILE = akifkeyboard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.heren.kifboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -834,7 +852,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.heren.kifboard.keyboardExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -856,7 +874,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.heren.kifboard.keyboardExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

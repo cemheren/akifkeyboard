@@ -81,7 +81,7 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         if(self.selectedExtensions.contains(self.extensions[indexPath.row].identifier)){
-            self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.none)
+            self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableView.ScrollPosition.none)
             //self.tableView.delegate?.tableView!(self.tableView, didSelectRowAt: indexPath)
         }
     }
@@ -100,19 +100,19 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
         // create a new cell if needed or reuse an old one
         let c = self.tableView.dequeueReusableCell(withIdentifier: self.cellReuseIdentifier);
         let cell: ExtensionCell = c as! ExtensionCell
-        cell.selectionStyle = UITableViewCellSelectionStyle.none;
+        cell.selectionStyle = UITableViewCell.SelectionStyle.none;
         
         // set the text from the data model
         //cell.textLabel?.text = self.extensions[indexPath.row]
         cell.cellTitle.text = self.extensions[indexPath.row].identifier
         cell.cellDescription.text = self.extensions[indexPath.row].description
         
-        cell.purchaseButton.setTitle(self.extensions[indexPath.row].price, for: UIControlState.normal)
+        cell.purchaseButton.setTitle(self.extensions[indexPath.row].price, for: UIControl.State.normal)
         
         if(cell.isSelected ||
             self.selectedExtensions.contains(self.extensions[indexPath.row].identifier))
         {
-            cell.purchaseButton.setTitle("Enabled", for: UIControlState.normal)
+            cell.purchaseButton.setTitle("Enabled", for: UIControl.State.normal)
         }
         
         cell.purchaseButton.layer.borderColor = self.view.tintColor.cgColor;
@@ -130,7 +130,7 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
         print("You de-selected cell \(self.extensions[indexPath.row]).")
         
         var selectedCell = self.tableView.cellForRow(at: indexPath) as! ExtensionCell
-        selectedCell.purchaseButton.setTitle("Removed", for: UIControlState.normal)
+        selectedCell.purchaseButton.setTitle("Removed", for: UIControl.State.normal)
         
         self.selectedExtensions.remove(self.extensions[indexPath.row].identifier)
         
@@ -146,7 +146,7 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
         self.storeKit?.purchase(productID: self.extensions[indexPath.row].sku)
         
         let selectedCell = self.tableView.cellForRow(at: indexPath) as! ExtensionCell
-        selectedCell.purchaseButton.setTitle("Waiting", for: UIControlState.normal)
+        selectedCell.purchaseButton.setTitle("Waiting", for: UIControl.State.normal)
         
         self.selectedCell = selectedCell
         self.selectedExtension = self.extensions[indexPath.row]
@@ -183,7 +183,7 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
                 self.selectedExtension = e;
                 self.selectedCell = self.tableView.cellForRow(at: IndexPath(row: i, section: 0)) as! ExtensionCell
                 
-                self.tableView.selectRow(at: IndexPath(row: i, section: 0), animated: true, scrollPosition: UITableViewScrollPosition.none)
+                self.tableView.selectRow(at: IndexPath(row: i, section: 0), animated: true, scrollPosition: UITableView.ScrollPosition.none)
                 
                 return
             }
@@ -197,7 +197,7 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
     func AddSelectedExtension(){
         self.selectedExtensions.insert(self.selectedExtension!.identifier)
         
-        self.selectedCell!.purchaseButton.setTitle("Enabled", for: UIControlState.normal)
+        self.selectedCell!.purchaseButton.setTitle("Enabled", for: UIControl.State.normal)
         
         if let userDefaults = UserDefaults(suiteName: "group.heren.kifboard") {
             userDefaults.set(Array(self.selectedExtensions), forKey: "extensions")
@@ -207,7 +207,7 @@ class ExtensionsController: UIViewController, UITableViewDelegate, UITableViewDa
     func OnTransactionError(error: NSError) {
         let alert = UIAlertController(title: "Error", message: "There was an error with your transaction. Please try restoring your purchases.", preferredStyle: .actionSheet)
         
-        self.selectedCell!.purchaseButton.setTitle("Error", for: UIControlState.normal)
+        self.selectedCell!.purchaseButton.setTitle("Error", for: UIControl.State.normal)
         
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             switch action.style{

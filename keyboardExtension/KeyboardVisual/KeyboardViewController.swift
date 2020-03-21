@@ -107,7 +107,7 @@ class KeyboardViewController: UIInputViewController {
         self.view.backgroundColor = self.settings.keyboardBgColor;
         
         let border = UIView(frame: CGRect(x:CGFloat(0.0), y:CGFloat(0.0), width:self.view.frame.size.width, height:CGFloat(0.5)))
-        border.autoresizingMask = UIViewAutoresizing.flexibleWidth
+        border.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
         border.backgroundColor = UIColor(red: 210.0/255, green: 205.0/255, blue: 193.0/255, alpha: 1)
         self.view.addSubview(border)
         
@@ -458,7 +458,7 @@ class KeyboardViewController: UIInputViewController {
         UIView.animate(
             withDuration: 0.14,
             delay: 0,
-            options: UIViewAnimationOptions.allowUserInteraction,
+            options: UIView.AnimationOptions.allowUserInteraction,
             animations: {
                 sender.transform = CGAffineTransform.identity
             },
@@ -547,7 +547,7 @@ class KeyboardViewController: UIInputViewController {
                 text = text?.lowercased()
             }
 
-            button.setTitle(text, for: UIControlState.normal)
+            button.setTitle(text, for: UIControl.State.normal)
             button.titleLabel?.sizeToFit()
         }
     }

@@ -1,9 +1,4 @@
-//
-//  ActivityIndicatorTableViewCell.swift
-//
-//  Created by Daniel Loewenherz on 10/21/17.
-//  Copyright © 2017 Lionheart Software. All rights reserved.
-//
+
 
 import Foundation
 
@@ -14,12 +9,12 @@ import SuperLayout
 final class ActivityIndicatorTableViewCell: UITableViewCell {
     var activityIndicator: UIActivityIndicatorView!
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         
         textLabel?.text = "Loading..."
         
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.startAnimating()
         
         accessoryView = activityIndicator
