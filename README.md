@@ -1,3 +1,6 @@
+# 2021 Update
+I was sick of working with Apple and paying a 100$ fee. I've switched to Android and stopped publishing the app :(. I indend to keep it in good shape stil... But contributions are appreciated. 
+
 # kif - keyboard
 
 I'm sick of random companies watching every word I type. So I created this simple custom keyboard for my personal use. I'm adding features as I go along. It doesn't need any internet connectivity for the full feature set. 
