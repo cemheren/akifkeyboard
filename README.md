@@ -1,5 +1,5 @@
 # 2021 Update
-I was sick of working with Apple and paying a 100$ fee. I've switched to Android and stopped publishing the app :(. I indend to keep it in good shape stil... But contributions are appreciated. 
+Unfortunately the app is not maintained anymore. I was sick of dealing with Apple's weird demands and focused on other projects. PRs are welcome from anyone that wants to contribute. 
 
 # kif - keyboard
 
